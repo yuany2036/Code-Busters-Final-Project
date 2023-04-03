@@ -13,3 +13,4 @@ function itsOkay() {
 }
 
 test();
+itsOkay();
