@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
-import DataContext from "./data/context";
-import HomePage from "./components/HomePage/HomePage";
+// import { useState, useContext } from 'react';
+// import DataContext from './data/context';
+import HomePage from './components/HomePage/HomePage';
 
 function App() {
   return (
