@@ -11,5 +11,13 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.37.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.7"
   }
 }
