@@ -13,6 +13,6 @@ function itsOkay() {
 }
 
 test();
-test(); // Niko
+test(); // Niko !!!
 
 console.log("AEK")
