@@ -2,11 +2,11 @@ import { useContext } from "react";
 import DataContext from "../../data/context";
 
 const HomePage = () => {
-  const { firstName } = useContext(DataContext);
+  const { message } = useContext(DataContext);
   return (
     <div>
       <h1>Home Page</h1>
-      <h2>{firstName}</h2>
+      <h2>{message}</h2>
     </div>
   );
 };
