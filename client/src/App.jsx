@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import DataContext from "./data/context";
-// import HomePage from "./components/HomePage/HomePage";
+import HomePage from "./components/HomePage/HomePage";
 
 function App() {
   return (
@@ -8,10 +8,9 @@ function App() {
       <h1>Best Team Ever's Project!</h1>
 
       <h1>first commit test</h1>
-      {/* <HomePage></HomePage> */}
+      <HomePage></HomePage>
 
       <h1>second commit</h1>
-
     </div>
   );
 }
