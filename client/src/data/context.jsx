@@ -1,15 +1,13 @@
 import { useReducer, createContext } from "react";
 
-export const DataContext = createContext();
+const DataContext = createContext();
 
-const DataContextProvider = ({ children }) => {
-  const firstName = "yuan";
+export const DataContextProvider = ({ children }) => {
+  const message = "whats up";
 
   return (
-    <DataContext.Provider value={{ firstName }}>
-      {children}
-    </DataContext.Provider>
+    <DataContext.Provider value={{ message }}>{children}</DataContext.Provider>
   );
 };
 
-export default DataContextProvider;
+export default DataContext;
