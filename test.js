@@ -14,3 +14,5 @@ function itsOkay() {
 
 test();
 test(); // Niko
+
+console.log("AEK")
