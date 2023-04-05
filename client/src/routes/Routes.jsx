@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import HomePage from '../components/HomePage/HomePage';
+import HomePage from '../components/homePage/HomePage';
 import ExplorePage from '../components/ExplorePage/ExplorePage';
 
 const Router = () => (
