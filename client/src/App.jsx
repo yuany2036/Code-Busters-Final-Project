@@ -1,4 +1,4 @@
-import './App.scss';
+import './styles/App.scss';
 import LandingPage from './components/landingPage/LandingPage.jsx';
 import NavBar from './components/navBar/NavBar';
 import Router from './routes/Routes';
