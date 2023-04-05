@@ -1,15 +1,15 @@
 import './App.scss';
-import NavBar from './Components/NavBar/NavBar';
-import Routes from './routes/Routes';
-import LandingPage from "./Components/LandingPage/LandingPage.jsx";
+import LandingPage from './components/landingPage/LandingPage.jsx';
+import NavBar from './components/navBar/NavBar';
+import Router from './routes/Routes';
 
 function App() {
   return (
-    <div className="App">
-      <LandingPage />
+    <>
       <NavBar />
-      <Routes />
-    </div>
+      <Router />
+      <LandingPage />
+    </>
   );
 }
 
