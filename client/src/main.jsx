@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { DataContextProvider } from './data/context';
+import './index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <DataContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </DataContextProvider>
-  </React.StrictMode>
+  <DataContextProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </DataContextProvider>
 );

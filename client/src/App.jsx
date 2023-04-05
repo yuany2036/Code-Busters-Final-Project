@@ -1,16 +1,12 @@
-// import { useState, useContext } from 'react';
-// import DataContext from './data/context';
+import './App.scss';
+import NavBar from './Components/NavBar/NavBar';
 import Routes from './routes/Routes';
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Routes />
-      {/* <h1>Best Team Ever's Project!</h1>
-
-      <h1>first commit test</h1>
-
-      <h1>second commit</h1> */}
     </div>
   );
 }
