@@ -3,12 +3,19 @@
   display: flex;
   flex-direction: column;
   .contact_text {
-    height: 30%;
+    margin-top: 3rem;
+    h1{
+      text-align: center;
+      padding-bottom: 3rem;
+    }
+    p{
+      font-size: 1.1rem;
+      padding: 1rem;
+    }
   }
+
   .contact_form {
-    height: 40%;
-    width: 50%;
-    height: 600px;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,19 +31,22 @@
     display: block;
     margin: 1rem;
     width: 18rem;
-    border: 1px solid #800180;
+    border: 2px solid rgb(94, 15, 79);
     border-radius: 4px;
+    &::placeholder{
+padding: 0.5rem;    }
   }
+
   .submit {
-    background-color: #750180;
+    background-color: rgb(94, 15, 79);
     color: white;
     width: 100px;
     height: 40px;
-    font-family: "Lobster", cursive;
-    font-size: 20px;
-    opacity: 0.7;
-    margin-left: 8rem;
-    cursor: pointer;
+    font-size: 16px;
+    margin-left: 6.5rem;
+    border: none;
+    border-radius: 4px;
+border: none;    cursor: pointer;
     &:hover {
       opacity: 1;
       border: 1px solid black;

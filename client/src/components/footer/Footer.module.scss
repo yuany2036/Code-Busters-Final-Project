@@ -1,13 +1,124 @@
 .footer_container {
-  width: 100vw;
-  height: 20%;
-  background-color: rgb(192, 35, 197);
+  width: 100%;
   display: flex;
+  flex-direction: column;
   color: white;
-}
-.logo {
-  width: 20%;
-  font-size: 3rem;
-}
+   background-color: #310e68;
+    background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
+  .footer_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+   
+    .logo {
+      margin-bottom: 2rem;
+    }
+    .footer_list {
+      display: flex;
+      margin-bottom: 2rem;
 
+      .footer_list_item {
+        list-style: none;
+        font-size: 1rem;
+        line-height: 1.6;
 
+        .footer_list_item_link {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .footer_container_part2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .subscription {
+      margin: 0 1rem;
+      display: flex;
+
+      p {
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        text-align: justify;
+        margin-bottom: 1rem;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .input_subscription {
+          position: relative;
+          height: 50px;
+          width: 100%;
+          -webkit-box-align: center;
+          align-items: center;
+          display: flex;
+          max-width: 450px;
+          input {
+            width: 100%;
+            height: 100%;
+            outline: none;
+            background-color: transparent;
+            border: none;
+          }
+          label {
+            position: absolute;
+            pointer-events: none;
+            left: 0;
+            top: 17px;
+            transition: all 0.2s ease;
+          }
+          button {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            padding: 15px 0 15px 15px;
+            transform: translateY(-50%);
+            transition: opacity 0.2s;
+            border: none;
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            margin: 0;
+            line-height: 1;
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+
+      .copyright p {
+        padding-top: 3rem;
+        text-align: center;
+      }
+    }
+    .footer_body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+      background-color: #310e68;
+      background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
+      .logo {
+        margin-bottom: 2rem;
+      }
+      .footer_list {
+        display: flex;
+        margin-bottom: 2rem;
+
+        .footer_list_item {
+          list-style: none;
+          font-size: 1rem;
+
+          .footer_list_item_link {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}

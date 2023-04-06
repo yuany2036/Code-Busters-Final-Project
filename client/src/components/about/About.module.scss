@@ -1,53 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 .about {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(236, 226, 226);
+  margin-top: 4rem;
+  font-family: 'Montserrat', sans-serif;
   .mission {
-    h2 {
+    line-height: 1.3;
+
+    /*h2 {
       text-align: center;
-      font-size: 2rem;
+      font-size: 3rem;
       padding: 1rem;
-    }
+      font-weight: 200;
+    }*/
     p {
-      text-align: justify;
       padding: 1rem;
+      font-size: 9vw;
+      margin: 3rem 0;
+      span {
+        font-style: italic;
+        color: rgb(136, 42, 136);
+        font-weight: 700;
+      }
     }
   }
   .team {
+    background-color: #310e68;
+    background-image: linear-gradient(316deg, #310e68 0%, #5f0f40 74%);
+    color: white;
+    margin-top: 4rem;
+    padding-top: 6rem;
     h2 {
       text-align: center;
+      font-weight: 400;
+      font-size: 2.3rem;
     }
     .contributors {
       display: flex;
-      flex-wrap: wrap;
       text-align: center;
+      flex-direction: column;
       margin: 0 auto;
       width: 100%;
+      line-height: 2;
+      margin: 4rem 0;
+
       div {
-        border: 1px solid rgb(136, 42, 136);
-        width: 20%;
-        height: 500px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        flex: 1 1 400px;
         display: flex;
         flex-direction: column;
         align-items: center;
         margin: 1rem;
         padding: 0.3rem;
+        h3 {
+          padding: 2rem;
+font-family: 'Open Sans', sans-serif;
+font-size: 1.6rem;        }
 
         p {
-          text-align: justify;
-        }
-        div {
-          height: 00px;
-          width: 350px;
-          overflow: hidden;
-          img {
-            height: auto;
-            width: 350px;
+          text-align: center;
+          padding: 1rem 0;
+          &:nth-of-type(1) {
+font-style: oblique;          }
+          &:nth-of-type(3) {
+            text-decoration: underline;
           }
         }
       }
