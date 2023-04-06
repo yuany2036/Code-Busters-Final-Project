@@ -1,18 +1,11 @@
 import React from 'react';
-import About from './about/About';
-import Contact from './contact/Contact';
-import Footer from './footer/Footer';
-import styles from './LandingPage.module.scss';
+// import styles from './LandingPage.module.scss';
+import Animation from './landingAnimation/Animation';
 
 const LandingPage = () => {
   return (
     <>
-      <div className={styles.landing_container}>
-        <div className={styles.background}>LandingPage</div>
-        <About />
-        <Contact />
-        <Footer />
-      </div>
+      <Animation />
     </>
   );
 };

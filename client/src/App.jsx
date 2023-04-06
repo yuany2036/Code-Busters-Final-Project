@@ -1,14 +1,14 @@
 import './styles/App.scss';
-import LandingPage from './components/landingPage/LandingPage.jsx';
 import NavBar from './components/navBar/NavBar';
 import Router from './routes/Routes';
+import Footer from './components/footer/Footer';
 
 function App() {
   return (
     <>
       <NavBar />
       <Router />
-      <LandingPage />
+      <Footer />
     </>
   );
 }

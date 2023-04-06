@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./Contact.module.scss";
-import { Icon } from "@iconify/react";
+import React from 'react';
+import styles from './Contact.module.scss';
+import { Icon } from '@iconify/react';
 
 const Contact = () => {
   return (
@@ -8,7 +8,10 @@ const Contact = () => {
       <div className={styles.contact_container}>
         <div className={styles.contact_text}>
           <h1>Don't know what to watch or to read?Contact Us!</h1>
-          <p>If we aren't busy coding, we are more than glad to give you personal recommendations.</p>
+          <p>
+            If we aren't busy coding, we are more than glad to give you personal
+            recommendations.
+          </p>
         </div>
         <div className={styles.contact_form}>
           <form>
@@ -29,7 +32,7 @@ const Contact = () => {
           <div className={styles.line}></div>
           <ul className={styles.list}>
             <li className={styles.item}>
-              <a href="#" class="nav-link">
+              <a href="#" className={styles.link}>
                 <Icon icon="iconoir:facebook-tag" />
               </a>
             </li>
