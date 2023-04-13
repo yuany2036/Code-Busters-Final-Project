@@ -32,28 +32,30 @@ const About = () => {
   ];
   return (
     <>
-      <div className={styles.about}>
-        <div className={styles.mission}>
-          <p>
-            For all the bookworms and cinephiles out there,{' '}
-            <span> Entscape </span>is a wonderful tribute to{' '}
-            <span>the joy </span> of reading and watching movies. It's all about
-            the enchanting experiences that occur when readers and movie lovers{' '}
-            <span>unite</span> to exchange ideas, educate, absorb knowledge,
-            engage in discussions, argue, and revel in their shared{' '}
-            <span>passion</span> .
-          </p>
-        </div>
-        <div className={styles.team}>
-          <h2>Meet the team</h2>
-          <div className={styles.contributors}>
-            {contributors.map((contributor, index) => {
-              return <Contributors key={index} {...contributor} />;
-            })}
+      <div className={styles.about_container}>
+        <div className={styles.about}>
+          <div className={styles.mission}>
+            <p>
+              For all the bookworms and cinephiles out there,{' '}
+              <span> Entscape </span>is a wonderful tribute to{' '}
+              <span>the joy </span> of reading and watching movies. It's all
+              about the enchanting experiences that occur when readers and movie
+              lovers <span>unite</span> to exchange ideas, educate, absorb
+              knowledge, engage in discussions, argue, and revel in their shared{' '}
+              <span>passion</span> .
+            </p>
+          </div>
+          <div className={styles.team}>
+            <h2>Meet the team</h2>
+            <div className={styles.contributors}>
+              {contributors.map((contributor, index) => {
+                return <Contributors key={index} {...contributor} />;
+              })}
+            </div>
           </div>
         </div>
+        <Contact />
       </div>
-      <Contact />
     </>
   );
 };
