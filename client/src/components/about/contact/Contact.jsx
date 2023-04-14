@@ -74,29 +74,28 @@ const Contact = () => {
             </div>
           </div>
         </div>
-
         <div className={styles.contact_more}>
           <h4>Follow us on</h4>
           <div className={styles.line}></div>
           <ul className={styles.list}>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="uil:facebook-f" color="#5e0f4f" />{' '}
+                <Icon icon="uil:facebook-f" color="rgb(62, 15, 94)" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="gg:twitter" color="#5e0f4f" />{' '}
+                <Icon icon="gg:twitter" color="rgb(62, 15, 94)" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="simple-icons:instagram" color="#5e0f4f" />{' '}
+                <Icon icon="simple-icons:instagram" color="rgb(62, 15, 94)" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="akar-icons:linkedin-fill" color="#5e0f4f" />{' '}
+                <Icon icon="akar-icons:linkedin-fill" color="rgb(62, 15, 94)" />{' '}
               </a>
             </li>
           </ul>

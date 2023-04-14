@@ -5,7 +5,7 @@
   width: 100%;
   color: white;
   background-color: #310e68;
-  background-image: linear-gradient(316deg, #1b031a 0%, #420743 74%);
+  background-image: linear-gradient(316deg, #1b031a 0%, rgb(49, 12, 73) 74%);
   .container {
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@
   .subscription {
     width: 80%;
     flex-direction: column;
-    margin: 1rem 3rem;
+    margin: 1rem 2rem;
     display: flex;
 
     p {
@@ -129,7 +129,22 @@
         }
       }
       .subscription {
-        margin-top: 13rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10rem;
+        // align-items: flex-end;
+        .placeholder {
+          min-width: 20%;
+          max-width: 100%;
+          height: 10px;
+        }
+        form {
+          min-width: 60%;
+          max-width: 100%;
+        }
       }
     }
   }

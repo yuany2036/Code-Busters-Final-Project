@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.not_found {
+  width: 100%;
+  height: 100vh;
+  padding: 5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  height: 100vh;
+  background-image: url(../../assets/reshot-illustration-lost-person-404-illustration-AR9W5F3LQC.png);
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  // background: rgb(149, 134, 171);
+  // background: linear-gradient(
+  //   177deg,
+  //   rgba(149, 134, 171, 1) 0%,
+  //  rgb(26, 2, 87) 90%
+  // );
+  .not_found_text {
+    padding: 2rem 0;
+    h1 {
+      color: rgb(62, 15, 94);
+      padding-bottom: 2rem;
+      span {
+        font-size: 2.6rem;
+        display: block;
+        text-transform: uppercase;
+        &:first-of-type {
+          padding-top: 2rem;
+        }
+      }
+    }
+    p {
+      line-height: 1.8rem;
+      span {
+        color: rgb(62, 15, 94);
+        font-weight: 700;
+        font-size: 1.3rem;
+        padding: 5px;
+        margin-left: 5px;
+      }
+      span:hover {
+        background-color: rgb(62, 15, 94);
+        border-radius: 4px;
+        color: whitesmoke;
+      }
+    }
+  }
+  .search_bar {
+    padding: 2rem 0;
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input[type='text'] {
+      padding: 0.5rem;
+      border: none;
+      border-bottom: 2px solid rgb(62, 15, 94);
+      font-size: 1rem;
+      max-width: 20rem;
+      margin-bottom: 1rem;
+      background-color: transparent;
+      &:focus {
+        outline: none;
+      }
+    }
+
+    button[type='submit'] {
+      background-color: rgb(62, 15, 94);
+      max-width: 20rem;
+
+      border-radius: 4px;
+      color: whitesmoke;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+  }
+  .not_found_text2 {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 876px) {
+  .not_found {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    .not_found_text {
+      p {
+        color: black;
+      }
+    }
+    .not_found_text2 {
+      display: contents;
+      padding-top: 2rem;
+      h2 {
+        color: rgb(62, 15, 94);
+        padding-bottom: 2rem;
+        font-size: 1.8rem;
+      }
+      p {
+        line-height: 2rem;
+        text-align: justify;
+        padding-right: 80rem;
+        span{
+          font-size: 1.3rem;
+          color: rgb(62, 15, 94);
+          font-weight: bold;
+        }
+      }
+    }
+    .search_bar {
+      input[type='text'] {
+        max-width: 26rem;
+      }
+      button[type='submit'] {
+        max-width: 26rem;
+      }
+    }
+  }
+}
