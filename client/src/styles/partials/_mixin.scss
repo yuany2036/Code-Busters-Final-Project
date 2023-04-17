@@ -13,14 +13,7 @@
 
   &:before {
     content: '';
-    background: linear-gradient(
-      45deg,
-      #00ffd5,
-      #002bff,
-      #7a00ff,
-      #ff00c8,
-      #ff0000
-    );
+    background: linear-gradient(45deg, #00bbff, #002bff, #7a00ff);
 
     position: absolute;
     top: -2px;
