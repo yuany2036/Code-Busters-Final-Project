@@ -1,4 +1,7 @@
+import { useContext } from 'react';
+import DataContext from '../data/context';
 import { Routes, Route } from 'react-router-dom';
+import LandingPage from '../components/landingPage/LandingPage';
 import HomePage from '../components/homePage/HomePage';
 import ExplorePage from '../components/explorePage/ExplorePage';
 import About from '../components/about/About';
@@ -6,16 +9,27 @@ import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
 import NotFound from '../components/notFound/NotFound';
 
-const Router = () => (
-  <Routes>
-    <Route path="/" element={<HomePage />} />
-    <Route path="/explore" element={<ExplorePage />} />
-    <Route path="/about" element={<About />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/register" element={<Register />} />
-    <Route path="*" element={<NotFound />} />
-   
-  </Routes>
-);
+const Router = () => {
+  const { state } = useContext(DataContext);
+
+  const RenderedComponent = () => {
+    if (state.isLoggedIn) {
+      return <HomePage />;
+    } else {
+      return <LandingPage />;
+    }
+  };
+
+  return (
+    <Routes>
+      <Route path="/" element={<RenderedComponent />} />
+      <Route path="/explore" element={<ExplorePage />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 export default Router;

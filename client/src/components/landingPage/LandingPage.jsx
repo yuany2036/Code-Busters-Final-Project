@@ -5,6 +5,7 @@ import Animation from './landingAnimation/Animation';
 const LandingPage = () => {
   return (
     <>
+      <h1>Login or sign up to get started!</h1>
       <Animation />
     </>
   );
