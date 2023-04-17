@@ -1,84 +1,116 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import '../../styles/partials/variables';
+@import '../../styles/partials/mixin';
 
-// @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
-
-li {
+ul li {
   list-style: none;
 }
 
-a {
+ul li a {
   text-decoration: none;
-  color: #fff;
-  font-size: 1rem;
+
+  &:hover {
+    color: black;
+  }
 }
 
-a:hover {
-  color: red;
-}
-
-/*Header*/
+/*Navbar*/
 
 .navbar {
   position: relative;
   padding: 0 2rem;
   width: 100%;
   height: 4rem;
-  max-width: 75rem;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: "Montserrat", sans-serif;
-  // font-family: "Roboto", sans-serif;
-  // font-family: "Raleway", sans-serif;
+  font-family: $primary-font;
 
-  .logo a {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-
-  .links {
+  .navbar_left {
     display: flex;
-    gap: 2rem;
-  }
+    align-items: center;
 
-  .action_btn {
-    background-color: #52039c;
-
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-weight: 700;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background-color: #000;
-      color: #fff;
-    }
-    &:active {
-      scale: 0.9;
+    .links_left {
+      display: flex;
+      gap: 2rem;
+      padding: 0rem 4rem;
+      font-size: 1rem;
     }
   }
 
   .toggle_btn {
-    color: #fff;
+    color: rgb(53, 4, 53);
     font-size: 2rem;
     cursor: pointer;
     display: none;
   }
 }
 
+/*Drop down menu*/
+
+.dropdown_menu {
+  display: none;
+  position: absolute;
+
+  height: 0;
+  background-color: rgba(12, 7, 7, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 0.6rem;
+  overflow: hidden;
+  top: 53%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  transition: height 0.2 cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  li {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: $dropdown-menu-side-space;
+    padding-right: $dropdown-menu-side-space;
+    display: flex;
+    justify-content: center;
+
+    & a {
+      text-decoration: none;
+    }
+  }
+
+  &.open {
+    height: 90vh;
+  }
+}
+
+/*buttons in Navbar and dropdown menu*/
+.btns_container {
+  &_navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 13rem;
+
+    .btn_links button {
+      @include navbar_gradient_btn_theme;
+    }
+  }
+}
+
 /*Responsive Burger Menu*/
 @media screen and (max-width: 768px) {
   .navbar {
-    .links a,
-    .action_btn {
+    .links_left,
+    ul li a,
+    .btns_container_navbar,
+    .btns_container_navbar button {
       display: none;
     }
 
     .toggle_btn {
+      justify-self: flex-end;
       display: block;
     }
+  }
+
+  .dropdown_menu {
+    display: block;
   }
 }

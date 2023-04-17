@@ -1,0 +1,11 @@
+@import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap';
+
+/*fonts-family*/
+
+$primary-font: 'Montserrat', sans-serif;
+
+/*fonts-sizes*/
+$navbar-left: clamp(1.25rem, calc(2.86rem + -1.79vw), 2.5rem);
+
+/*spaces*/
+$dropdown-menu-side-space: clamp(8rem, calc(-2.07rem + 50.36vw), 43.25rem);
