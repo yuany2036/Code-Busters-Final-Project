@@ -4,7 +4,7 @@ import { reducerInitialState, reducerFunc } from './reducers/reducer';
 const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer((reducerFunc, reducerInitialState));
+  const [state, dispatch] = useReducer(reducerFunc, reducerInitialState);
 
   return (
     <DataContext.Provider value={{ state, dispatch }}>

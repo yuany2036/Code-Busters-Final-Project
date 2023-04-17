@@ -2,6 +2,7 @@ export const reducerInitialState = {
   user: {},
   currentTitle: {},
   currentPage: {},
+  isLoggedIn: false,
 };
 
 export const reducerFunc = (state, action) => {
@@ -9,17 +10,17 @@ export const reducerFunc = (state, action) => {
     case 'SET_USER':
       return {
         ...state,
-        user: action.user,
+        user: action.payload,
       };
     case 'SET_CURRENT_PAGE':
       return {
         ...state,
-        currentPage: action.currentPage,
+        currentPage: action.payload,
       };
     case 'SET_CURRENT_TITLE':
       return {
         ...state,
-        currentTitle: action.currentTitle,
+        currentTitle: action.payload,
       };
   }
 };
