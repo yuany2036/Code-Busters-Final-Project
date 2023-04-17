@@ -23,7 +23,6 @@
 
       background-position: right;
       background-image: url(../../../assets/undraw_social_girl_re_kdrx.svg);
-     // box-shadow: rgba(62, 15, 94, 0.5) 0px 4px 12px;
     }
   }
 
@@ -128,7 +127,7 @@
 @media screen and (min-width: 876px) {
   .container {
     .illustration {
-       //border: 1.5px solid rgb(62, 15, 94, 0.6);
+      border: 1.5px solid rgb(62, 15, 94, 0.6);
       border-radius: 8px 100px 8px 8px;
       background-position: center;
     }
