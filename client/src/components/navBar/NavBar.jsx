@@ -4,6 +4,8 @@ import Menu from '~icons/mdi/menu';
 import Close from '~icons/mdi/close';
 import { NavLink } from 'react-router-dom';
 import { NavBarButtons, NavBarData } from './NavBarData';
+import LogoDesktop from '../../assets/1.svg';
+import LogoMobile from '../../assets/2.svg';
 
 const NavBar = () => {
   const [dropDownMenu, setDropDownMenu] = useState(false);
@@ -19,6 +21,7 @@ const NavBar = () => {
           to={item.path}
           className={styles.navbar_links}
           target={item.target}
+          onClick={showDropDownMenu}
         >
           {item.title}
         </NavLink>
@@ -28,7 +31,12 @@ const NavBar = () => {
 
   const navBarButtons = NavBarButtons.map((item, index) => {
     return (
-      <NavLink key={index} to={item.path} className={styles.btn_links}>
+      <NavLink
+        key={index}
+        to={item.path}
+        className={styles.btn_links}
+        onClick={showDropDownMenu}
+      >
         <button>{item.title}</button>
       </NavLink>
     );
@@ -38,7 +46,18 @@ const NavBar = () => {
     <>
       <div className={styles.navbar}>
         <div className={styles.navbar_left}>
-          <div className={styles.logo}>LOGO</div>
+          <div className={styles.logo}>
+            <img
+              src={LogoDesktop}
+              className={styles.logo_desktop}
+              alt="website logo"
+            />
+            <img
+              src={LogoMobile}
+              className={styles.logo_mobile}
+              alt="website logo"
+            />
+          </div>
           <ul className={styles.links_left}>{navBarData}</ul>
         </div>
         <div className={styles.btns_container_navbar}>{navBarButtons}</div>

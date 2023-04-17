@@ -1,10 +1,10 @@
-@mixin navbar_gradient_btn_theme {
-  font-size: 1.1rem;
+@mixin gradient_hover_btn_theme {
+  font-size: $primary-font-size;
   width: 6rem;
   height: 2.5rem;
   border: none;
   outline: none;
-  color: #fff;
+  color: #d1cece;
   background-color: #111;
   cursor: pointer;
   position: relative;
@@ -13,7 +13,12 @@
 
   &:before {
     content: '';
-    background: linear-gradient(45deg, #00bbff, #002bff, #7a00ff);
+    background: linear-gradient(
+      45deg,
+      rgb(0, 187, 255),
+      rgb(8, 12, 106),
+      rgb(49, 12, 73)
+    );
 
     position: absolute;
     top: -2px;
@@ -30,7 +35,7 @@
   }
 
   &:active {
-    color: #000;
+    color: whitesmoke;
 
     &:after {
       background: transparent;
@@ -49,7 +54,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #111;
+    background: $primary-purple;
     left: 0;
     top: 0;
     border-radius: 10px;
