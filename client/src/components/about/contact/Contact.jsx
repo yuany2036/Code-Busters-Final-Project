@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Contact.module.scss';
 import { Icon } from '@iconify/react';
+import axios from 'axios';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,16 +13,29 @@ const Contact = () => {
   const [message, setMessage] = useState(false);
 
   const handleChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
+    event.persist();
+
+    setFormData((prev) => ({
+      ...prev,
+      [event.target.id]: event.target.value,
+    }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setMessage(true);
     console.log(formData);
+    axios({
+      method: 'POST',
+      url: 'https://formbold.com/s/9Bvjm',
+      data: formData,
+    })
+      .then((res) => {
+        console.log('hello');
+      })
+      .catch((res) => {
+        console.log('error');
+      });
   };
   return (
     <>
@@ -42,30 +56,37 @@ const Contact = () => {
               {message ? (
                 <p>Thank you for your message!</p>
               ) : (
-                <form onSubmit={handleSubmit}>
+                <form
+                  action="https://formbold.com/s/9Bvjm"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                >
                   <input
                     type="text"
                     name="name"
+                    id="name"
                     placeholder="Name"
                     value={formData.name}
                     onChange={handleChange}
+                    required
                   />
-
                   <input
                     type="email"
                     name="email"
+                    id="email"
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
+                    required
                   />
-
                   <textarea
                     name="message"
                     placeholder="Your message"
+                    id="message"
                     value={formData.message}
                     onChange={handleChange}
+                    required
                   />
-
                   <button className={styles.submit} type="submit">
                     Send
                   </button>
