@@ -15,4 +15,10 @@ const searchGame = async (req, res, next) => {
     }
 }
 
-module.exports = { searchGame };
+const addToGamesList = async (req, res, next) => {}
+
+const updateGameStatus = async (req, res, next) => {}
+
+const removeFromGamesList = async (req, res, next) => {}
+
+module.exports = { searchGame, addToGamesList, updateGameStatus, removeFromGamesList };

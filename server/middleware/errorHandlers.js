@@ -2,9 +2,10 @@ const createError = require('http-errors');
 const { default: mongoose } = require('mongoose');
 
 exports.routeNotFound = (req, res, next) => {
-    const url = `http://localhost:8000${req.originalUrl}`;
+    const url = `http://localhost:4000${req.originalUrl}`;
     const message = `Route not found: ${url}`;
     const error = createError(404, message);
+    console.log(error)
     res.status(error.status).json({
         statusCode: error.status,
         status: "Fail",

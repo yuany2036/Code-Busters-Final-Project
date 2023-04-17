@@ -12,4 +12,8 @@ const searchBook = async (req, res, next) => {
     }
 }
 
-module.exports = { searchBook };
+const addToBooksList = async (req, res, next) => {}
+const updateBookStatus = async (req, res, next) => {}
+const removeFromBooksList = async (req, res, next) => {}
+
+module.exports = { searchBook, addToBooksList, updateBookStatus, removeFromBooksList };

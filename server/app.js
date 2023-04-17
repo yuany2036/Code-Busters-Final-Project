@@ -10,7 +10,11 @@ require("dotenv").config();
 const usersRouter = require("./routes/usersRouter")
 const authRouter = require("./routes/authRouter")
 const meRouter = require("./routes/meRouter")
-const searchRouter = require("./routes/searchRouter")
+/* const searchRouter = require("./routes/searchRouter") */
+const tvshowsRouter = require("./routes/tvshowsRouter")
+const booksRouter = require("./routes/booksRouter")
+const gamesRouter = require("./routes/gamesRouter")
+const movieRouter = require("./routes/moviesRouter")
 const { routeNotFound, globalErrorHandler } = require("./middleware/errorHandlers")
 
 // Initialize App 
@@ -28,7 +32,11 @@ app.use(cookieParser());
 // Routes
 app.use('/users', usersRouter)
 app.use('/auth', authRouter)
-app.use('/search', searchRouter)
+/* app.use("/search", searchRouter) */ 
+app.use("/movies", movieRouter) // Front-End (Create filters)(Send movie data axios post request)
+app.use("/tvshows", tvshowsRouter)
+app.use("/books", booksRouter)
+app.use("/games", gamesRouter)
 app.use('/me', meRouter)
 
 // Error Handling Middleware
