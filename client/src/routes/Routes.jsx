@@ -9,6 +9,7 @@ import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
 import NotFound from '../components/notFound/NotFound';
 import TitlePage from '../components/titlePage/TitlePage';
+import Collection from '../components/collection/Collection';
 
 const Router = () => {
   const { state } = useContext(DataContext);
@@ -28,6 +29,7 @@ const Router = () => {
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/collection" element={<Collection />} />
       <Route path="/title" element={<TitlePage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
