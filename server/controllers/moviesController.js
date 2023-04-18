@@ -88,7 +88,7 @@ exports.updateMovieStatus = async (req, res, next) => {
         // Find user's movie collection and populate movie details
         const movieCol = await getMovieCollectionForUser(userId);
         // Find movie in user's collection
-        const movie = movieCol.movies.find(movie => movie._id.toString() === movieId);
+        const movie = movieCol.movies.find(movie => movie.id === movieId);
         if (!movie) {
             return res.status(404).json({ success: false, message: "Movie not found in user's collection" });
         }
@@ -109,7 +109,7 @@ exports.deleteMovieFromCollection = async (req, res, next) => {
         // Find user's movie collection and populate movie details
         const movieCol = await getMovieCollectionForUser(userId);
         // Find movie in user's collection
-        const movieIndex = movieCol.movies.findIndex(movie => movie._id.toString() === movieId);
+        const movieIndex = movieCol.movies.findIndex(movie => movie.id === movieId);
         if (movieIndex === -1) {
             return res.status(404).json({ success: false, message: "Movie not found in user's collection" });
         }
