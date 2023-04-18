@@ -18,7 +18,6 @@ const TitlePage = () => {
     (async () => {
       try {
         const res = await axios.get(url);
-        console.log(res.data);
         setTitle(res.data);
       } catch (error) {
         console.log(error);

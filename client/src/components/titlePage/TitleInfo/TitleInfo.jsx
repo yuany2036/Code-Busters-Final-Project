@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
+import ViewByCategory from '../../ViewByCategory/ViewByCategory';
 
 const TitleInfo = (props) => {
   const {
@@ -14,30 +16,47 @@ const TitleInfo = (props) => {
     genres,
   } = props.title;
 
+  const [added, setAdded] = useState(false);
+  const [hearted, setHearted] = useState(false);
+
   const runtimeHours = Math.floor(runtime / 60);
   const runtimeMinutes = runtime % 60;
 
-  const genresArray = genres.map((genre) => genre.name);
-
-  //   const shortInfoArray = [
-  //     { release_date },
-  //     { runtime },
-  //     { production_countries },
-  //     { spoken_languages },
-  //     { genre: genresArray },
-  //   ];
+  const shortInfoArray = [
+    { tag: 'Release Date', data: release_date },
+    { tag: 'Runtime', data: `${runtimeHours}h ${runtimeMinutes}m` },
+    { tag: 'Country', data: production_countries[0].name },
+    { tag: 'Language', data: spoken_languages[0].english_name },
+    { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
+  ];
 
   return (
     <div className={styles.info_container}>
       <div className={styles.upper_container}>
         <img
-          src={`https://image.tmdb.org/t/p/w185/${poster_path}`}
+          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
           alt="movie poster"
         />
         <h2>{titleName}</h2>
         <div className={styles.icons_container}>
-          <Icon icon="ic:baseline-plus" width="44" height="44" />
-          <Icon icon="mdi:cards-heart-outline" width="35" height="35" />
+          <div onClick={() => setAdded((pre) => !pre)}>
+            <Icon
+              icon={added ? 'charm:tick' : 'ic:baseline-plus'}
+              width="44"
+              height="44"
+            />
+          </div>
+          <div onClick={() => setHearted((pre) => !pre)}>
+            <Icon
+              icon={
+                hearted
+                  ? 'material-symbols:heart-minus'
+                  : 'material-symbols:heart-plus-outline'
+              }
+              width="35"
+              height="35"
+            />
+          </div>
           <Icon icon="material-symbols:share-outline" width="35" height="35" />
           <Icon icon="icon-park-outline:write" width="35" height="35" />
         </div>
@@ -45,12 +64,16 @@ const TitleInfo = (props) => {
       <div className={styles.lower_container}>
         <h3>{tagline}</h3>
         <p>{overview}</p>
-        <h5>RELEASED {release_date}</h5>
-        <h5>RUNTIME {`${runtimeHours}h ${runtimeMinutes}m`}</h5>
-        <h5>COUNTRY {production_countries[0].name}</h5>
-        <h5>LANUAGES {spoken_languages[0].english_name}</h5>
-        <h5>GENRES {genresArray.join(', ')}</h5>
+        {shortInfoArray.map((info) => {
+          return (
+            <div key={info.tag} className={styles.mapped_info}>
+              <h4>{info.tag}</h4>
+              <p>{info.data}</p>
+            </div>
+          );
+        })}
       </div>
+      <ViewByCategory />
     </div>
   );
 };
