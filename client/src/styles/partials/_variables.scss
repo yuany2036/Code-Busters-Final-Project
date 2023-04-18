@@ -5,12 +5,14 @@
 $primary-font: 'Montserrat', sans-serif;
 
 /*fonts-sizes*/
+$primary-font-size: clamp(0.9rem, calc(0.87rem + 0.14vw), 1rem);
 $navbar-left: clamp(1.25rem, calc(2.86rem + -1.79vw), 2.5rem);
 
 /*spaces*/
 $dropdown-menu-side-space: clamp(8rem, calc(-2.07rem + 50.36vw), 43.25rem);
 
 /*colors*/
+
 $primary-purple: rgb(49, 12, 73);
 $primary-blue: rgb(2, 4, 54);
 $primary-gradient: linear-gradient(

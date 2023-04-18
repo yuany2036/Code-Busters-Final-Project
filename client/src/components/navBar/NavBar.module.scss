@@ -1,45 +1,55 @@
 @import '../../styles/partials/variables';
 @import '../../styles/partials/mixin';
 
-ul li {
-  list-style: none;
-}
-
 ul li a {
   text-decoration: none;
-
-  &:hover {
-    color: black;
-  }
+  color: #d1cece;
 }
 
 /*Navbar*/
 
 .navbar {
   position: relative;
-  padding: 0 2rem;
+  // padding: 0 2rem;
   width: 100%;
-  height: 4rem;
+  height: 8rem;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: $primary-font;
+  background-image: $primary-gradient;
 
   .navbar_left {
     display: flex;
     align-items: center;
 
+    .logo {
+      img {
+        width: 7rem;
+        height: 7rem;
+      }
+      &_mobile {
+        display: none;
+      }
+    }
+
     .links_left {
       display: flex;
       gap: 2rem;
-      padding: 0rem 4rem;
-      font-size: 1rem;
+      padding: 0rem 2rem;
+      font-size: $primary-font-size;
+      li {
+        list-style: none;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
     }
   }
 
   .toggle_btn {
-    color: rgb(53, 4, 53);
+    color: #d1cece;
     font-size: 2rem;
     cursor: pointer;
     display: none;
@@ -51,13 +61,13 @@ ul li a {
 .dropdown_menu {
   display: none;
   position: absolute;
-
+  font-family: $primary-font;
   height: 0;
-  background-color: rgba(12, 7, 7, 0.1);
-  backdrop-filter: blur(15px);
+  background-color: rgba(36, 5, 55, 0.8);
+  backdrop-filter: blur(0.5rem);
   border-radius: 0.6rem;
   overflow: hidden;
-  top: 53%;
+  top: 58%;
   right: 50%;
   transform: translate(50%, -50%);
   transition: height 0.2 cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -70,8 +80,14 @@ ul li a {
     display: flex;
     justify-content: center;
 
+    &:first-child {
+      padding-top: 2rem;
+    }
+
     & a {
       text-decoration: none;
+      color: whitesmoke;
+      font-size: $primary-font-size;
     }
   }
 
@@ -86,10 +102,23 @@ ul li a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 13rem;
+    width: 15rem;
+    padding-right: 2rem;
 
     .btn_links button {
-      @include navbar_gradient_btn_theme;
+      @include gradient_hover_btn_theme;
+    }
+  }
+
+  &_dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem;
+
+    .btn_links button {
+      @include gradient_hover_btn_theme;
+      margin: 0 1rem;
     }
   }
 }
@@ -107,6 +136,16 @@ ul li a {
     .toggle_btn {
       justify-self: flex-end;
       display: block;
+      padding-right: 2rem;
+    }
+
+    .navbar_left .logo {
+      &_mobile {
+        display: block;
+      }
+      &_desktop {
+        display: none;
+      }
     }
   }
 
