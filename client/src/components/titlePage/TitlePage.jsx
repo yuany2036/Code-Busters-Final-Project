@@ -3,6 +3,8 @@ import axios from 'axios';
 // import styles from './TitlePage.module.scss';
 import Loading from '../loading/Loading';
 import TitleInfo from './TitleInfo/TitleInfo';
+import ViewByCategory from '../ViewByCategory/ViewByCategory';
+import Reviews from '../reviews/Reviews';
 
 const TitlePage = () => {
   const [loading, setLoading] = useState(false);
@@ -36,7 +38,13 @@ const TitlePage = () => {
   return (
     <>
       {loading && <Loading />}
-      {!loading && title && <TitleInfo title={title} reviews={reviews} />}
+      {!loading && title && (
+        <>
+          <TitleInfo title={title} reviews={reviews} />
+          <ViewByCategory />
+          <Reviews reviews={reviews} />
+        </>
+      )}
     </>
   );
 };

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
-import ViewByCategory from '../../ViewByCategory/ViewByCategory';
-import Reviews from '../../reviews/Reviews';
+// import ViewByCategory from '../../ViewByCategory/ViewByCategory';
+// import Reviews from '../../reviews/Reviews';
 
 const TitleInfo = (props) => {
   const {
@@ -13,9 +13,13 @@ const TitleInfo = (props) => {
     release_date,
     runtime,
     production_countries,
-    spoken_languages,
+    original_language,
     genres,
   } = props.title;
+
+  const languageNamesInEnglish = new Intl.DisplayNames(['en'], {
+    type: 'language',
+  });
 
   const [added, setAdded] = useState(false);
   const [hearted, setHearted] = useState(false);
@@ -27,7 +31,7 @@ const TitleInfo = (props) => {
     { tag: 'Release Date', data: release_date },
     { tag: 'Runtime', data: `${runtimeHours}h ${runtimeMinutes}m` },
     { tag: 'Country', data: production_countries[0].name },
-    { tag: 'Language', data: spoken_languages[0].english_name },
+    { tag: 'Language', data: languageNamesInEnglish.of(original_language) },
     { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
   ];
 
@@ -75,8 +79,6 @@ const TitleInfo = (props) => {
           );
         })}
       </div>
-      <ViewByCategory />
-      <Reviews reviews={props.reviews} />
     </div>
   );
 };
