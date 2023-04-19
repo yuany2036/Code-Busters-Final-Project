@@ -9,8 +9,7 @@ ul li a {
 /*Navbar*/
 
 .navbar {
-  position: relative;
-  // padding: 0 2rem;
+  // position: relative;
   width: 100%;
   height: 8rem;
   margin: 0 auto;
@@ -23,6 +22,7 @@ ul li a {
   .navbar_left {
     display: flex;
     align-items: center;
+    width: 50rem;
 
     .logo {
       img {
@@ -54,6 +54,55 @@ ul li a {
     cursor: pointer;
     display: none;
   }
+
+  .search {
+    &_bar {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background-color: #f2f2f2;
+      border-radius: 1.3rem;
+      padding: 0.5rem 1rem;
+      // margin-right: 2rem;
+      margin-left: 1rem;
+
+      input {
+        flex: 1;
+        border: none;
+        background-color: transparent;
+        outline: none;
+        font-size: $primary-font-size;
+      }
+    }
+    &_icon {
+      font-size: 1.5rem;
+      color: #808080;
+      cursor: pointer;
+    }
+  }
+
+  /*Navbar logged in right side*/
+
+  .loggedin_navbar_right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    white-space: nowrap;
+
+    li {
+      list-style: none;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    & a {
+      text-decoration: none;
+      color: #d1cece;
+    }
+  }
 }
 
 /*Drop down menu*/
@@ -62,6 +111,7 @@ ul li a {
   display: none;
   position: absolute;
   font-family: $primary-font;
+  white-space: nowrap;
   height: 0;
   background-color: rgba(36, 5, 55, 0.8);
   backdrop-filter: blur(0.5rem);
@@ -93,6 +143,23 @@ ul li a {
 
   &.open {
     height: 90vh;
+  }
+
+  .menu_search_bar {
+    align-items: center;
+    width: 90%;
+    background-color: #f2f2f2;
+    border-radius: 1.3rem;
+    padding: 0.7rem 1rem;
+    margin: 1rem auto;
+
+    input {
+      flex: 1;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      font-size: $primary-font-size;
+    }
   }
 }
 
@@ -129,6 +196,7 @@ ul li a {
     .links_left,
     ul li a,
     .btns_container_navbar,
+    .loggedin_navbar_right,
     .btns_container_navbar button {
       display: none;
     }
@@ -147,9 +215,20 @@ ul li a {
         display: none;
       }
     }
+
+    // searchbar display in dropdown menu
+    .navbar_left .search_bar {
+      display: none;
+    }
   }
 
   .dropdown_menu {
     display: block;
+    .profileCircle {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 1rem;
+      padding-top: 1rem;
+    }
   }
 }
