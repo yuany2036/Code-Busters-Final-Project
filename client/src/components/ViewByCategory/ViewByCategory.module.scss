@@ -1,4 +1,7 @@
+@import '../../styles/partials/variables';
+
 .explore_section {
+  font-family: $primary-font;
   display: flex;
   flex-direction: column;
   align-items: center;

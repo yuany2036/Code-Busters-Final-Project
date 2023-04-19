@@ -1,10 +1,16 @@
+import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './Reviews.module.scss';
 
 const Reviews = ({ reviews }) => {
-  //   reviews.forEach(({ author_details: { avatar_path, rating, username } }) => {
-  //     console.log(avatar_path, rating, username);
-  //   });
+  const [expandedReviews, setExpandedReview] = useState([]);
+
+  const readMoreHandler = function () {
+    if (expandedReviews.includes(this)) {
+      setExpandedReview((prev) => prev.filter((id) => id !== this));
+    } else setExpandedReview((prev) => [...prev, this]);
+  };
+
   const creatingReviewStar = (num) => {
     if (num === null) return;
     const stars = [];
@@ -18,30 +24,40 @@ const Reviews = ({ reviews }) => {
     }
     return stars;
   };
+
   return (
     <div className={styles.reviews_container}>
-      <h3>Reviews:</h3>
-      {reviews
-        // .slice(0, 2)
-        .map(
-          ({
-            author,
-            author_details: { rating, username },
-            content,
-            created_at,
-            updated_at,
-            id,
-          }) => {
-            return (
-              <div key={id} className={styles.review_container}>
-                <h5>{author ? author : username}</h5>
-                <h6>{creatingReviewStar(rating)}</h6>
-                <h6>{created_at}</h6>
-                <p>{content}</p>
-              </div>
-            );
-          }
-        )}
+      <h3 className={styles.heading}>Reviews:</h3>
+      {reviews.slice(0, 3).map(
+        ({
+          author,
+          author_details: { rating, username },
+          content,
+          created_at,
+          // updated_at,
+          id,
+        }) => {
+          const date = new Date(created_at);
+          const formattedDate = date.toLocaleDateString();
+          return (
+            <div key={id} id={id} className={styles.review_container}>
+              <h5>{`${
+                author ? author : username
+              } reviewed on ${formattedDate}`}</h5>
+              <h6>{creatingReviewStar(rating)}</h6>
+              <p>
+                {expandedReviews.includes(id)
+                  ? content
+                  : `${content.slice(0, 200)}...`}
+                <button onClick={readMoreHandler.bind(id)}>
+                  {expandedReviews.includes(id) ? '(hide)' : '(read more)'}
+                </button>
+              </p>
+            </div>
+          );
+        }
+      )}
+      <button>Read all reviews</button>
     </div>
   );
 };

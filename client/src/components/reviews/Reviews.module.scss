@@ -1,8 +1,14 @@
 @import '../../styles/partials/variables';
 
 .reviews_container {
+  margin: 1rem;
   display: flex;
   flex-direction: column;
   font-family: $primary-font;
   // align-items: center;
+  .heading {
+    align-self: center;
+  }
+  .review_container {
+  }
 }

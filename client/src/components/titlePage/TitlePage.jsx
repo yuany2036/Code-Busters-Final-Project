@@ -5,6 +5,7 @@ import Loading from '../loading/Loading';
 import TitleInfo from './TitleInfo/TitleInfo';
 import ViewByCategory from '../ViewByCategory/ViewByCategory';
 import Reviews from '../reviews/Reviews';
+import styles from './TitlePage.module.scss';
 
 const TitlePage = () => {
   const [loading, setLoading] = useState(false);
@@ -39,11 +40,11 @@ const TitlePage = () => {
     <>
       {loading && <Loading />}
       {!loading && title && (
-        <>
+        <div className={styles.title_page_container}>
           <TitleInfo title={title} reviews={reviews} />
           <ViewByCategory />
           <Reviews reviews={reviews} />
-        </>
+        </div>
       )}
     </>
   );

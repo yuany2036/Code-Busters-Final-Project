@@ -28,11 +28,11 @@ const TitleInfo = (props) => {
   const runtimeMinutes = runtime % 60;
 
   const shortInfoArray = [
+    { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
     { tag: 'Release Date', data: release_date },
     { tag: 'Runtime', data: `${runtimeHours}h ${runtimeMinutes}m` },
     { tag: 'Country', data: production_countries[0].name },
     { tag: 'Language', data: languageNamesInEnglish.of(original_language) },
-    { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
   ];
 
   return (
