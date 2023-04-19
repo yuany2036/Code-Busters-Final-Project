@@ -14,20 +14,17 @@
     "node-sass": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {
-    "@iconify/react": "^4.1.0",
-    "vite-plugin-react-icons": "^0.2.0",
-    "react-router-dom": "^6.10.0",
-    "sass": "^1.60.0",
     "@iconify-json/mdi": "^1.1.50",
     "@iconify/json": "^2.2.45",
+    "@iconify/react": "^4.1.0",
     "@svgr/core": "^7.0.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
-    "unplugin-icons": "^0.16.1",
     "eslint": "^8.37.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
@@ -36,6 +33,10 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.7",
-    "vite": "^4.2.0"
+    "react-router-dom": "^6.10.0",
+    "sass": "^1.60.0",
+    "unplugin-icons": "^0.16.1",
+    "vite": "^4.2.0",
+    "vite-plugin-react-icons": "^0.2.0"
   }
 }

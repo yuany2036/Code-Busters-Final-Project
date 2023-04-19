@@ -50,7 +50,14 @@ const Footer = () => {
               {subscribed ? (
                 <p>Thank you for subscribing!</p>
               ) : (
-                <form onSubmit={handleSubmit}>
+                <form
+                  action="https://gmail.us11.list-manage.com/subscribe/post?u=fc8ebb1b8769215b32f2a84c7&amp;id=9218b69f98&amp;f_id=007a9ae0f0"
+                  method="post"
+                  id="mc-embedded-subscribe-form"
+                  name="mc-embedded-subscribe-form"
+                  target="_self"
+                  onSubmit={handleSubmit}
+                >
                   <input type="hidden" />
                   <div className={styles.input_subscription}>
                     <input

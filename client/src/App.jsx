@@ -2,11 +2,13 @@ import './styles/App.scss';
 import NavBar from './components/navBar/NavBar';
 import Router from './routes/Routes';
 import Footer from './components/footer/Footer';
+import LoggedInNavBar from './components/navBar/LoggedInNavBar';
 
 function App() {
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
+      <LoggedInNavBar />
       <Router />
       <Footer />
     </>
