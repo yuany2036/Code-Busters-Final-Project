@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
-import ViewByCategory from '../../ViewByCategory/ViewByCategory';
+// import ViewByCategory from '../../ViewByCategory/ViewByCategory';
+// import Reviews from '../../reviews/Reviews';
 
 const TitleInfo = (props) => {
   const {
@@ -12,9 +13,13 @@ const TitleInfo = (props) => {
     release_date,
     runtime,
     production_countries,
-    spoken_languages,
+    original_language,
     genres,
   } = props.title;
+
+  const languageNamesInEnglish = new Intl.DisplayNames(['en'], {
+    type: 'language',
+  });
 
   const [added, setAdded] = useState(false);
   const [hearted, setHearted] = useState(false);
@@ -23,11 +28,11 @@ const TitleInfo = (props) => {
   const runtimeMinutes = runtime % 60;
 
   const shortInfoArray = [
+    { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
     { tag: 'Release Date', data: release_date },
     { tag: 'Runtime', data: `${runtimeHours}h ${runtimeMinutes}m` },
     { tag: 'Country', data: production_countries[0].name },
-    { tag: 'Language', data: spoken_languages[0].english_name },
-    { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
+    { tag: 'Language', data: languageNamesInEnglish.of(original_language) },
   ];
 
   return (
@@ -38,6 +43,7 @@ const TitleInfo = (props) => {
           alt="movie poster"
         />
         <h2>{titleName}</h2>
+        <h2>{window.screen.width}</h2>
         <div className={styles.icons_container}>
           <div onClick={() => setAdded((pre) => !pre)}>
             <Icon
@@ -73,7 +79,6 @@ const TitleInfo = (props) => {
           );
         })}
       </div>
-      <ViewByCategory />
     </div>
   );
 };
