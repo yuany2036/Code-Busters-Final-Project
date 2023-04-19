@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
 import ViewByCategory from '../../ViewByCategory/ViewByCategory';
+import Reviews from '../../reviews/Reviews';
 
 const TitleInfo = (props) => {
   const {
@@ -38,6 +39,7 @@ const TitleInfo = (props) => {
           alt="movie poster"
         />
         <h2>{titleName}</h2>
+        <h2>{window.screen.width}</h2>
         <div className={styles.icons_container}>
           <div onClick={() => setAdded((pre) => !pre)}>
             <Icon
@@ -74,6 +76,7 @@ const TitleInfo = (props) => {
         })}
       </div>
       <ViewByCategory />
+      <Reviews reviews={props.reviews} />
     </div>
   );
 };
