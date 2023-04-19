@@ -1,12 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
+@import '../../styles/partials/variables';
 .not_found {
   width: 100%;
   height: 100vh;
   padding: 5rem 1rem;
   display: flex;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
+  font-family: $primary-font;
   height: 100vh;
   background-image: url(../../assets/reshot-illustration-lost-person-404-illustration-AR9W5F3LQC.png);
   background-size: contain;

@@ -56,11 +56,7 @@ const Contact = () => {
               {message ? (
                 <p>Thank you for your message!</p>
               ) : (
-                <form
-                  action="https://formbold.com/s/9Bvjm"
-                  method="POST"
-                  onSubmit={handleSubmit}
-                >
+                <form onSubmit={handleSubmit}>
                   <input
                     type="text"
                     name="name"
