@@ -1,13 +1,37 @@
-import { useReducer, createContext } from 'react';
-import { reducerInitialState, reducerFunc } from './reducers/reducer';
+import { useReducer, createContext, useState, useEffect } from 'react';
+import { usersInitialState, usersReducer } from '../data/reducers/usersreducer';
+import { getUser } from '../apiCalls/userApiCalls';
 
-const DataContext = createContext();
+export const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducerFunc, reducerInitialState);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // User State
+  const [usersState, usersDispatch] = useReducer(
+    usersReducer,
+    usersInitialState
+  );
+
+  useEffect(() => {
+    getUser(usersDispatch);
+  }, []);
+
+  const { user, isUserLoggedIn } = usersState;
 
   return (
-    <DataContext.Provider value={{ state, dispatch }}>
+    <DataContext.Provider
+      value={{
+        user,
+        isUserLoggedIn,
+        usersDispatch,
+        error,
+        loading,
+        setError,
+        setLoading,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );
