@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 const UserSchema = new Schema({
     firstName: {
@@ -45,7 +45,7 @@ const UserSchema = new Schema({
         type: String,
         enum: ["Admin", "User"],
         default: "User",
-    }
+    },
 },
     {
         toJSON: {
@@ -86,13 +86,13 @@ UserSchema.methods.checkPassword = async function (
     password,
     usersPassword,
     next
-  ) {
+) {
     try {
-      return await bcrypt.compare(password, usersPassword);
+        return await bcrypt.compare(password, usersPassword);
     } catch (error) {
-      throw new Error(error);
+        throw new Error(error);
     }
-  };
+};
 
 // Generate a JSON Web Token.
 UserSchema.methods.generateAuthToken = function () {

@@ -53,6 +53,7 @@ exports.getAllUsers = async (req, res, next) => {
         const users = await apiQuery.query;
         successHandler(res, 200, users);
     } catch (error) {
+        console.log(error)
         next(error)
     }
 }
