@@ -49,7 +49,10 @@ const Reviews = ({ reviews }) => {
                 {expandedReviews.includes(id)
                   ? content
                   : `${content.slice(0, 200)}...`}
-                <button onClick={readMoreHandler.bind(id)}>
+                <button
+                  className={styles.buttons}
+                  onClick={readMoreHandler.bind(id)}
+                >
                   {expandedReviews.includes(id) ? '(hide)' : '(read more)'}
                 </button>
               </p>
@@ -57,7 +60,7 @@ const Reviews = ({ reviews }) => {
           );
         }
       )}
-      <button>Read all reviews</button>
+      <button className={styles.buttons}>Read all reviews</button>
     </div>
   );
 };

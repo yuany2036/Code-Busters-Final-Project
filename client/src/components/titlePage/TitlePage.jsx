@@ -13,9 +13,9 @@ const TitlePage = () => {
   const [reviews, setReviews] = useState([]);
 
   const apiKey = 'ad6c50ff4b12daee4d3c2b875c8684fc';
-  // const movie_id = 76600; //avatar
+  const movie_id = 76600; //avatar
   // const movie_id = 677179; //creed 3
-  const movie_id = 496243; //parasite
+  // const movie_id = 496243; //parasite
   const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${apiKey}`;
 
   const movieReviewURL = `https://api.themoviedb.org/3/movie/${movie_id}/reviews?api_key=${apiKey}&language=en-US&page=1`;

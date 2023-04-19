@@ -11,4 +11,14 @@
   }
   .review_container {
   }
+  .buttons {
+    display: block;
+    border: none;
+    background: none;
+    color: blue;
+    &:hover {
+      cursor: pointer;
+      color: rgb(0, 0, 128);
+    }
+  }
 }
