@@ -3,7 +3,6 @@ import styles from './ProfileCircle.module.scss';
 import DataContext from '../../data/context';
 function ProfileCircle() {
   const { user } = useContext(DataContext);
-
   const [userName, setUsername] = useState('');
 
   useEffect(() => {
