@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './ProfileCircle.module.scss';
+import DataContext from '../../data/context';
 
 function ProfileCircle() {
+  const { user } = useContext(DataContext);
+  console.log(user);
+
   // const [username, setUsername] = useState('');
 
   // useEffect(() => {
