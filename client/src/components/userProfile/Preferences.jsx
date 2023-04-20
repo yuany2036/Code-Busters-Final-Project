@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Preferences = () => {
   const [bookLover, setBookLover] = useState(false);
@@ -22,8 +23,21 @@ const Preferences = () => {
   };
 
   const handleSubmit = () => {
-    // Send the user's preferences to the server or store locally
-    // Call recommendation logic with the stored preferences
+    const preferencesData = {
+      bookLover,
+      movieWatcher,
+      genres,
+    };
+
+    // Send the preferences data to the server
+    axios.post('/api/preferences', preferencesData)
+      .then((response) => {
+        console.log('Preferences stored successfully:', response.data);
+        // Call recommendation logic with the stored preferences
+      })
+      .catch((error) => {
+        console.error('Failed to store preferences:', error);
+      });
   };
 
   return (

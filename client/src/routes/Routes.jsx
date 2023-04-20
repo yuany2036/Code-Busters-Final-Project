@@ -26,7 +26,7 @@ const Router = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<RenderedComponent />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/explore" element={<ExplorePage />} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
