@@ -1,7 +1,7 @@
 // import { useState } from 'react';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate, Link} from 'react-router-dom';
 
 import { DataContext } from '../../data/context';
 import { login } from '../../apiCalls/userApiCalls';
@@ -88,7 +88,7 @@ const Login = () => {
           </form>
           <div className={styles.connect}>
             <p>
-              <span>-</span> or register with <span>-</span>
+              <span>-</span> or login with <span>-</span>
             </p>
             <div className={styles.icons}>
               <a>
@@ -99,6 +99,11 @@ const Login = () => {
               </a>
             </div>
           </div>
+           <div className={styles.register}>
+          <p>
+           Don't have an account?  <Link to="/register">Register</Link>
+          </p>
+        </div>
         </div>
       </div>
     </div>

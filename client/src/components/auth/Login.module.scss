@@ -88,11 +88,16 @@
       }
     }
   }
+  .register {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
 }
 
-@media (min-width: 320px) and (max-width: 768px){
-     .login_container {
-        margin-top: 3rem;
+@media (min-width: 320px) and (max-width: 768px) {
+  .login_container {
+    margin-top: 3rem;
     .img_container {
       display: none;
     }
@@ -102,7 +107,7 @@
       h1 {
         font-size: 1.5rem;
       }
-   
+
       p {
         font-size: 1rem;
         padding: 1rem;

@@ -1,6 +1,6 @@
 import { DataContext } from '../../data/context';
 import { useContext } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { signup } from '../../apiCalls/userApiCalls';
 import styles from '../auth/Register.module.scss';
@@ -11,7 +11,7 @@ const Register = () => {
   const { usersDispatch, isUserLoggedIn } = useContext(DataContext);
 
   if (isUserLoggedIn) {
-    return <Navigate to="/explore" replace />;
+    return <Navigate to="/preferences" replace />;
   }
 
   const navigate = useNavigate();
@@ -131,6 +131,11 @@ const Register = () => {
               <Icon icon="devicon:google" color="#7e57c2" />
             </a>
           </div>
+        </div>
+        <div className={styles.login}>
+          <p>
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
         </div>
       </div>
     </div>
