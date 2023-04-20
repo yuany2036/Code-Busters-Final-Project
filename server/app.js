@@ -10,6 +10,11 @@ require('dotenv').config();
 const usersRouter = require('./routes/usersRouter');
 const authRouter = require('./routes/authRouter');
 const meRouter = require('./routes/meRouter');
+const preferencesRouter = require('./routes/preferencesRouter');
+const moviesRouter = require('./routes/moviesRouter');
+const tvshowsRouter = require('./routes/tvshowsRouter');
+const booksRouter = require('./routes/booksRouter');
+const gamesRouter = require('./routes/gamesRouter');
 const {
   routeNotFound,
   globalErrorHandler,
@@ -37,6 +42,11 @@ app.use(cookieParser());
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/me', meRouter);
+app.use('/preferences', preferencesRouter);
+app.use('/movies', moviesRouter);
+app.use('/tvshows', tvshowsRouter);
+app.use('/books', booksRouter);
+app.use('/games', gamesRouter);
 
 // Error Handling Middleware
 app.use(routeNotFound);
