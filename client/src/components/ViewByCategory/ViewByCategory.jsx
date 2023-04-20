@@ -18,9 +18,17 @@ const ViewByCategory = () => {
   useEffect(() => {
     (async () => {
       try {
-        let res = await axios.get(movieURL);
+        let res = await axios.get(movieURL, {
+          accessControlAllowOrigin: 'http://localhost:5173/',
+          withCredentials: false,
+          mode: 'cors',
+        });
         setMovies(res.data.results.slice(0, 9));
-        res = await axios.get(seriesURL);
+        res = await axios.get(seriesURL, {
+          accessControlAllowOrigin: 'http://localhost:5173/',
+          withCredentials: false,
+          mode: 'cors',
+        });
         setSeries(res.data.results.slice(0, 9));
       } catch (error) {
         console.log(error);
@@ -58,3 +66,4 @@ const ViewByCategory = () => {
 };
 
 export default ViewByCategory;
+
