@@ -4,24 +4,24 @@ import DataContext from '../../data/context';
 
 function ProfileCircle() {
   const { user } = useContext(DataContext);
+  const [userName, setUsername] = useState('');
   console.log(user);
 
   // const [username, setUsername] = useState('');
 
-  // useEffect(() => {
-  //   // Fetching username from backend
-  //   const fetchUsername = async () => {
-  //     try {
-  //       const response = await fetch('/api/getUsername');
-  //       const data = await response.json();
-  //       setUsername(data.username);
-  //     } catch (error) {
-  //       console.error('Failed to fetch username:', error);
-  //     }
-  //   };
+  useEffect(() => {
+    // Fetching username from backend
+    const fetchUsername = async () => {
+      try {
+        const res = await user.user.username;
+        setUsername(res.username);
+      } catch (error) {
+        console.error('Failed to fetch username:', error);
+      }
+    };
 
-  //   fetchUsername();
-  // }, []);
+    fetchUsername();
+  }, []);
 
   const testingFunction = () => {
     console.log('working');
@@ -29,7 +29,7 @@ function ProfileCircle() {
 
   return (
     <div onClick={testingFunction} className={styles.circle}>
-      U{/* {username.charAt(0).toUpperCase()} */}
+      {userName.charAt(0).toUpperCase()}
     </div>
   );
 }

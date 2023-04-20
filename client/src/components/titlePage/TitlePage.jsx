@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+axios.default.withCredientials === true;
 // import styles from './TitlePage.module.scss';
 import Loading from '../loading/Loading';
 import TitleInfo from './TitleInfo/TitleInfo';
@@ -24,9 +25,17 @@ const TitlePage = () => {
     setLoading(true);
     (async () => {
       try {
-        let res = await axios.get(movieDetailsUrl);
+        let res = await axios.get(movieDetailsUrl, {
+          accessControlAllowOrigin: 'http://localhost:5173/',
+          withCredentials: false,
+          mode: 'cors',
+        });
         setTitle(res.data);
-        res = await axios.get(movieReviewURL);
+        res = await axios.get(movieReviewURL, {
+          accessControlAllowOrigin: 'http://localhost:5173/',
+          withCredentials: false,
+          mode: 'cors',
+        });
         setReviews(res.data.results);
       } catch (error) {
         console.log(error);
