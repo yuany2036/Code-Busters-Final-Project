@@ -27,7 +27,7 @@ const Register = () => {
       console.log(data);
 
       if (res.statusCode < 400) {
-        return navigate('/explore');
+        return navigate('/preferences');
       }
     } catch (err) {
       console.log('err ->', err);
