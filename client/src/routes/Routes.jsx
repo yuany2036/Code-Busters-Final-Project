@@ -11,6 +11,7 @@ import NotFound from '../components/notFound/NotFound';
 import TitlePage from '../components/titlePage/TitlePage';
 import Collection from '../components/collection/Collection';
 import Profile from '../components/userProfile/UserProfile';
+import Preferences from '../components/userProfile/Preferences';
 
 const Router = () => {
   const { state } = useContext(DataContext);
@@ -33,6 +34,7 @@ const Router = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/collection" element={<Collection />} />
       <Route path="/title" element={<TitlePage />} />
+      <Route path="/preferences" element={<Preferences />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

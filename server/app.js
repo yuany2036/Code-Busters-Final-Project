@@ -10,7 +10,6 @@ require('dotenv').config();
 const usersRouter = require('./routes/usersRouter');
 const authRouter = require('./routes/authRouter');
 const meRouter = require('./routes/meRouter');
-const searchRouter = require('./routes/searchRouter');
 const {
   routeNotFound,
   globalErrorHandler,
@@ -37,7 +36,6 @@ app.use(cookieParser());
 // Routes
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
-app.use('/search', searchRouter);
 app.use('/me', meRouter);
 
 // Error Handling Middleware
