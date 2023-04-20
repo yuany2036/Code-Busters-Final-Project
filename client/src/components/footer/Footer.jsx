@@ -1,6 +1,6 @@
 import styles from './Footer.module.scss';
 import React, { useState } from 'react';
-import { ReactComponent as Logo } from '../../assets/2.svg';
+import Logo from '../../assets/2.svg';
 import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
@@ -26,7 +26,7 @@ const Footer = () => {
           <div className={styles.container}>
             <div className={styles.footer_body}>
               <div className={styles.logo}>
-                <Logo />
+                <img src={Logo} alt="website logo" />{' '}
               </div>
 
               <div className={styles.footer_list}>
