@@ -171,6 +171,7 @@ ul li a {
     justify-content: space-between;
     width: 15rem;
     padding-right: 2rem;
+    gap: 1rem;
 
     .btn_links button {
       @include gradient_hover_btn_theme;
