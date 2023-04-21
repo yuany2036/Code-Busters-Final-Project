@@ -2,16 +2,17 @@ import { useState } from 'react';
 import styles from './NavBar.module.scss';
 import Menu from '~icons/mdi/menu';
 import Close from '~icons/mdi/close';
-import Magnify from '~icons/mdi/magnify';
-import MenuMagnify from '~icons/mdi/text-search-variant';
+// import Magnify from '~icons/mdi/magnify';
+// import MenuMagnify from '~icons/mdi/text-search-variant';
 import { NavLink } from 'react-router-dom';
 import { NavBarData } from './LoggedInNavBarData';
 import LogoDesktop from '../../assets/1.svg';
 import LogoMobile from '../../assets/2.svg';
-import NavBarModal from './NavBarModal';
+import NavBarModal from './navBarModal/NavBarModal';
 import ProfileCircle from './ProfileCircle';
 import SearchBar from './searchBar/SearchBar';
 import MenuSearchBar from './searchBar/MenuSearchBar';
+import NavBarModalContent from './navBarModal/navBarModalContent/NavBarModalContent';
 
 const LoggedInNavBar = () => {
   const [dropDownMenu, setDropDownMenu] = useState(false);
@@ -72,19 +73,10 @@ const LoggedInNavBar = () => {
               alt="website logo"
             />
           </div>
-          {/* <div className={styles.search_bar}>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchValue}
-              onChange={searchHandler}
-            />
-            <Magnify className={styles.search_icon} />
-          </div> */}
           <SearchBar searchValue={searchValue} searchHandler={searchHandler} />
           {showModal && (
             <NavBarModal onClose={setShowModal}>
-              <div>Categories</div>
+              <NavBarModalContent />
             </NavBarModal>
           )}
         </div>
@@ -114,14 +106,6 @@ const LoggedInNavBar = () => {
           searchValue={searchValue}
           searchHandler={searchHandler}
         />
-        {/* <div className={styles.menu_search_bar}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchValue}
-            onChange={searchHandler}
-          />
-        </div> */}
         <div className={styles.profileCircle}>
           <ProfileCircle />
         </div>
