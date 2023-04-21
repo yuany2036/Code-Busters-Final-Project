@@ -54,7 +54,6 @@ ul li a {
     cursor: pointer;
     display: none;
   }
-
   .search {
     &_bar {
       display: flex;
@@ -79,28 +78,28 @@ ul li a {
       color: #808080;
       cursor: pointer;
     }
-  }
 
-  /*Navbar logged in right side*/
+    /*Navbar logged in right side*/
 
-  .loggedin_navbar_right {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    white-space: nowrap;
+    .loggedin_navbar_right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding-right: 1rem;
+      padding-left: 1rem;
+      white-space: nowrap;
 
-    li {
-      list-style: none;
-      &:hover {
-        transform: scale(1.1);
+      li {
+        list-style: none;
+        &:hover {
+          transform: scale(1.1);
+        }
       }
-    }
 
-    & a {
-      text-decoration: none;
-      color: #d1cece;
+      & a {
+        text-decoration: none;
+        color: #d1cece;
+      }
     }
   }
 }
