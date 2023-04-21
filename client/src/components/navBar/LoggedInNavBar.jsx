@@ -10,6 +10,8 @@ import LogoDesktop from '../../assets/1.svg';
 import LogoMobile from '../../assets/2.svg';
 import NavBarModal from './NavBarModal';
 import ProfileCircle from './ProfileCircle';
+import SearchBar from './searchBar/SearchBar';
+import MenuSearchBar from './searchBar/MenuSearchBar';
 
 const LoggedInNavBar = () => {
   const [dropDownMenu, setDropDownMenu] = useState(false);
@@ -70,7 +72,7 @@ const LoggedInNavBar = () => {
               alt="website logo"
             />
           </div>
-          <div className={styles.search_bar}>
+          {/* <div className={styles.search_bar}>
             <input
               type="text"
               placeholder="Search..."
@@ -78,7 +80,8 @@ const LoggedInNavBar = () => {
               onChange={searchHandler}
             />
             <Magnify className={styles.search_icon} />
-          </div>
+          </div> */}
+          <SearchBar searchValue={searchValue} searchHandler={searchHandler} />
           {showModal && (
             <NavBarModal onClose={setShowModal}>
               <div>Categories</div>
@@ -107,14 +110,18 @@ const LoggedInNavBar = () => {
             : `${styles.dropdown_menu}`
         }
       >
-        <div className={styles.menu_search_bar}>
+        <MenuSearchBar
+          searchValue={searchValue}
+          searchHandler={searchHandler}
+        />
+        {/* <div className={styles.menu_search_bar}>
           <input
             type="text"
             placeholder="Search..."
             value={searchValue}
             onChange={searchHandler}
           />
-        </div>
+        </div> */}
         <div className={styles.profileCircle}>
           <ProfileCircle />
         </div>
