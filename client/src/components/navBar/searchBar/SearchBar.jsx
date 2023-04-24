@@ -5,6 +5,7 @@ const SearchBar = ({ searchValue, searchHandler }) => {
   return (
     <div className={styles.search_bar}>
       <input
+        autoFocus
         type="text"
         placeholder="Search..."
         value={searchValue}

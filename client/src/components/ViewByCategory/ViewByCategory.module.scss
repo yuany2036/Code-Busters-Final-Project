@@ -20,6 +20,9 @@
   border: 0;
   background: none;
   margin: 0.2rem 1rem;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .active {

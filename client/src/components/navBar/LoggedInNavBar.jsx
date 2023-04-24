@@ -18,16 +18,25 @@ const LoggedInNavBar = () => {
   const [dropDownMenu, setDropDownMenu] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [searchBar, setSearchBar] = useState(false);
+  // const [searchBar, setSearchBar] = useState(false);
   //controling the dropdown menu state
   const showDropDownMenu = () => {
     setDropDownMenu(!dropDownMenu);
   };
 
-  //show searchbar in dropdown menu
-  const showSearchBar = () => {
-    setSearchBar(!searchBar);
+  const keyCloseModal = (e) => {
+    if (e.key === 'Escape') {
+      document.removeEventListener('keydown', keyCloseModal);
+      setSearchValue('');
+      setShowModal(false);
+    }
   };
+  //show searchbar in dropdown menu
+  // const showSearchBar = () => {
+  //   setSearchBar(!searchBar);
+  // };
+
+  if (showModal) document.addEventListener('keydown', keyCloseModal);
 
   const searchHandler = (e) => {
     const value = e.target.value;
@@ -36,8 +45,9 @@ const LoggedInNavBar = () => {
     // Show modal when the user starts typing
     if (value.length > 0) {
       setShowModal(true);
+      document.removeEventListener('keydown', keyCloseModal);
     } else {
-      setShowModal(false);
+      // setShowModal(false);
     }
   };
 
@@ -73,9 +83,18 @@ const LoggedInNavBar = () => {
               alt="website logo"
             />
           </div>
-          <SearchBar searchValue={searchValue} searchHandler={searchHandler} />
+          <SearchBar
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            searchHandler={searchHandler}
+          />
           {showModal && (
-            <NavBarModal onClose={setShowModal}>
+            <NavBarModal
+              onClose={setShowModal}
+              setSearchValue={setSearchValue}
+              searchValue={searchValue}
+              searchHandler={searchHandler}
+            >
               <NavBarModalContent />
             </NavBarModal>
           )}
