@@ -15,17 +15,13 @@ const SearchResults = ({ searchTerm }) => {
   useEffect(() => {
     (async () => {
       try {
-        if (activeCategory === 'Movies') {
-          const res = await axios.get(
-            `http://localhost:4000/movies/?title=${searchTerm}`
-          );
-          setSearchResults(res.data);
-        } else if (activeCategory === 'TV Shows') {
-          const res = await axios.get(
-            `http://localhost:4000/tvshows/?title=${searchTerm}`
-          );
-          setSearchResults(res.data);
-        }
+        const res = await axios.get(
+          `http://localhost:4000/${activeCategory
+            .toLowerCase()
+            .split(' ')
+            .join('')}/?title=${searchTerm}`
+        );
+        setSearchResults(res.data);
       } catch (err) {
         console.log(err.res);
       }
@@ -33,7 +29,7 @@ const SearchResults = ({ searchTerm }) => {
   }, [searchTerm, activeCategory]);
 
   return (
-    <div>
+    <div className={styles.search_results}>
       <div className={styles.buttons_container}>
         {categories.map(({ category }) => (
           <input
@@ -47,15 +43,24 @@ const SearchResults = ({ searchTerm }) => {
           />
         ))}
       </div>
-      {searchResults.map(({ title, poster_path, id }) => (
-        <div key={id}>
-          <h4>{title}</h4>
-          <img
-            src={`https://image.tmdb.org/t/p/w92${poster_path}`}
-            alt="movie poster"
-          />
-        </div>
-      ))}
+      <div className={styles.results_container}>
+        {(activeCategory === 'Movies' || activeCategory === 'TV Shows') &&
+          searchResults.map(({ title, name, poster_path, id }) => (
+            <div className={styles.results_card} key={id}>
+              <h4>{title ? title : name}</h4>
+              <img
+                src={
+                  poster_path
+                    ? `https://image.tmdb.org/t/p/w342${poster_path}`
+                    : 'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y3V0ZSUyMGNhdHxlbnwwfHwwfHw%3D&w=1000&q=80'
+                }
+                alt="movie poster"
+                width="200px"
+              />
+            </div>
+          ))}
+        {searchTerm.trim().length === 0 && <h2>Start Typing to search</h2>}
+      </div>
     </div>
   );
 };

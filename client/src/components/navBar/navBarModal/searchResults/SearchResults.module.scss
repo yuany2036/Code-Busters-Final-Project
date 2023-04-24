@@ -1,10 +1,25 @@
+.search_results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .results_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    // align-items: center;
+    .results_card {
+      width: 342px;
+    }
+  }
+}
+
 .buttons_container {
-  margin-top: 1rem;
+  margin: 1rem;
 }
 
 .button {
   font-family: inherit;
-  font-size: 100%;
+  font-size: 2rem;
   text-transform: none;
   border: 0;
   background: none;
