@@ -1,0 +1,20 @@
+.buttons_container {
+  margin-top: 1rem;
+}
+
+.button {
+  font-family: inherit;
+  font-size: 100%;
+  text-transform: none;
+  border: 0;
+  background: none;
+  margin: 0.2rem 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.active {
+  text-decoration: underline;
+  font-weight: bold;
+}
