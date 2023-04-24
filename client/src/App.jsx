@@ -10,8 +10,8 @@ function App() {
   const { isUserLoggedIn } = useContext(DataContext);
   return (
     <>
-      {!isUserLoggedIn && <LoggedInNavBar />}
-      {/* {!isUserLoggedIn && <NavBar />} */}
+      {isUserLoggedIn && <LoggedInNavBar />}
+      {!isUserLoggedIn && <NavBar />}
       <Router />
       <Footer />
     </>
