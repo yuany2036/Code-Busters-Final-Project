@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 80%;
   .results_container {
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    // align-items: center;
+    align-items: center;
     .results_card {
       width: 342px;
     }
