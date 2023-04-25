@@ -1,9 +1,8 @@
 @import '../../styles/partials/variables';
 
-
-.container{
-    background: rgb(0, 212, 255);
-    color:whitesmoke;
+.container {
+  background: rgb(0, 212, 255);
+  color: whitesmoke;
 
   /* gradient background*/
   background: linear-gradient(
@@ -11,21 +10,20 @@
     rgb(77, 129, 227) 0%,
     rgba(11, 3, 45, 1) 100%
   );
-
 }
 .top_movies {
   font-family: $primary-font;
   text-align: center;
-padding-top: 3rem; }
+  padding-top: 3rem;
+}
 .explore_movies {
   display: flex;
   align-items: center;
   font-family: $primary-font;
   width: 100vw;
-  height: 700px;
+  height: 500px;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
-
 }
 .movie {
   display: flex;
@@ -44,11 +42,6 @@ padding-top: 3rem; }
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-
-  &:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-  }
   height: 400px;
   width: 250px;
   margin: 1rem 1rem;
@@ -56,6 +49,11 @@ padding-top: 3rem; }
   box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
   scroll-snap-align: start;
   transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  }
 
   .movie_poster {
     object-fit: cover;
@@ -83,10 +81,8 @@ padding-top: 3rem; }
     .outline {
       background: transparent;
       font-weight: 700;
-      color: 
-#401d56 ;
-      border: 1px solid 
-#401d56 ;
+      color: #401d56;
+      border: 1px solid #401d56;
       transition: all 0.3s ease;
       &:hover {
         color: rgba(255, 255, 255, 0.9);
@@ -114,12 +110,12 @@ padding-top: 3rem; }
 }
 
 .explore_movies::-webkit-scrollbar-thumb {
-  background: #2e0d42;
+  background: #7369cb;
+  width: 10px;
 }
 
 .explore_movies::-webkit-scrollbar-track {
-  background:    rgba(11, 3, 45, 1) 
-;
+  background: rgba(11, 3, 45, 1);
 }
 
 @media (min-width: 500px) {
