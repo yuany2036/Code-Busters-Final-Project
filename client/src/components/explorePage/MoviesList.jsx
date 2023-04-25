@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import MovieCard from '../card/MovieCard';
 import styles from '../card/MovieCard.module.scss';
@@ -35,3 +36,4 @@ const MoviesList = () => {
 }
 
 export default MoviesList;
+
