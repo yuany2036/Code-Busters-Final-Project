@@ -4,7 +4,7 @@
   font-family: $primary-font;
   display: flex;
   flex-direction: column;
-  color: #dedbdb;
+  color: $off-white-text;
   font-size: $primary-font-size;
 
   .upper_container {
@@ -89,6 +89,10 @@
   align-items: center;
   padding: 1rem;
   background: $primary-gradient;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 /*media queries*/

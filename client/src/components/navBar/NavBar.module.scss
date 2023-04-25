@@ -3,7 +3,7 @@
 
 ul li a {
   text-decoration: none;
-  color: #d1cece;
+  color: $off-white-text;
 }
 
 /*Navbar*/
@@ -49,7 +49,7 @@ ul li a {
   }
 
   .toggle_btn {
-    color: #d1cece;
+    color: $off-white-text;
     font-size: 2rem;
     cursor: pointer;
     display: none;
@@ -74,7 +74,7 @@ ul li a {
 
     & a {
       text-decoration: none;
-      color: #d1cece;
+      color: $off-white-text;
     }
   }
 }

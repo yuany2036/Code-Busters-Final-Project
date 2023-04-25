@@ -1,24 +1,114 @@
 @import '../../styles/partials/variables';
+@import '../../styles/partials/mixin';
 
 .reviews_container {
-  margin: 1rem;
   display: flex;
   flex-direction: column;
   font-family: $primary-font;
-  // align-items: center;
+  font-size: $primary-font-size;
+  background-color: rgba(169, 174, 190, 0.944);
+
   .heading {
     align-self: center;
+    @include center_title_text;
   }
   .review_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border-radius: 1rem;
+    border: 2px solid rgb(54, 9, 146);
+    background-image: linear-gradient(
+      316deg,
+      rgba(2, 4, 54, 0.9) 0%,
+      rgba(49, 12, 73, 0.9) 90%
+    );
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+      rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+      rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin: 0.8rem;
+    padding: 1rem 1rem 2rem 1rem;
+
+    &_left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: $off-white-text;
+      padding-right: 2rem;
+      img {
+        width: 5rem;
+        height: 5rem;
+      }
+      h5 {
+        padding: 1rem 0 0;
+        word-break: break-all;
+      }
+    }
+    &_right {
+      display: flex;
+      flex-direction: column;
+      background-color: rgba(232, 229, 240, 0.757);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: rgba(188, 159, 177, 0.4) -5px 5px,
+        rgba(83, 73, 86, 0.3) -10px 10px, rgba(128, 99, 142, 0.2) -15px 15px,
+        rgba(222, 130, 238, 0.1) -20px 20px,
+        rgba(237, 143, 202, 0.05) -25px 25px;
+      color: rgb(32, 29, 29);
+
+      h6 {
+        color: $primary-purple;
+        padding-bottom: 1rem;
+      }
+
+      .reviewed_on {
+        padding: 0.5rem;
+        align-self: flex-end;
+        color: grey;
+        text-shadow: 2px 5px 5px rgba(255, 255, 255, 0.3);
+      }
+    }
   }
+
   .buttons {
     display: block;
     border: none;
     background: none;
-    color: blue;
+    padding-top: 1rem;
+    color: $primary-purple;
     &:hover {
       cursor: pointer;
       color: rgb(0, 0, 128);
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .reviews_container {
+    .review_container {
+      flex-wrap: wrap;
+
+      &_left {
+        justify-content: center;
+        img {
+          width: 6rem;
+          height: 6rem;
+        }
+
+        h5 {
+          padding-bottom: 1rem;
+        }
+      }
+
+      &_right {
+        box-shadow: none;
+        padding: 0.8rem;
+        .review_text {
+          min-width: 15rem;
+          word-wrap: break-word;
+        }
+      }
     }
   }
 }
