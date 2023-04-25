@@ -59,7 +59,7 @@ const SearchResults = ({ searchTerm }) => {
               <h4>{title ? title : name}</h4>
             </div>
           ))}
-        {searchTerm.trim().length === 0 && <h2>Start Typing to search</h2>}
+        {/* {searchTerm.trim().length === 0 && <h2>Start Typing to search</h2>} */}
       </div>
     </div>
   );
