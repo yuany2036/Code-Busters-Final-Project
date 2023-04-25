@@ -1,17 +1,18 @@
 import React from 'react';
 import styles from './Cards.module.scss';
 
-const Cards = ({ titles }) => {
+const Cards = ({ titles, activeCategory }) => {
   return (
     <div className={styles.poster_container}>
       {titles.map(({ poster_path, title }) => {
         return (
-          <React.Fragment key={title}>
+          <div key={title}>
             <img
               src={`https://image.tmdb.org/t/p/w92${poster_path}`}
               alt="movie poster"
             />
-          </React.Fragment>
+            {/* <h4>{title}</h4> */}
+          </div>
         );
       })}
     </div>

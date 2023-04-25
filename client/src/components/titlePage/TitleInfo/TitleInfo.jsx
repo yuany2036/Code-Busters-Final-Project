@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
-// import ViewByCategory from '../../ViewByCategory/ViewByCategory';
-// import Reviews from '../../reviews/Reviews';
 
 const TitleInfo = (props) => {
   const {
@@ -15,7 +13,10 @@ const TitleInfo = (props) => {
     production_countries,
     original_language,
     genres,
+    backdrop_path,
   } = props.title;
+
+  const posterURL = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
 
   const languageNamesInEnglish = new Intl.DisplayNames(['en'], {
     type: 'language',
@@ -37,47 +38,55 @@ const TitleInfo = (props) => {
 
   return (
     <div className={styles.info_container}>
-      <div className={styles.upper_container}>
-        <img
-          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-          alt="movie poster"
-        />
-        <h2>{titleName}</h2>
-        <h2>{window.screen.width}</h2>
-        <div className={styles.icons_container}>
-          <div onClick={() => setAdded((pre) => !pre)}>
-            <Icon
-              icon={added ? 'charm:tick' : 'ic:baseline-plus'}
-              width="44"
-              height="44"
-            />
+      <div
+        className={styles.upper_container}
+        style={{ '--background-img': `url(${posterURL})` }}
+      >
+        <div className={styles.overlay}></div>
+        <div className={styles.upper_container_left}>
+          <img
+            src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+            alt="movie poster"
+            className={styles.poster_image}
+          />
+          <h2>{titleName}</h2>
+        </div>
+        <div className={styles.upper_container_right}>
+          <h2>{tagline}</h2>
+          <p className={styles.overview}>{overview}</p>
+          <div className={styles.mapped_info_container}>
+            {shortInfoArray.map((info) => {
+              return (
+                <div key={info.tag} className={styles.mapped_info}>
+                  <h3>{info.tag}</h3>
+                  <p>{info.data}</p>
+                </div>
+              );
+            })}
           </div>
-          <div onClick={() => setHearted((pre) => !pre)}>
-            <Icon
-              icon={
-                hearted
-                  ? 'material-symbols:heart-minus'
-                  : 'material-symbols:heart-plus-outline'
-              }
-              width="35"
-              height="35"
-            />
-          </div>
-          <Icon icon="material-symbols:share-outline" width="35" height="35" />
-          <Icon icon="icon-park-outline:write" width="35" height="35" />
         </div>
       </div>
-      <div className={styles.lower_container}>
-        <h3>{tagline}</h3>
-        <p>{overview}</p>
-        {shortInfoArray.map((info) => {
-          return (
-            <div key={info.tag} className={styles.mapped_info}>
-              <h4>{info.tag}</h4>
-              <p>{info.data}</p>
-            </div>
-          );
-        })}
+      <div className={styles.icons_container}>
+        <div onClick={() => setAdded((pre) => !pre)}>
+          <Icon
+            icon={added ? 'charm:tick' : 'ic:baseline-plus'}
+            width="44"
+            height="44"
+          />
+        </div>
+        <div onClick={() => setHearted((pre) => !pre)}>
+          <Icon
+            icon={
+              hearted
+                ? 'material-symbols:heart-minus'
+                : 'material-symbols:heart-plus-outline'
+            }
+            width="35"
+            height="35"
+          />
+        </div>
+        <Icon icon="material-symbols:share-outline" width="35" height="35" />
+        <Icon icon="carbon:star-review" width="35" height="35" />
       </div>
     </div>
   );
