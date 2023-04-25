@@ -66,3 +66,4 @@ const SearchResults = ({ searchTerm }) => {
 };
 
 export default SearchResults;
+
