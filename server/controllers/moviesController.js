@@ -1,5 +1,6 @@
 const axios = require('axios');
 const movieModel = require('../models/movieModel');
+const Preferences = require('../models/preferenceModel');
 
 // Helper function to get user's movie collection
 async function getMovieCollectionForUser(userId) {
@@ -9,7 +10,6 @@ async function getMovieCollectionForUser(userId) {
     }
     return movieCol;
 }
-
 
 // External API call to search for movies by title
 exports.searchMovie = async (req, res, next) => {
@@ -121,3 +121,45 @@ exports.deleteMovieFromCollection = async (req, res, next) => {
         next(error)
     }
 };
+
+exports.getPopularMovies = async (req, res, next) => {
+    const apiKey = process.env.MOVIEDB_API_KEY;
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
+
+    try {
+        const response = await axios.get(url);
+        const movies = response.data.results;
+        res.json(movies);
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.recommendMoviesByGenre = async (req, res, next) => {
+    try {
+        const { userId } = req.user;
+        /* console.log(userId) */
+        const apiKey = process.env.MOVIEDB_API_KEY;
+
+        const preferences = await Preferences.findOne({ user: userId });
+        if (!preferences) {
+            return res.status(404).json({ success: false, message: "Preferences not found" });
+        }
+
+        /* console.log(preferences); */
+        const { genres } = preferences;
+        /* console.log(genres); */
+        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genres.join(',')}`;
+        const response = await axios.get(url);
+        const movies = response.data.results;
+        res.json(movies);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+
+
+
+

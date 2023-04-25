@@ -12,18 +12,17 @@ const Preferences = () => {
   const navigate = useNavigate();
 
   const genresList = [
-    'Romance',
-    'Science fiction',
-    'Fantasy',
-    'Mystery',
-    'Thriller/Suspense',
-    'Horror',
-    'Historical',
-    'Adventure',
-    'Drama',
-    'Dystopian',
-    'Crime',
-    'Comedy ',
+    { name: "Romance", id: "10749" },
+    { name: 'Science Fiction', id: "878" },
+    { name: 'Fantasy', id: "14" },
+    { name: 'Mystery', id: "9648" },
+    { name: 'Thriller', id: "53" },
+    { name: 'Horror', id: "27" },
+    { name: 'History', id: "36" },
+    { name: 'Adventure', id: "12" },
+    { name: 'Drama', id: "18" },
+    { name: 'Crime', id: "80" },
+    { name: 'Comedy', id: "35" },
   ];
 
   const handleBookLoverChange = () => {
@@ -53,15 +52,17 @@ const Preferences = () => {
   };*/
 
   const handleGenreChange = (event) => {
-    const genre = event.target.value;
-    if (genres.includes(genre)) {
+    const genreId = event.target.value;
+    if (genres.includes(genreId)) {
       // If the genre is already in the array, remove it
-      setGenres(genres.filter((g) => g !== genre));
+      setGenres(genres.filter((id) => id !== genreId));
     } else {
       // If the genre is not in the array, add it
-      setGenres([...genres, genre]);
+      setGenres([...genres, genreId]);
     }
   };
+  
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // prevent the form from reloading the page
@@ -78,7 +79,7 @@ const Preferences = () => {
         navigate('/explore');
       }
     } catch (error) {
-      console.error('Failed to store preferences:', error);
+      console.error('Failed to store preferences:', error.response.data);
     }
   };
 
@@ -125,17 +126,19 @@ const Preferences = () => {
             <p className={styles.label}>Select your favorite genres:</p>
             {genresList.map((genre, index) => (
               <label key={index} className={styles.checkbox}>
-                <input
-                  type="checkbox"
-                  value={genre}
-                  checked={genres.includes(genre)}
-                  onChange={handleGenreChange}
-                />
-                <span className={styles.checkmark}></span>
-                {genre}
-              </label>
+              <input
+                type="checkbox"
+                value={genre.id}
+                checked={genres.includes(genre.id)}
+                onChange={handleGenreChange}
+              />
+              <span className={styles.checkmark}></span>
+              {genre.name}
+            </label>
+            
             ))}
           </div>
+
           <button className={styles.submit} type="submit">
             Submit
           </button>

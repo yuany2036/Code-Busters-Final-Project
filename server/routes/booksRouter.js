@@ -1,8 +1,6 @@
-const axios = require('axios');
 const express = require('express');
 const { searchBook,searchBookByID, addToBookCollection, getBookCollection, updateBookStatus, deleteBookFromCollection, } = require('../controllers/booksController');
 require('dotenv').config();
-const { auth } = require('../middleware/authentication');
 
 const router = express.Router();
 
