@@ -125,3 +125,28 @@ exports.recommendBooksByGenre = async (req, res, next) => {
         next(error)
     }
 };
+
+exports.getPopularBooks = async (req, res, next) => {
+    const endPoint = "/lists/current/mass-market-paperback.json";
+    const APIKey = process.env.NY_TIMES_KEY;
+    const NYTurl = `https://api.nytimes.com/svc/books/v3${endPoint}?api-key=${APIKey}`;
+  
+    try {
+      const nyTimesRes = await axios.get(NYTurl);
+      const books = nyTimesRes.data.results.books;
+  
+      const results = await Promise.all(
+        books.map(async ({ isbns, title }) => {
+          const isbn = isbns[0]["isbn10"];
+          const googleBooksAPIURL = `https://www.googleapis.com/books/v1/volumes?q=${title}+isbn:${isbn}`;
+          const res = await axios.get(googleBooksAPIURL);
+          return res.data.items[0].volumeInfo;
+        })
+      );
+  
+      res.status(200).json({ results });
+      console.log(results);
+    } catch (error) {
+      next(error)
+    }
+  };
