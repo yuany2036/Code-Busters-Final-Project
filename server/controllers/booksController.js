@@ -3,8 +3,8 @@ const bookModel = require('../models/bookModel');
 const Preferences = require('../models/preferenceModel');
 
 // Helper function to get user's book collection
-async function getBookCollectionForUser(userId) {
-    const bookCol = await bookModel.findOne({ user: userId }).populate('books');
+async function getBookCollectionForUser(_id) {
+    const bookCol = await bookModel.findOne({ user: _id }).populate('books');
     if (!bookCol) {
         throw new Error("Book collection not found");
     }
@@ -39,9 +39,9 @@ exports.searchBookByID = async (req, res, next) => {
 
 // Get user's book collection
 exports.getBookCollection = async (req, res, next) => {
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        const bookCol = await getBookCollectionForUser(userId);
+        const bookCol = await getBookCollectionForUser(_id);
         return res.json({ success: true, books: bookCol.books });
     } catch (error) {
         next(error)
@@ -51,12 +51,12 @@ exports.getBookCollection = async (req, res, next) => {
 // Add book to user's collection
 exports.addToBookCollection = async (req, res, next) => {
     const { id, imageLinks, title, categories } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
 
     try {
-        let bookCol = await bookModel.findOne({ user: userId });
+        let bookCol = await bookModel.findOne({ user: _id });
         if (!bookCol) {
-            bookCol = new bookModel({ user: userId, books: [] });
+            bookCol = new bookModel({ user: _id, books: [] });
         }
         const alreadySaved = bookCol.books.find(book => book.title === title);
         if (alreadySaved) {
@@ -73,9 +73,9 @@ exports.addToBookCollection = async (req, res, next) => {
 // Update book status in user's collection
 exports.updateBookStatus = async (req, res, next) => {
     const { bookId, status } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        const bookCol = await getBookCollectionForUser(userId);
+        const bookCol = await getBookCollectionForUser(_id);
         const book = bookCol.books.find(book => book.id.toString() === bookId);
         if (!book) {
             return res.status(404).json({ success: false, message: "Book not found in user's collection" });
@@ -91,9 +91,9 @@ exports.updateBookStatus = async (req, res, next) => {
 // Delete book from user's collection
 exports.deleteBookFromCollection = async (req, res, next) => {
     const { bookId } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        const bookCol = await getBookCollectionForUser(userId);
+        const bookCol = await getBookCollectionForUser(_id);
         const bookIndex = bookCol.books.findIndex(book => book.id.toString() === bookId);
         if (bookIndex === -1) {
             return res.status(404).json({ success: false, message: "Book not found in user's collection" });

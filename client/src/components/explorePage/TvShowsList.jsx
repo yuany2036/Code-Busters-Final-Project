@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import TvShowCard from '../card/TvShowCard';
 import styles from '../card/MovieCard.module.scss';
+import axios from 'axios';
 
 const TvShowsList = () => {
   const [tvShows, setTVShows] = useState([]);
 
- useEffect(() => {
-   const fetchTVShows = async () => {
-     const totalPages = 10; 
-     let fetchedTVShows = [];
+  useEffect(() => {
+    const fetchTVShows = async () => {
+      try {
+        const response = await axios.get('/tvshows/popular');
+        setTVShows(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-     for (let page = 1; page <= totalPages; page++) {
-       const response = await fetch(
-         `https://api.themoviedb.org/3/tv/popular?api_key=ad6c50ff4b12daee4d3c2b875c8684fc&language=en-US&page=${page}`
-       );
-       const data = await response.json();
-       const englishTVShows = data.results.filter(
-         (tvShow) => tvShow.original_language === 'en'
-       );
-       fetchedTVShows = fetchedTVShows.concat(englishTVShows);
-     }
-
-     setTVShows(fetchedTVShows.slice(0, 20));
-   };
-
-   fetchTVShows();
- }, []);
+    fetchTVShows();
+  }, []);
 
 
   return (
@@ -45,6 +37,3 @@ const TvShowsList = () => {
 };
 
 export default TvShowsList;
-
-
-   

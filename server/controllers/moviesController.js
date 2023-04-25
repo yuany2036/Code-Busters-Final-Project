@@ -3,8 +3,8 @@ const movieModel = require('../models/movieModel');
 const Preferences = require('../models/preferenceModel');
 
 // Helper function to get user's movie collection
-async function getMovieCollectionForUser(userId) {
-    const movieCol = await movieModel.findOne({ user: userId }).populate('movies');
+async function getMovieCollectionForUser(_id) {
+    const movieCol = await movieModel.findOne({ user: _id }).populate('movies');
     if (!movieCol) {
         throw new Error("Movie collection not found");
     }
@@ -43,10 +43,10 @@ exports.searchMovieById = async (req, res, next) => {
 
 // Get user's movie collection
 exports.getMovieCollection = async (req, res, next) => {
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
         // Find user's movie collection and populate movie details
-        const movieCol = await getMovieCollectionForUser(userId);
+        const movieCol = await getMovieCollectionForUser(_id);
         return res.json({ success: true, movies: movieCol.movies });
     } catch (error) {
         next(error)
@@ -56,13 +56,13 @@ exports.getMovieCollection = async (req, res, next) => {
 // Add movie to user's collection
 exports.addToMovieCollection = async (req, res, next) => {
     const { id, poster_path, title, genres } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
 
     try {
         // Find or create a collection for the user
-        let movieCol = await movieModel.findOne({ user: userId });
+        let movieCol = await movieModel.findOne({ user: _id });
         if (!movieCol) {
-            movieCol = new movieModel({ user: userId, movies: [] });
+            movieCol = new movieModel({ user: _id, movies: [] });
         }
         // Check if movie already exists in user's collection
         const alreadySaved = movieCol.movies.find(movie => movie.title === title);
@@ -82,11 +82,11 @@ exports.addToMovieCollection = async (req, res, next) => {
 // Update movie status
 exports.updateMovieStatus = async (req, res, next) => {
     const { movieId, status } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
 
     try {
         // Find user's movie collection and populate movie details
-        const movieCol = await getMovieCollectionForUser(userId);
+        const movieCol = await getMovieCollectionForUser(_id);
         // Find movie in user's collection
         const movie = movieCol.movies.find(movie => movie.id === movieId);
         if (!movie) {
@@ -104,10 +104,10 @@ exports.updateMovieStatus = async (req, res, next) => {
 // Delete movie from user's collection
 exports.deleteMovieFromCollection = async (req, res, next) => {
     const { movieId } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
         // Find user's movie collection and populate movie details
-        const movieCol = await getMovieCollectionForUser(userId);
+        const movieCol = await getMovieCollectionForUser(_id);
         // Find movie in user's collection
         const movieIndex = movieCol.movies.findIndex(movie => movie.id === movieId);
         if (movieIndex === -1) {
@@ -122,15 +122,15 @@ exports.deleteMovieFromCollection = async (req, res, next) => {
     }
 };
 
-exports.getPopularMovies = async (req, res, next) => {
+exports.getPopularMovies = async (req,res,next) => {
     const apiKey = process.env.MOVIEDB_API_KEY;
-    const url = `'https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&sort_by=popularity.desc'`;
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&sort_by=popularity.desc`;
 
     try {
         const response = await axios.get(url);
-        const data = response.data
-        const movies = data.results
-        return movies;
+        console.log(response)
+        const movies = response.data.results;
+        res.json(movies);
     } catch (error) {
         next(error)
     }
@@ -159,9 +159,3 @@ exports.recommendMoviesByGenre = async (req, res, next) => {
         next(error);
     }
 };
-
-
-
-
-
-
