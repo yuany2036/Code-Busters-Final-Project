@@ -9,7 +9,6 @@ const MovieCard = ({ title, posterPath }) => {
       <img className={styles.movie_poster} src={posterUrl} alt={title} />
       <div className={styles.movie_details}>
         <h2 className={styles.movie_title}>{title}</h2>
-        {/*  <p className={styles.movie_date}>Release Date: {releaseDate}</p>*/}
       </div>
       <div className={styles.btn}>
         <button className={styles.outline}>Details</button>
