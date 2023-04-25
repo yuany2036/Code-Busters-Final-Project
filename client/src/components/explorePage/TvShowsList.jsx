@@ -10,7 +10,7 @@ const TvShowsList = () => {
     const fetchTVShows = async () => {
       try {
         const response = await axios.get('/tvshows/popular');
-        setTVShows(response.data);
+        setTVShows(response.data.slice(0, 10));
       } catch (error) {
         console.error(error);
       }
