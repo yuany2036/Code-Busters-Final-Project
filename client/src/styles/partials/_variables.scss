@@ -7,7 +7,8 @@ $primary-font: 'Montserrat', sans-serif;
 /*fonts-sizes*/
 $primary-font-size: clamp(0.9rem, calc(0.87rem + 0.14vw), 1rem);
 $navbar-left: clamp(1.25rem, calc(2.86rem + -1.79vw), 2.5rem);
-
+$title-page-h2-font-size: clamp(1.3rem, calc(1.1rem + 1vw), 2rem);
+$title-page-h3-font-size: clamp(0.95rem, calc(0.88rem + 0.36vw), 1.2rem);
 /*spaces*/
 $dropdown-menu-side-space: clamp(8rem, calc(-2.07rem + 50.36vw), 43.25rem);
 

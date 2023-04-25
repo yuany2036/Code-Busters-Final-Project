@@ -1,7 +1,8 @@
 .poster_container {
-  margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  padding: 1rem;
+  background-color: red;
 }
