@@ -8,6 +8,6 @@ router.post('/register', validateUser, sanitizeUser, createUser);
 
 // Routes to Login and Logout
 router.post('/login',loginValidation, login);
-router.post('/logout', logout);
+router.get('/logout', logout);
 
 module.exports = router;
