@@ -2,8 +2,8 @@ const axios = require('axios');
 const gameModel = require('../models/gameModel');
 
 // Helper function to get user's game collection
-async function getGameCollectionForUser(userId) {
-    const gameCol = await gameModel.findOne({ user: userId });
+async function getGameCollectionForUser(_id) {
+    const gameCol = await gameModel.findOne({ user: _id});
     if (!gameCol) {
         throw new Error("Game collection not found");
     }
@@ -41,9 +41,9 @@ exports.searchGameById = async (req, res, next) => {
 
 // Get user's game collection
 exports.getGameCollection = async (req, res, next) => {
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        const gameCol = await getGameCollectionForUser(userId);
+        const gameCol = await getGameCollectionForUser(_id);
         return res.json({ success: true, games: gameCol.games });
     } catch (error) {
         next(error);
@@ -53,11 +53,11 @@ exports.getGameCollection = async (req, res, next) => {
 // Add game to user's collection
 exports.addToGameCollection = async (req, res, next) => {
     const { id, background_image, name, genres } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        let gameCol = await gameModel.findOne({ user: userId });
+        let gameCol = await gameModel.findOne({ user: _id });
         if (!gameCol) {
-            gameCol = new gameModel({ user: userId, games: [] });
+            gameCol = new gameModel({ user: _id, games: [] });
         }
         const alreadySaved = gameCol.games.find(game => game.title === name);
         if (alreadySaved) {
@@ -74,9 +74,9 @@ exports.addToGameCollection = async (req, res, next) => {
 // Update game status
 exports.updateGameStatus = async (req, res, next) => {
     const { gameId, status } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        const gameCol = await getGameCollectionForUser(userId);
+        const gameCol = await getGameCollectionForUser(_id);
         const game = gameCol.games.find(game => game.id === gameId);
         if (!game) {
             return res.status(404).json({ success: false, message: "Game not found in user's collection" });
@@ -92,9 +92,9 @@ exports.updateGameStatus = async (req, res, next) => {
 // Delete game from user's collection
 exports.deleteGameFromCollection = async (req, res, next) => {
     const { gameId } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        const gameCol = await getGameCollectionForUser(userId);
+        const gameCol = await getGameCollectionForUser(_id);
         const gameIndex = gameCol.games.findIndex(game => game.id === gameId);
         if (gameIndex === -1) {
             return res.status(404).json({ success: false, message: "Game not found in user's collection" });
