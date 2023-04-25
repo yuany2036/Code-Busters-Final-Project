@@ -1,16 +1,23 @@
 export const usersInitialState = {
-    user: {},
+    user: {
+        bookLover: false,
+        movieWatcher: false,
+    },
     isUserLoggedIn: false,
+
 };
 
 export const usersReducer = (state, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {
-                user: action.payload,
-                    isUserLoggedIn: true,
-            };
-
+                user: {
+                  ...state.user,
+                  bookLover: action.payload.bookLover,
+                  movieWatcher: action.payload.movieWatcher,
+                },
+                isUserLoggedIn: true,
+              };
         case 'LOGIN_FAILED':
             return {
                 ...state,

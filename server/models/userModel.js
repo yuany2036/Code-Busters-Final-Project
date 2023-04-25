@@ -85,7 +85,6 @@ UserSchema.pre("save", async function (next) {
 UserSchema.methods.checkPassword = async function (
     password,
     usersPassword,
-    next
 ) {
     try {
         return await bcrypt.compare(password, usersPassword);
@@ -99,7 +98,7 @@ UserSchema.methods.generateAuthToken = function () {
     // Create a new JSON Web Token for the user by using the ID and JWT_SECRET env variable.
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         // The token will expire after the time specified in the JWT_EXPIRES_IN env variable.
-        expiresIn: process.env.JWT_EXPIRES_IN,
+        expiresIn: "7d",
     });
 };
 
