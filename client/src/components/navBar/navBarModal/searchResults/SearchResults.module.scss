@@ -1,0 +1,37 @@
+.search_results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80%;
+  .results_container {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    .results_card {
+      width: 342px;
+    }
+  }
+}
+
+.buttons_container {
+  margin: 1rem;
+}
+
+.button {
+  font-family: inherit;
+  font-size: 2rem;
+  text-transform: none;
+  border: 0;
+  background: none;
+  margin: 0.2rem 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.active {
+  text-decoration: underline;
+  font-weight: bold;
+}

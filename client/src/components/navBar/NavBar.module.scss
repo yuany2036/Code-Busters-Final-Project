@@ -55,32 +55,6 @@ ul li a {
     display: none;
   }
 
-  .search {
-    &_bar {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      background-color: #f2f2f2;
-      border-radius: 1.3rem;
-      padding: 0.5rem 1rem;
-      // margin-right: 2rem;
-      margin-left: 1rem;
-
-      input {
-        flex: 1;
-        border: none;
-        background-color: transparent;
-        outline: none;
-        font-size: $primary-font-size;
-      }
-    }
-    &_icon {
-      font-size: 1.5rem;
-      color: #808080;
-      cursor: pointer;
-    }
-  }
-
   /*Navbar logged in right side*/
 
   .loggedin_navbar_right {
@@ -102,6 +76,31 @@ ul li a {
       text-decoration: none;
       color: #d1cece;
     }
+  }
+}
+.search {
+  &_bar {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    background-color: #f2f2f2;
+    border-radius: 1.3rem;
+    padding: 0.5rem 1rem;
+    // margin-right: 2rem;
+    // margin-left: 1rem;
+
+    input {
+      flex: 1;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      font-size: $primary-font-size;
+    }
+  }
+  &_icon {
+    font-size: 1.5rem;
+    color: #808080;
+    cursor: pointer;
   }
 }
 

@@ -1,5 +1,18 @@
+import MoviesList from './MoviesList';
+import TvShowsList from './TvShowsList';
+import styles from '../card/MovieCard.module.scss';
+import BestSellersList from './BestSellersList';
+import Recommendations from './Recommendations'
+
 const ExplorePage = () => {
-  return <h1>Explore</h1>;
+  return (
+    <div className={styles.container}>
+      <MoviesList />
+      <TvShowsList />
+      <BestSellersList />
+      <Recommendations/>
+    </div>
+  );
 };
 
 export default ExplorePage;

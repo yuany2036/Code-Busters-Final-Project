@@ -27,8 +27,15 @@
   text-transform: none;
   border: 0;
   background: none;
+
   // margin: 0.2rem 1rem;
   padding: 1rem;
+
+  margin: 0.2rem 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+
 }
 
 .active {

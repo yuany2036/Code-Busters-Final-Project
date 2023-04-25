@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './Preferences.module.scss';
 import { useNavigate } from 'react-router-dom';
+//import img from '../../assets/Select-cuate.png';
 
 const Preferences = () => {
   const [bookLover, setBookLover] = useState(false);
@@ -9,20 +10,57 @@ const Preferences = () => {
   const [genres, setGenres] = useState([]);
 
   const navigate = useNavigate();
-  const handleBookLoverChange = (event) => {
-    setBookLover(event.target.checked);
+
+  const genresList = [
+    'Romance',
+    'Science fiction',
+    'Fantasy',
+    'Mystery',
+    'Thriller/Suspense',
+    'Horror',
+    'Historical',
+    'Adventure',
+    'Drama',
+    'Dystopian',
+    'Crime',
+    'Comedy ',
+  ];
+
+  const handleBookLoverChange = () => {
+    if (!bookLover) {
+      setBookLover(true);
+      setMovieWatcher(false);
+    } else {
+      setBookLover(false);
+    }
   };
 
-  const handleMovieWatcherChange = (event) => {
-    setMovieWatcher(event.target.checked);
+  const handleMovieWatcherChange = () => {
+    if (!movieWatcher) {
+      setMovieWatcher(true);
+      setBookLover(false);
+    } else {
+      setMovieWatcher(false);
+    }
   };
 
-  const handleGenreChange = (event) => {
+  /* const handleGenreChange = (event) => {
     const selectedGenres = Array.from(
       event.target.selectedOptions,
       (option) => option.value
     );
     setGenres(selectedGenres);
+  };*/
+
+  const handleGenreChange = (event) => {
+    const genre = event.target.value;
+    if (genres.includes(genre)) {
+      // If the genre is already in the array, remove it
+      setGenres(genres.filter((g) => g !== genre));
+    } else {
+      // If the genre is not in the array, add it
+      setGenres([...genres, genre]);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -45,37 +83,64 @@ const Preferences = () => {
   };
 
   return (
-    <div>
-      <h1 className={styles.preferences_container}>Help us get to know you better</h1>
-      <form onSubmit={handleSubmit}>
-        <p>Do you prefer books or movies?</p>
-        <label>
-          <input
-            type="checkbox"
-            checked={bookLover}
-            onChange={handleBookLoverChange}
-          />
-          Book Lover
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={movieWatcher}
-            onChange={handleMovieWatcherChange}
-          />
-          Movie Watcher
-        </label>
-        <p>Select your favorite genres:</p>
+    <div className={styles.preferences_container}>
+      <div className={styles.preferences}>
+        <h1> We'd love to get to know you better! </h1>
+        <p>
+          This will help us tailor our content to your preferences and
+          interests.
+        </p>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.movie_books}>
+            <p className={styles.label}>Do you prefer books or movies?</p>
+            <label className={styles.checkbox}>
+              <input
+                type="checkbox"
+                checked={bookLover}
+                onChange={handleBookLoverChange}
+              />
+              <span className={styles.checkmark}></span> Book Lover
+            </label>
+            <label className={styles.checkbox}>
+              <input
+                type="checkbox"
+                checked={movieWatcher}
+                onChange={handleMovieWatcherChange}
+              />
+              <span className={styles.checkmark}></span> Movie Watcher
+            </label>
+          </div>
+          {/* <p>Select your favorite genres:</p>
         <select multiple value={genres} onChange={handleGenreChange}>
           <option value="fantasy">Fantasy</option>
           <option value="scienceFiction">Science Fiction</option>
           <option value="romance">Romance</option>
-          {/* will add more genre options */}
-        </select>
+          {/* will add more genre options 
+  </select>
+
         <button className={styles.submit} type="submit">
           Submit
-        </button>
-      </form>
+  </button>*/}
+          <div className={styles.genres}>
+            <p className={styles.label}>Select your favorite genres:</p>
+            {genresList.map((genre, index) => (
+              <label key={index} className={styles.checkbox}>
+                <input
+                  type="checkbox"
+                  value={genre}
+                  checked={genres.includes(genre)}
+                  onChange={handleGenreChange}
+                />
+                <span className={styles.checkmark}></span>
+                {genre}
+              </label>
+            ))}
+          </div>
+          <button className={styles.submit} type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
