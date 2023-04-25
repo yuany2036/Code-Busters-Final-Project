@@ -47,7 +47,7 @@ const LoggedInNavBar = () => {
       setShowModal(true);
       document.removeEventListener('keydown', keyCloseModal);
     } else {
-      // setShowModal(false);
+      setShowModal(false);
     }
   };
 

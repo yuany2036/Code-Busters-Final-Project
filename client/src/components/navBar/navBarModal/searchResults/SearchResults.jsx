@@ -47,7 +47,6 @@ const SearchResults = ({ searchTerm }) => {
         {(activeCategory === 'Movies' || activeCategory === 'TV Shows') &&
           searchResults.map(({ title, name, poster_path, id }) => (
             <div className={styles.results_card} key={id}>
-              <h4>{title ? title : name}</h4>
               <img
                 src={
                   poster_path
@@ -57,6 +56,7 @@ const SearchResults = ({ searchTerm }) => {
                 alt="movie poster"
                 width="200px"
               />
+              <h4>{title ? title : name}</h4>
             </div>
           ))}
         {searchTerm.trim().length === 0 && <h2>Start Typing to search</h2>}
