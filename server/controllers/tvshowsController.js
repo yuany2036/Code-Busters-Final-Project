@@ -8,7 +8,7 @@ async function getTvCollectionForUser(userId) {
         throw new Error("TV collection not found");
     }
     return tvCol;
-};
+}
 
 // External API call to search for tv shows by title
 exports.searchTv = async (req, res, next) => {
@@ -109,4 +109,3 @@ exports.deleteTvFromCollection = async (req, res, next) => {
         next(error)
     }
 };
-

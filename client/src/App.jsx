@@ -6,6 +6,8 @@ import LoggedInNavBar from './components/navBar/LoggedInNavBar';
 import { useContext } from 'react';
 import DataContext from './data/context';
 
+
+
 function App() {
   const { isUserLoggedIn } = useContext(DataContext);
   return (

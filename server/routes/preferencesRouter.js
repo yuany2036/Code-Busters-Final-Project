@@ -4,9 +4,12 @@ const router = express.Router();
 const { auth } = require('../middleware/authentication');
 
 router.route('/').post(auth,(req, res) => {
+    console.log('Received preferences data:', req.body);
+
     // Validate preferences data
     const { bookLover, movieWatcher, genres } = req.body;
     if (typeof bookLover !== 'boolean' || typeof movieWatcher !== 'boolean' || !Array.isArray(genres)) {
+        console.log('Validation failed:', { bookLover, movieWatcher, genres });
         return res.status(400).json({ error: 'Bad Request' });
     }
 
@@ -17,6 +20,7 @@ router.route('/').post(auth,(req, res) => {
         movieWatcher, 
         genres 
     });
+    console.log('New preferences document:', newPreferences);
 
     newPreferences.save()
         .then(preferences => {
@@ -30,6 +34,7 @@ router.route('/').post(auth,(req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
         });
 });
+
 
 
 module.exports = router;

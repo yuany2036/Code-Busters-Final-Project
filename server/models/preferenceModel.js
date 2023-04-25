@@ -7,7 +7,11 @@ const preferencesSchema = new Schema({
     },
     bookLover: Boolean,
     movieWatcher: Boolean,
-    genres: [String]
+    genres: [{
+        type: String, // Horror
+        id: Number // imdb id for genre
+    }]
 });
+
 
 module.exports = model('Preferences', preferencesSchema);
