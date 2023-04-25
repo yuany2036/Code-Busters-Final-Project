@@ -15,6 +15,7 @@ function NavBarModal({
   const closeModal = () => {
     setSearchValue('');
     onClose();
+    document.body.style.removeProperty('overflow');
   };
 
   return (

@@ -45,6 +45,7 @@ const SearchResults = ({ searchTerm }) => {
       </div>
       <div className={styles.results_container}>
         {(activeCategory === 'Movies' || activeCategory === 'TV Shows') &&
+          searchResults.length > 0 &&
           searchResults.map(({ title, name, poster_path, id }) => (
             <div className={styles.results_card} key={id}>
               <img
@@ -59,11 +60,12 @@ const SearchResults = ({ searchTerm }) => {
               <h4>{title ? title : name}</h4>
             </div>
           ))}
-        {/* {searchTerm.trim().length === 0 && <h2>Start Typing to search</h2>} */}
+        {searchResults.length === 0 && (
+          <h2>No results found for this category</h2>
+        )}
       </div>
     </div>
   );
 };
 
 export default SearchResults;
-
