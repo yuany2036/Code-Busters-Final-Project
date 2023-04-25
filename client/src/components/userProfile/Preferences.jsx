@@ -53,16 +53,15 @@ const Preferences = () => {
 
   const handleGenreChange = (event) => {
     const genreId = event.target.value;
-    if (genres.includes(genreId)) {
+    const genreName = event.target.name;
+    if (genres.some((genre) => genre.id === genreId)) {
       // If the genre is already in the array, remove it
-      setGenres(genres.filter((id) => id !== genreId));
+      setGenres(genres.filter((genre) => genre.id !== genreId));
     } else {
       // If the genre is not in the array, add it
-      setGenres([...genres, genreId]);
+      setGenres([...genres, { id: genreId, name: genreName }]);
     }
   };
-  
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // prevent the form from reloading the page
@@ -71,7 +70,7 @@ const Preferences = () => {
       const response = await axios.post('/preferences', {
         bookLover,
         movieWatcher,
-        genres,
+        genres: genres.map(({ id, name }) => ({ id, name })),
       });
       console.log('Preferences stored successfully:', response.data);
       if (response.status === 200) {
@@ -82,6 +81,7 @@ const Preferences = () => {
       console.error('Failed to store preferences:', error.response.data);
     }
   };
+
 
   return (
     <div className={styles.preferences_container}>
@@ -126,16 +126,18 @@ const Preferences = () => {
             <p className={styles.label}>Select your favorite genres:</p>
             {genresList.map((genre, index) => (
               <label key={index} className={styles.checkbox}>
-              <input
-                type="checkbox"
-                value={genre.id}
-                checked={genres.includes(genre.id)}
-                onChange={handleGenreChange}
-              />
-              <span className={styles.checkmark}></span>
-              {genre.name}
-            </label>
-            
+                <input
+                  type="checkbox"
+                  value={genre.id}
+                  checked={genres.some((g) => g.id === genre.id)}
+                  onChange={handleGenreChange}
+                  name={genre.name}
+                />
+
+                <span className={styles.checkmark}></span>
+                {genre.name}
+              </label>
+
             ))}
           </div>
 

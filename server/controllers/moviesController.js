@@ -124,12 +124,13 @@ exports.deleteMovieFromCollection = async (req, res, next) => {
 
 exports.getPopularMovies = async (req, res, next) => {
     const apiKey = process.env.MOVIEDB_API_KEY;
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
+    const url = `'https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&sort_by=popularity.desc'`;
 
     try {
         const response = await axios.get(url);
-        const movies = response.data.results;
-        res.json(movies);
+        const data = response.data
+        const movies = data.results
+        return movies;
     } catch (error) {
         next(error)
     }
@@ -137,18 +138,18 @@ exports.getPopularMovies = async (req, res, next) => {
 
 exports.recommendMoviesByGenre = async (req, res, next) => {
     try {
-        const {_id} = req.user;
         console.log(req.user)
-        /* console.log(userId) */
+        const {_id} = req.user;
         const apiKey = process.env.MOVIEDB_API_KEY;
 
         const preferences = await Preferences.findOne({ user: _id});
+        console.log(preferences);
         if (!preferences) {
             return res.status(404).json({ success: false, message: "Preferences not found" });
         }
 
-        /* console.log(preferences); */
-        const { genres } = preferences;
+        
+        const genres = preferences.genres.map((genre) => JSON.parse(genre).id);
         /* console.log(genres); */
         const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genres.join(',')}`;
         const response = await axios.get(url);

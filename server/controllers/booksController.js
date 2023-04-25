@@ -1,5 +1,6 @@
 const axios = require('axios');
 const bookModel = require('../models/bookModel');
+const Preferences = require('../models/preferenceModel');
 
 // Helper function to get user's book collection
 async function getBookCollectionForUser(userId) {
@@ -8,7 +9,7 @@ async function getBookCollectionForUser(userId) {
         throw new Error("Book collection not found");
     }
     return bookCol;
-};
+}
 
 // External API call to search for books by title
 exports.searchBook = async (req, res, next) => {
@@ -100,6 +101,26 @@ exports.deleteBookFromCollection = async (req, res, next) => {
         bookCol.books.splice(bookIndex, 1);
         await bookCol.save();
         return res.json({ success: true, message: "Book removed from collection" });
+    } catch (error) {
+        next(error)
+    }
+};
+
+exports.recommendBooksByGenre = async (req, res, next) => {
+    try {
+        const {_id} = req.user;
+
+        const preferences = await Preferences.findOne({ user: _id});
+        
+        if (!preferences) {
+            return res.status(404).json({ success: false, message: "Preferences not found" });
+        }
+        
+        const genres = preferences.genres.map((genre) => JSON.parse(genre).name);
+        const url = `https://www.googleapis.com/books/v1/volumes?q=subject:${genres.join('+OR+subject:')}`;
+        const response = await axios.get(url);
+        const books = response.data.items;
+        res.json(books);
     } catch (error) {
         next(error)
     }

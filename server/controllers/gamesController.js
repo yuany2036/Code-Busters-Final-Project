@@ -8,7 +8,7 @@ async function getGameCollectionForUser(userId) {
         throw new Error("Game collection not found");
     }
     return gameCol;
-};
+}
 
 // External API call to search for games by title
 exports.searchGame = async (req, res, next) => {
