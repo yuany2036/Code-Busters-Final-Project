@@ -137,11 +137,12 @@ exports.getPopularMovies = async (req, res, next) => {
 
 exports.recommendMoviesByGenre = async (req, res, next) => {
     try {
-        const { userId } = req.user;
+        const {_id} = req.user;
+        console.log(req.user)
         /* console.log(userId) */
         const apiKey = process.env.MOVIEDB_API_KEY;
 
-        const preferences = await Preferences.findOne({ user: userId });
+        const preferences = await Preferences.findOne({ user: _id});
         if (!preferences) {
             return res.status(404).json({ success: false, message: "Preferences not found" });
         }
