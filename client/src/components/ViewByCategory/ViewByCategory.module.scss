@@ -5,8 +5,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // height: 50vh;
-  margin-top: 1rem;
+  background-color: aliceblue;
+
+  &_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 98%;
+    background-color: rgba(223, 221, 224, 0.944);
+    border-radius: 1rem;
+  }
 }
 
 .buttons_container {
@@ -19,10 +27,12 @@
   text-transform: none;
   border: 0;
   background: none;
-  margin: 0.2rem 1rem;
+  // margin: 0.2rem 1rem;
+  padding: 1rem;
 }
 
 .active {
+  background-color: red;
   text-decoration: underline;
   font-weight: bold;
 }

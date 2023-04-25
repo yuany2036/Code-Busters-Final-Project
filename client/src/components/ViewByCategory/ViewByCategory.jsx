@@ -45,25 +45,26 @@ const ViewByCategory = () => {
   return (
     <div className={styles.explore_section}>
       <h3>Explore the Universe:</h3>
-      <div className={styles.buttons_container}>
-        {categories.map(({ category }) => (
-          <input
-            className={`${styles.button} ${
-              category === activeCategory ? styles.active : null
-            }`}
-            key={category}
-            type="button"
-            value={category}
-            onClick={() => setActiveCategory(category)}
-          />
-        ))}
+      <div className={styles.explore_section_container}>
+        <div className={styles.buttons_container}>
+          {categories.map(({ category }) => (
+            <input
+              className={`${styles.button} ${
+                category === activeCategory ? styles.active : null
+              }`}
+              key={category}
+              type="button"
+              value={category}
+              onClick={() => setActiveCategory(category)}
+            />
+          ))}
+        </div>
+        {activeCategory === 'Movies' && <Cards titles={movies} />}
+        {activeCategory === 'TV Shows' && <Cards titles={series} />}
+        {activeCategory === 'Books' && <h1>Books</h1>}
       </div>
-      {activeCategory === 'Movies' && <Cards titles={movies} />}
-      {activeCategory === 'TV Shows' && <Cards titles={series} />}
-      {activeCategory === 'Books' && <h1>Books</h1>}
     </div>
   );
 };
 
 export default ViewByCategory;
-
