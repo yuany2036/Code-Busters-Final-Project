@@ -62,14 +62,15 @@ const Preferences = () => {
       setGenres([...genres, { id: genreId, name: genreName }]);
     }
   };
+  
+  
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // prevent the form from reloading the page
+    event.preventDefault();
     console.log('Submitting preferences...');
     try {
-      const response = await axios.post('/preferences', {
-        bookLover,
-        movieWatcher,
+      const response = await axios.post('/users/preferences', {
+        preferences: bookLover ? 'bookLover' : (movieWatcher ? 'movieWatcher' : 'none'),
         genres: genres.map(({ id, name }) => ({ id, name })),
       });
       console.log('Preferences stored successfully:', response.data);
@@ -81,6 +82,7 @@ const Preferences = () => {
       console.error('Failed to store preferences:', error.response.data);
     }
   };
+  
 
 
   return (

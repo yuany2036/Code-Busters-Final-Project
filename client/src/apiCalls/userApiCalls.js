@@ -62,7 +62,6 @@ export const login = async (dispatch, data) => {
 export const getUser = async (dispatch) => {
   try {
     const response = await axios.get('/me');
-
     dispatch({
       type: 'LOGIN',
       payload: response.data.data
@@ -76,6 +75,7 @@ export const getUser = async (dispatch) => {
     // return error.response.data;
   }
 };
+
 
 export const logout = async (usersDispatch, cartsDispatch) => {
   try {
