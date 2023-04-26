@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../card/Card.module.scss';
-import CardButton from './CardButton';
+import { Icon } from '@iconify/react';
+
 
 const MovieCard = ({ title, posterPath }) => {
   const posterUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
@@ -11,7 +12,14 @@ const MovieCard = ({ title, posterPath }) => {
       <div className={styles.card_details}>
         <h2 className={styles.card_title}>{title}</h2>
       </div>
-   <CardButton/>
+      <div className={styles.btn}>
+        <button className={styles.outline}>
+          <Icon icon="gg:details-more" color="#401d56" />
+        </button>
+        <button className={styles.fill}>
+          <Icon icon="material-symbols:heart-plus-outline" color="white" />{' '}
+        </button>
+      </div>
     </div>
   );
 };
