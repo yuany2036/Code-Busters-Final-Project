@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { DataContext } from '../../data/context';
 import MovieCard from '../card/MovieCard';
-
+import BookCard from '../card/BookCard';
 import styles from '../card/Card.module.scss';
-
 
 const Recommendations = () => {
   const [recommendations, setRecommendations] = useState([]);
 
   const { user, isUserLoggedIn, loading, setLoading } = useContext(DataContext);
-
+  const imgUrl =
+    'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80';
   useEffect(() => {
     const fetchMovieRecommendations = async () => {
       try {
@@ -40,12 +40,9 @@ const Recommendations = () => {
         setLoading(false);
       }
     };
-    
 
     if (isUserLoggedIn) {
-      if (user.bookLover === null && user.movieWatcher === null) {
-        // Render a message asking the user to choose a preference
-      } else if (user.bookLover) {
+      if (user.bookLover) {
         fetchBookRecommendations();
       } else {
         fetchMovieRecommendations();
@@ -63,7 +60,7 @@ const Recommendations = () => {
         <Link className={styles.link} to="/login">
           {' '}
           <span>log in </span>{' '}
-        </Link >{' '}
+        </Link>{' '}
         to access your customized content.
       </p>
     );
@@ -80,7 +77,16 @@ const Recommendations = () => {
         {recommendations.length > 0 ? (
           <div className={styles.explore}>
             {recommendations.map((book) => (
-              <BookCard key={book.id} title={book.volumeInfo.title} posterUrl={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null}/>
+              <BookCard
+                key={book.id}
+                authors={book.volumeInfo.authors || []}
+                title={book.volumeInfo.title}
+                thumbnail={
+                  book.volumeInfo.imageLinks
+                    ? book.volumeInfo.imageLinks.thumbnail
+                    : imgUrl
+                }
+              />
             ))}
           </div>
         ) : (

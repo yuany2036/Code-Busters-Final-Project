@@ -4,26 +4,22 @@ const {
   getUserById,
   updateUserById,
   deleteUserById,
-  storePreferences
+  storePreferences,
 } = require('../controllers/usersController');
 const { auth } = require('../middleware/authentication');
 
 const router = express.Router();
 
 // Route to get all users
-router.route('/')
-  .get(getAllUsers);
+router.route('/').get(getAllUsers);
 
 // Routes to get, update, and delete a user by ID
-router.route('/:id')
+router
+  .route('/:id')
   .get(getUserById)
   .patch(updateUserById)
   .delete(deleteUserById);
 
-router.route("/preferences").post(auth,storePreferences)
+router.route('/preferences').post(auth, storePreferences);
 
 module.exports = router;
-
-
-
-
