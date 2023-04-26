@@ -178,7 +178,7 @@ exports.recommendMoviesByGenre = async (req, res, next) => {
     // Set up variables to keep track of the recommended movies, maximum number of movies, and number of movies per genre
     let recommendedMovies = [];
     let maxMovies = 20;
-    let moviesPerGenre = 10;
+    let moviesPerGenre = 5;
 
     // Continue fetching movies until either the maximum number of movies is reached or there are no more genres left to fetch from
     while (recommendedMovies.length < maxMovies && genres.length < 20) {
