@@ -29,14 +29,13 @@ const LoggedInNavBar = () => {
       document.removeEventListener('keydown', keyCloseModal);
       setSearchValue('');
       setShowModal(false);
+      document.body.style.removeProperty('overflow');
     }
   };
   //show searchbar in dropdown menu
   // const showSearchBar = () => {
   //   setSearchBar(!searchBar);
   // };
-
-  if (showModal) document.addEventListener('keydown', keyCloseModal);
 
   const searchHandler = (e) => {
     const value = e.target.value;
@@ -45,9 +44,12 @@ const LoggedInNavBar = () => {
     // Show modal when the user starts typing
     if (value.length > 0) {
       setShowModal(true);
-      document.removeEventListener('keydown', keyCloseModal);
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', keyCloseModal);
     } else {
       setShowModal(false);
+      document.body.style.removeProperty('overflow');
+      document.removeEventListener('keydown', keyCloseModal);
     }
   };
 
