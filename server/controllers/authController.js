@@ -8,14 +8,6 @@ const createError = require("http-errors");
 const {
     successHandler
 } = require("../middleware/successHandlers");
-//const cloudinary = require('cloudinary').v2;
-
-/* //! cloudinary config
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_API_KEY,
-    api_secret: process.env.CLOUD_API_SECRET,
-}); */
 
 // Create a new User
 exports.createUser = async (req, res, next) => {
@@ -36,12 +28,6 @@ exports.createUser = async (req, res, next) => {
             password,
         });
 
-        /* const result = await cloudinary.uploader.upload(process.env.CLOUD_AVATAR, {
-            public_id: email.split('@')[0],
-        }); */
-
-        /* user.avatarURL =
-            process.env.NODE_ENV === 'development' ? result.url : result.secure_url; */
         user.save();
 
         const token = user.generateAuthToken();

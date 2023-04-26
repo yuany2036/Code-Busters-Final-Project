@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../card/MovieCard.module.scss';
 
-const MovieCard = ({ title, posterPath }) => {
-  const posterUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+const BookCard = ({ title, posterUrl }) => {
+
 
   return (
     <div className={styles.movie}>
@@ -18,4 +18,4 @@ const MovieCard = ({ title, posterPath }) => {
   );
 };
 
-export default MovieCard;
+export default BookCard;

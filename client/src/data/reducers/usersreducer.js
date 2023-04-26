@@ -1,31 +1,47 @@
 export const usersInitialState = {
-    user: {},
+    user: {
+        bookLover: false,
+        movieWatcher: false,
+        none:true,
+    },
     isUserLoggedIn: false,
+
 };
 
 export const usersReducer = (state, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {
-                user: action.payload,
-                    isUserLoggedIn: true,
+              user: {
+                ...state.user,
+                bookLover: action.payload.preferences === 'bookLover',
+                movieWatcher: action.payload.preferences === 'movieWatcher',
+                none: action.payload.preferences === 'none',
+              },
+              isUserLoggedIn: true,
             };
-
-        case 'LOGIN_FAILED':
-            return {
-                ...state,
-            };
-
-        case 'LOGOUT':
-            return usersInitialState;
-
+          
+      case 'LOGIN_FAILED':
+        return {
+          ...state,
+        };
+  
+      case 'LOGOUT':
+        return usersInitialState;
+  
         case 'UPDATE_USER':
             return {
-                ...state,
-                user: action.payload,
+              ...state,
+              user: {
+                ...state.user,
+                bookLover: action.payload.preferences === 'bookLover',
+                movieWatcher: action.payload.preferences === 'movieWatcher',
+                none: action.payload.preferences === 'none',
+              },
             };
-
-        default:
-            return state;
+  
+      default:
+        return state;
     }
-};
+  };
+  

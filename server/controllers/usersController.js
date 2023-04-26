@@ -57,3 +57,30 @@ exports.getAllUsers = async (req, res, next) => {
         next(error)
     }
 }
+
+exports.storePreferences = async (req, res) => {
+    // Validate preferences data
+    const { preferences, genres } = req.body;
+    if (typeof preferences !== 'string' || !['bookLover', 'movieWatcher', 'none'].includes(preferences) || !Array.isArray(genres)) {
+      console.log('Validation failed:', { preferences, genres });
+      return res.status(400).json({ error: 'Bad Request' });
+    }
+  
+    // Cast the genre objects into strings
+    const genreStrings = genres.map(genre => JSON.stringify(genre));
+  
+    // Update the user document with the new preferences
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { preferences, genres: genreStrings },
+      { new: true }
+    );
+  
+    if (!updatedUser) {
+      console.log(`User with ID ${req.user._id} not found`);
+      return res.status(404).json({ error: 'User not found' });
+    }
+  
+    console.log(`Preferences stored successfully for user ${req.user._id}`);
+    res.status(200).json({ message: 'Preferences stored successfully', user: updatedUser });
+  };

@@ -2,8 +2,8 @@ const axios = require('axios');
 const tvModel = require('../models/tvshowModel');
 
 // Helper function to get user's tv collection
-async function getTvCollectionForUser(userId) {
-    const tvCol = await tvModel.findOne({ user: userId }).populate('series');
+async function getTvCollectionForUser(_id) {
+    const tvCol = await tvModel.findOne({ user: _id }).populate('series');
     if (!tvCol) {
         throw new Error("TV collection not found");
     }
@@ -42,10 +42,10 @@ exports.searchTvById = async (req, res, next) => {
 
 // Get user's tv collection
 exports.getTvCollection = async (req, res, next) => {
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
         // Find user's tv collection and populate tv details
-        const tvCol = await getTvCollectionForUser(userId);
+        const tvCol = await getTvCollectionForUser(_id);
         return res.json({ success: true, tvShows: tvCol.series });
     } catch (error) {
         next(error)
@@ -55,12 +55,12 @@ exports.getTvCollection = async (req, res, next) => {
 // Add tv show to user's collection
 exports.addToTvCollection = async (req, res, next) => {
     const { id, poster_path, name, genres, seasons } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
 
     try {
-        let tvShowCol = await tvModel.findOne({ user: userId });
+        let tvShowCol = await tvModel.findOne({ user: _id });
         if (!tvShowCol) {
-            tvShowCol = new tvModel({ user: userId, series: [] });
+            tvShowCol = new tvModel({ user: _id, series: [] });
         }
         const alreadySaved = tvShowCol.series.find(tvShow => tvShow.title === name);
         if (alreadySaved) {
@@ -77,9 +77,9 @@ exports.addToTvCollection = async (req, res, next) => {
 // Update tv show status
 exports.updateTvStatus = async (req, res, next) => {
     const { tvId, status } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        const tvCol = await getTvCollectionForUser(userId);
+        const tvCol = await getTvCollectionForUser(_id);
         const tvShow = tvCol.series.find(tvShow => tvShow.id === tvId);
         if (!tvShow) {
             return res.status(404).json({ success: false, message: "Tv Show not found in user's collection" });
@@ -95,9 +95,9 @@ exports.updateTvStatus = async (req, res, next) => {
 // Delete tv show from user's collection
 exports.deleteTvFromCollection = async (req, res, next) => {
     const { tvId } = req.body;
-    const { userId } = req.params;
+    const { _id } = req.user;
     try {
-        const tvCol = await getTvCollectionForUser(userId);
+        const tvCol = await getTvCollectionForUser(_id);
         const tvIndex = tvCol.series.findIndex(tvShow => tvShow.id === tvId);
         if (tvIndex === -1) {
             return res.status(404).json({ success: false, message: "Tv Show not found in user's collection" });
@@ -109,3 +109,23 @@ exports.deleteTvFromCollection = async (req, res, next) => {
         next(error)
     }
 };
+
+exports.getPopularTvShows = async (req, res, next) => { 
+    const apiKey = process.env.MOVIEDB_API_KEY;
+    const totalPages = 10; 
+    let fetchedTVShows = [];
+  
+    for (let page = 1; page <= totalPages; page++) {
+      try {
+        const response = await axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&page=${page}`);
+        const englishTVShows = response.data.results.filter(
+          (tvShow) => tvShow.original_language === 'en'
+        );
+        fetchedTVShows = fetchedTVShows.concat(englishTVShows);
+      } catch (error) {
+        next(error);
+      }
+    }
+  
+    res.status(200).json(fetchedTVShows.slice(0, 20));
+  };
