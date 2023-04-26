@@ -2,7 +2,7 @@ import styles from '../card/Card.module.scss';
 //import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const CardButton = () => {
-/*  */
+  /*  */
 
   return (
     <div className={styles.btn}>

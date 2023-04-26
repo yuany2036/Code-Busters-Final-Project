@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from 'axios';
 import styles from './Preferences.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { DataContext } from '../../data/context';
 //import img from '../../assets/Select-cuate.png';
 
 const Preferences = () => {
+  const {
+    usersDispatch
+  } = useContext(DataContext);
   const [bookLover, setBookLover] = useState(false);
   const [movieWatcher, setMovieWatcher] = useState(false);
   const [genres, setGenres] = useState([]);
@@ -62,19 +66,28 @@ const Preferences = () => {
       setGenres([...genres, { id: genreId, name: genreName }]);
     }
   };
-  
-  
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log('Submitting preferences...');
     try {
       const response = await axios.post('/users/preferences', {
-        preferences: bookLover ? 'bookLover' : (movieWatcher ? 'movieWatcher' : 'none'),
+        preferences: bookLover ? "bookLover" : "movieWatcher",
         genres: genres.map(({ id, name }) => ({ id, name })),
       });
       console.log('Preferences stored successfully:', response.data);
       if (response.status === 200) {
+        usersDispatch({
+          type: 'UPDATE_USER',
+          payload: {
+            preferences: {
+              bookLover,
+              movieWatcher,
+            },
+          },
+        });
         alert('Your preferences were submitted');
         navigate('/explore');
       }
@@ -82,7 +95,7 @@ const Preferences = () => {
       console.error('Failed to store preferences:', error.response.data);
     }
   };
-  
+
 
 
   return (

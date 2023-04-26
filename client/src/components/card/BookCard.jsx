@@ -12,7 +12,7 @@ const BookCard = ({ authors, title, thumbnail }) => {
         <p className={styles.author_p}>by {authors.join(', ')}</p>
       </div>
 
-    <CardButton/>
+      <CardButton />
     </div>
   );
 };

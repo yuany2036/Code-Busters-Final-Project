@@ -20,6 +20,10 @@ export const DataContextProvider = ({ children }) => {
 
   const { user, isUserLoggedIn } = usersState;
 
+  const updateUserPreferences = (preferences) => {
+    usersDispatch({ type: 'UPDATE_PREFERENCES', payload: preferences });
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -30,6 +34,7 @@ export const DataContextProvider = ({ children }) => {
         loading,
         setError,
         setLoading,
+        updateUserPreferences, // Add this line to provide the method
       }}
     >
       {children}

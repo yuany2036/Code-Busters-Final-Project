@@ -2,42 +2,42 @@ const createError = require('http-errors');
 const { default: mongoose } = require('mongoose');
 
 exports.routeNotFound = (req, res) => {
-    const url = `http://localhost:4000${req.originalUrl}`;
-    const message = `Route not found: ${url}`;
-    const error = createError(404, message);
-    console.log(error)
-    res.status(error.status).json({
-        statusCode: error.status,
-        status: "Fail",
-        message: error.message
-    });
+  const url = `http://localhost:4000${req.originalUrl}`;
+  const message = `Route not found: ${url}`;
+  const error = createError(404, message);
+  console.log(error);
+  res.status(error.status).json({
+    statusCode: error.status,
+    status: 'Fail',
+    message: error.message,
+  });
 };
 
 exports.duplicateFieldsHandler = (keyValue) => {
-    const field = Object.keys(keyValue)[0];
-    return createError(400, `${field} already exists`);
+  const field = Object.keys(keyValue)[0];
+  return createError(400, `${field} already exists`);
 };
 
 exports.isValidId = (req) => {
-    const id = req.params.id;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw createError(400, `Invalid ID: ${id}`);
-    }
+  const id = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw createError(400, `Invalid ID: ${id}`);
+  }
 };
 
 exports.resourceNotFound = (resourceName, documentName, action) => {
-    const message = `Cannot ${action} ${documentName}, ${resourceName} not found`;
-    if (!resourceName) {
-        throw createError(404, message);
-    }
+  const message = `Cannot ${action} ${documentName}, ${resourceName} not found`;
+  if (!resourceName) {
+    throw createError(404, message);
+  }
 };
 
 exports.authError = (message) => {
-    throw createError(401, message);
+  throw createError(401, message);
 };
 
 exports.globalErrorHandler = (err, req, res) => {
-    const { status = 500, statusCode = status, message, stack } = err;
-    const statusType = status === 404 ? "fail" : "error";
-    res.status(status).json({ statusCode, status: statusType, message, stack });
+  const { status = 500, statusCode = status, message, stack } = err;
+  const statusType = status === 404 ? 'fail' : 'error';
+  res.status(status).json({ statusCode, status: statusType, message, stack });
 };
