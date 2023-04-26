@@ -79,6 +79,7 @@ const Recommendations = () => {
             {recommendations.map((book) => (
               <BookCard
                 key={book.id}
+                id={book.id}
                 authors={book.volumeInfo.authors || []}
                 title={book.volumeInfo.title}
                 thumbnail={
@@ -105,6 +106,7 @@ const Recommendations = () => {
             {recommendations.map((movie) => (
               <MovieCard
                 key={movie.id}
+                id={movie.id}
                 title={movie.title}
                 posterPath={movie.poster_path}
                 genre={movie.genre}

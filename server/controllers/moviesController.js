@@ -55,7 +55,7 @@ exports.getMovieCollection = async (req, res, next) => {
 
 // Add movie to user's collection
 exports.addToMovieCollection = async (req, res, next) => {
-  const { id, poster_path, title, genres } = req.body;
+  const { id, posterPath, title, genres } = req.body;
   const { _id } = req.user;
 
   try {
@@ -75,7 +75,7 @@ exports.addToMovieCollection = async (req, res, next) => {
         });
     }
     // Save movie to user's collection
-    movieCol.movies.push({ id, poster_path, title, genres });
+    movieCol.movies.push({ id, poster_path: posterPath, title, genres });
     await movieCol.save();
     return res.json({ success: true, message: 'Movie added to collection' });
   } catch (error) {

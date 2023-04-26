@@ -124,10 +124,10 @@ const Register = () => {
             <span>-</span> or register with <span>-</span>
           </p>
           <div className={styles.icons}>
-            <a>
+            <a href='http://localhost:4000/auth/facebook/callback'>
               <Icon icon="logos:facebook" color="#7e57c2" />
             </a>
-            <a>
+            <a href='http://localhost:4000/auth/google/callback'>
               <Icon icon="devicon:google" color="#7e57c2" />
             </a>
           </div>

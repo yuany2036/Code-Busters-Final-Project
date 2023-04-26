@@ -18,7 +18,7 @@ router.route('/').get(searchTv);
 router.route('/searchById').get(searchTvById);
 router.route('/popular').get(getPopularTvShows);
 router
-  .route('/')
+  .route('/user')
   .get(auth, getTvCollection)
   .post(auth, addToTvCollection)
   .patch(auth, updateTvStatus)
