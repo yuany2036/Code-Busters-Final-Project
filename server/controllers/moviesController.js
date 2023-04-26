@@ -1,6 +1,6 @@
 const axios = require('axios');
 const movieModel = require('../models/movieModel');
-const Preferences = require('../models/preferenceModel');
+const User = require('../models/userModel');
 
 // Helper function to get user's movie collection
 async function getMovieCollectionForUser(_id) {
@@ -138,20 +138,23 @@ exports.getPopularMovies = async (req,res,next) => {
 
 exports.recommendMoviesByGenre = async (req, res, next) => {
     try {
-        console.log(req.user)
         const {_id} = req.user;
         const apiKey = process.env.MOVIEDB_API_KEY;
 
-        const preferences = await Preferences.findOne({ user: _id});
-        console.log(preferences);
-        if (!preferences) {
-            return res.status(404).json({ success: false, message: "Preferences not found" });
+        const user = await User.findById(_id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
         }
 
+        const { preferences, genres } = user;
+        console.log(genres)
+        if (preferences === "none") {
+            return res.status(400).json({ success: false, message: "User does not have any preference" });
+        }
         
-        const genres = preferences.genres.map((genre) => JSON.parse(genre).id);
-        /* console.log(genres); */
-        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genres.join(',')}`;
+        const genreIds = genres.filter(genre => genre).map(genre => JSON.parse(genre).id);
+        console.log(genreIds)
+        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreIds.join(',')}`;
         const response = await axios.get(url);
         const movies = response.data.results;
         res.json(movies);

@@ -4,12 +4,12 @@ import { DataContext } from '../../data/context';
 import MovieCard from '../card/MovieCard';
 
 import styles from '../card/MovieCard.module.scss';
+import BookCard from '../card/BookCard';
 
 const Recommendations = () => {
   const [recommendations, setRecommendations] = useState([]);
 
   const { user, isUserLoggedIn, loading, setLoading } = useContext(DataContext);
-  console.log(user.bookLover);
 
   useEffect(() => {
     const fetchMovieRecommendations = async () => {
@@ -39,9 +39,12 @@ const Recommendations = () => {
         setLoading(false);
       }
     };
+    
 
     if (isUserLoggedIn) {
-      if (user.bookLover) {
+      if (user.bookLover === null && user.movieWatcher === null) {
+        // Render a message asking the user to choose a preference
+      } else if (user.bookLover) {
         fetchBookRecommendations();
       } else {
         fetchMovieRecommendations();
@@ -71,11 +74,7 @@ const Recommendations = () => {
         {recommendations.length > 0 ? (
           <div className={styles.explore_movies}>
             {recommendations.map((book) => (
-              // Render book cards here
-              <div key={book.id}>
-                <h2>{book.title}</h2>
-                {/* img*/}
-              </div>
+              <BookCard key={book.id} title={book.volumeInfo.title} posterUrl={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null}/>
             ))}
           </div>
         ) : (
