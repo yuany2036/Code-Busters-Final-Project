@@ -4,7 +4,8 @@ import styles from './SearchResults.module.scss';
 
 const SearchResults = ({ searchTerm }) => {
   const [searchResults, setSearchResults] = useState([]);
-  const [activeCategory, setActiveCategory] = useState('Movies');
+  const [activeCategory, setActiveCategory] = useState('Books');
+  const [loading, setLoading] = useState(false);
 
   const categories = [
     { category: 'Movies' },
@@ -13,6 +14,7 @@ const SearchResults = ({ searchTerm }) => {
   ];
 
   useEffect(() => {
+    setLoading(true);
     (async () => {
       try {
         const res = await axios.get(
@@ -21,9 +23,12 @@ const SearchResults = ({ searchTerm }) => {
             .split(' ')
             .join('')}/?title=${searchTerm}`
         );
+        console.log(res);
         setSearchResults(res.data);
       } catch (err) {
         console.log(err.res);
+      } finally {
+        setLoading(false);
       }
     })();
   }, [searchTerm, activeCategory]);
@@ -44,7 +49,9 @@ const SearchResults = ({ searchTerm }) => {
         ))}
       </div>
       <div className={styles.results_container}>
+        {loading && <h3>Loading...</h3>}
         {(activeCategory === 'Movies' || activeCategory === 'TV Shows') &&
+          !loading &&
           searchResults.length > 0 &&
           searchResults.map(({ title, name, poster_path, id }) => (
             <div className={styles.results_card} key={id}>
@@ -60,6 +67,29 @@ const SearchResults = ({ searchTerm }) => {
               <h4>{title ? title : name}</h4>
             </div>
           ))}
+        {activeCategory === 'Books' &&
+          !loading &&
+          searchResults.length === 10 &&
+          searchResults.map(
+            ({ volumeInfo: { title, imageLinks: { thumbnail } = {} }, id }) => {
+              console.log();
+
+              return (
+                <div className={styles.results_card} key={id}>
+                  <img
+                    src={
+                      thumbnail
+                        ? thumbnail
+                        : 'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y3V0ZSUyMGNhdHxlbnwwfHwwfHw%3D&w=1000&q=80'
+                    }
+                    alt="book cover"
+                    width="200px"
+                  />
+                  <h4>{title ? title : null}</h4>
+                </div>
+              );
+            }
+          )}
         {searchResults.length === 0 && (
           <h2>No results found for this category</h2>
         )}
