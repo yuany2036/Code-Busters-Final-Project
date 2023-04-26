@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TvShowCard from '../card/TvShowCard';
-import styles from '../card/MovieCard.module.scss';
+import styles from '../card/Card.module.scss';
 import axios from 'axios';
 
 const TvShowsList = () => {
@@ -10,7 +10,7 @@ const TvShowsList = () => {
     const fetchTVShows = async () => {
       try {
         const response = await axios.get('/tvshows/popular');
-        setTVShows(response.data);
+        setTVShows(response.data.slice(0, 20));
       } catch (error) {
         console.error(error);
       }
@@ -22,8 +22,8 @@ const TvShowsList = () => {
 
   return (
     <div>
-      <h1 className={styles.top_movies}>Top Popular English TV Shows</h1>
-      <div className={styles.explore_movies}>
+      <h1 className={styles.top_h1}>Top Popular English TV Shows</h1>
+      <div className={styles.explore}>
               {tvShows.map((tvShow) => (
               <TvShowCard
             key={tvShow.id}

@@ -1,6 +1,6 @@
 import MoviesList from './MoviesList';
 import TvShowsList from './TvShowsList';
-import styles from '../card/MovieCard.module.scss';
+import styles from '../card/Card.module.scss';
 import BestSellersList from './BestSellersList';
 import Recommendations from './Recommendations'
 

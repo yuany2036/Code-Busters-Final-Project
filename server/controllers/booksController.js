@@ -1,6 +1,6 @@
 const axios = require('axios');
 const bookModel = require('../models/bookModel');
-const Preferences = require('../models/preferenceModel');
+const User = require('../models/userModel');
 
 // Helper function to get user's book collection
 async function getBookCollectionForUser(_id) {
@@ -126,25 +126,55 @@ exports.deleteBookFromCollection = async (req, res, next) => {
 };
 
 exports.recommendBooksByGenre = async (req, res, next) => {
-  try {
-    const { _id } = req.user;
+    try {
+        const { _id } = req.user;
 
-    const preferences = await Preferences.findOne({ user: _id });
+        const user = await User.findById(_id);
+        /* console.log('User:', user); */
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        const { preferences, genres } = user;
+        /* console.log(preferences) */
+        if (preferences === "none") {
+            return res.status(400).json({ success: false, message: "User does not have any preference" });
+        }
+        const genreTitles = genres.filter((genre) => genre).map((genre) => JSON.parse(genre).name);
+        /* console.log('Genre Titles:', genreTitles); */
+        const url = `https://www.googleapis.com/books/v1/volumes?q=subject:${genreTitles.join("+subject:")}`;
 
-    if (!preferences) {
-      return res
-        .status(404)
-        .json({ success: false, message: 'Preferences not found' });
+        const response = await axios.get(url);
+        console.log("constructed url: ", url);
+        console.log('Google Books API Response:', response.data);
+        const books = response.data.items.slice(0,10);
+        console.log(books)
+        res.json(books);
+    } catch (error) {
+        next(error);
     }
-
-    const genres = preferences.genres.map((genre) => JSON.parse(genre).name);
-    const url = `https://www.googleapis.com/books/v1/volumes?q=subject:${genres.join(
-      '+OR+subject:'
-    )}`;
-    const response = await axios.get(url);
-    const books = response.data.items;
-    res.json(books);
-  } catch (error) {
-    next(error);
-  }
 };
+
+exports.getPopularBooks = async (req, res, next) => {
+    const endPoint = "/lists/current/mass-market-paperback.json";
+    const APIKey = process.env.NY_TIMES_KEY;
+    const NYTurl = `https://api.nytimes.com/svc/books/v3${endPoint}?api-key=${APIKey}`;
+  
+    try {
+      const nyTimesRes = await axios.get(NYTurl);
+      const books = nyTimesRes.data.results.books;
+  
+      const results = await Promise.all(
+        books.map(async ({ isbns, title }) => {
+          const isbn = isbns[0]["isbn10"];
+          const googleBooksAPIURL = `https://www.googleapis.com/books/v1/volumes?q=${title}+isbn:${isbn}`;
+          const res = await axios.get(googleBooksAPIURL);
+          return res.data.items[0].volumeInfo;
+        })
+      );
+  
+      res.status(200).json({ results });
+      console.log(results);
+    } catch (error) {
+      next(error)
+    }
+  };

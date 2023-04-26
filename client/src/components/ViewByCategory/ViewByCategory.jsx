@@ -23,13 +23,13 @@ const ViewByCategory = () => {
           withCredentials: false,
           mode: 'cors',
         });
-        setMovies(res.data.results.slice(0, 9));
+        setMovies(res.data.results.slice(0, 15));
         res = await axios.get(seriesURL, {
           accessControlAllowOrigin: 'http://localhost:5173/',
           withCredentials: false,
           mode: 'cors',
         });
-        setSeries(res.data.results.slice(0, 9));
+        setSeries(res.data.results.slice(0, 15));
       } catch (error) {
         console.log(error);
       }
@@ -44,7 +44,7 @@ const ViewByCategory = () => {
 
   return (
     <div className={styles.explore_section}>
-      <h3>Explore the Universe:</h3>
+      <h2>Explore the Universe</h2>
       <div className={styles.explore_section_container}>
         <div className={styles.buttons_container}>
           {categories.map(({ category }) => (
@@ -59,8 +59,12 @@ const ViewByCategory = () => {
             />
           ))}
         </div>
-        {activeCategory === 'Movies' && <Cards titles={movies} />}
-        {activeCategory === 'TV Shows' && <Cards titles={series} />}
+        {activeCategory === 'Movies' && (
+          <Cards titles={movies} activeCategory={activeCategory} />
+        )}
+        {activeCategory === 'TV Shows' && (
+          <Cards titles={series} activeCategory={activeCategory} />
+        )}
         {activeCategory === 'Books' && <h1>Books</h1>}
       </div>
     </div>
