@@ -157,41 +157,87 @@ exports.getPopularMovies = async (req, res, next) => {
 
 exports.recommendMoviesByGenre = async (req, res, next) => {
   try {
+    // Get user id from request and api key from env
     const { _id } = req.user;
     const apiKey = process.env.MOVIEDB_API_KEY;
-
+    // Get the user's preferences and genres from the database
     const user = await User.findById(_id);
     if (!user) {
       return res
         .status(404)
         .json({ success: false, message: 'User not found' });
     }
-
     const { preferences, genres } = user;
+
+    // If the user has no preferences or the preferences are set to 'none', return an error message
     if (preferences === 'none') {
       return res
         .status(400)
         .json({ success: false, message: 'User does not have any preference' });
     }
+    // Set up variables to keep track of the recommended movies, maximum number of movies, and number of movies per genre
+    let recommendedMovies = [];
+    let maxMovies = 20;
+    let moviesPerGenre = 10;
 
-    const genreIds = genres
-      .filter((genre) => genre)
-      .map((genre) => JSON.parse(genre).id);
-    console.log(genreIds);
+    // Continue fetching movies until either the maximum number of movies is reached or there are no more genres left to fetch from
+    while (recommendedMovies.length < maxMovies && genres.length < 20) {
+      // Filter out null values from the genres array and parse each JSON object to get the genre ID
+      const genreIds = [...new Set(genres
+        .filter((genre) => genre)
+        .map((genre) => JSON.parse(genre).id)
+      )];
 
-    const urls = genreIds.map(
-      (genreId) =>
-        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}`
-    );
+      // Generate a URL for each genre to fetch movies from the MovieDB API
+      const urls = genreIds.map(
+        (genreId) =>
+          `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&vote_count.gte=1000&vote_average.gte=6`
+      );
 
-    // Fetch movies from all the URLs and combine them
-    const responses = await Promise.all(urls.map((url) => axios.get(url)));
-    const movies = responses.flatMap((response) =>
-      response.data.results.slice(0, 5)
-    );
+      // Fetch movies from the API for each URL, slice the array to limit the number of movies fetched per genre, and flatten the array of results
+      console.log(`Fetching movies from API for genres: ${genreIds.join(',')}...`);
+      const responses = await Promise.all(urls.map((url) => axios.get(url)));
+      let movies = responses.flatMap((response) =>
+        response.data.results.slice(0, moviesPerGenre)
+      );
+      console.log(`Fetched ${movies.length} movies from API`);
+      // Retrieve the user's movie collection from the database and filter out any movies that are already in the collection or have already been recommended
+      const userMovies = await movieModel.findOne({ user: _id });
+      const userMovieIds = userMovies ? userMovies.movies.map((movie) => movie.id) : [];
+      console.log(`User has ${userMovieIds.length} movies in collection`);
 
-    res.json(movies);
+      const filteredMovies = userMovies ? movies.filter((movie) => !userMovieIds.includes(movie.id) && !recommendedMovies.find((recMovie) => recMovie.id === movie.id)) : movies;
+      console.log(`Filtered down to ${filteredMovies.length} movies`);
+      // Add the remaining movies to the recommendedMovies array and remove any duplicates
+      recommendedMovies = [...recommendedMovies, ...filteredMovies];
+      recommendedMovies = [...new Set(recommendedMovies)];
+      console.log(`Recommended movies so far: ${recommendedMovies.length}`);
+      // If there are no new movies left to recommend for the current set of genres, add null to the genres array and reduce the number of movies fetched per genre
+      if (filteredMovies.length === 0) {
+        console.log('No more movies left to recommend for these genres');
+        genres.push(null);
+        moviesPerGenre = 5;
+      } else {
+        moviesPerGenre = 10;
+      }
+    }
+    // If no recommended movies were found, return an error message
+    if (recommendedMovies.length === 0) {
+      console.log('No recommended movies found');
+      return res
+        .status(400)
+        .json({ success: false, message: 'No recommended movies found' });
+    }
+    // Return the recommended movies, sliced to the maximum number of movies
+    console.log(`Returning ${recommendedMovies.length} recommended movies`);
+    res.json(recommendedMovies.slice(0, maxMovies));
   } catch (error) {
     next(error);
   }
 };
+
+
+
+
+
+
