@@ -1,45 +1,56 @@
 @import '../../styles/partials/variables';
-
+@import '../../styles/partials/mixin';
 .explore_section {
   font-family: $primary-font;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: aliceblue;
+  background-color: rgba(199, 206, 213, 0.944);
+  padding-bottom: 2rem;
+
+  h2 {
+    @include center_title_text;
+    padding: 2rem;
+  }
 
   &_container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 98%;
-    background-color: rgba(223, 221, 224, 0.944);
-    border-radius: 1rem;
-  }
-}
-
-.buttons_container {
-  margin-top: 1rem;
-}
-
-.button {
-  font-family: inherit;
-  font-size: 100%;
-  text-transform: none;
-  border: 0;
-  background: none;
-
-  // margin: 0.2rem 1rem;
-  padding: 1rem;
-
-  margin: 0.2rem 1rem;
-  &:hover {
-    cursor: pointer;
+    padding-bottom: 1rem;
   }
 
-}
+  .buttons_container {
+    margin-top: 1rem;
 
-.active {
-  background-color: red;
-  text-decoration: underline;
-  font-weight: bold;
+    .button {
+      font-family: inherit;
+      font-size: 100%;
+      text-transform: none;
+      border: 0;
+      background: none;
+      padding: 1rem;
+      border-radius: 1rem 1rem 0 0;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .active {
+      font-weight: bold;
+    }
+
+    .active[value='Movies'] {
+      background-color: $primary-blue;
+      color: $off-white-text;
+    }
+    .active[value='TV Shows'] {
+      background-color: rgb(29, 9, 54);
+      color: $off-white-text;
+    }
+    .active[value='Books'] {
+      background-color: $primary-purple;
+      color: $off-white-text;
+    }
+  }
 }

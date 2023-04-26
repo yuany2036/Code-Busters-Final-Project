@@ -72,3 +72,42 @@
     }
   }
 }
+
+@mixin center_title_text {
+  font-size: $title-page-center-font-size;
+  font-weight: 900;
+  padding: 3rem;
+
+  text-align: center;
+
+  background: linear-gradient(
+    -45deg,
+    rgb(29, 109, 166) 20%,
+    rgb(118, 3, 109) 40%,
+    $primary-blue 60%,
+    $primary-purple 80%
+  );
+  background-size: 300%;
+
+  color: #000;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: animated_text 15s ease-in-out infinite;
+  -moz-animation: animated_text 15s ease-in-out infinite;
+  -webkit-animation: animated_text 15s ease-in-out infinite;
+
+  @keyframes animated_text {
+    0% {
+      background-position: 0px 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0px 50%;
+    }
+  }
+}
