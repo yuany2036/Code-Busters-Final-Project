@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styles from '../card/Card.module.scss';
 import CardButton from './CardButton';
@@ -17,3 +18,4 @@ const BookCard = ({ authors, title, thumbnail }) => {
 };
 
 export default BookCard;
+

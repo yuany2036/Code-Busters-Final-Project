@@ -46,6 +46,15 @@ const UserSchema = new Schema({
         enum: ["Admin", "User"],
         default: "User",
     },
+    preferences: {
+        type: String,
+        enum: ["bookLover","movieWatcher","none"],
+        default: "none",
+    },
+    genres: [{
+        type: String,
+        id: Number 
+    }]
 },
     {
         toJSON: {
@@ -132,6 +141,8 @@ UserSchema.methods.getPublicFields = function () {
         email: this.email,
         role: this.role,
         avatar: this.avatarURL,
+        preferences: this.preferences,
+        genres: this.genres
     };
 };
 

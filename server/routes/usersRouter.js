@@ -4,7 +4,9 @@ const {
   getUserById,
   updateUserById,
   deleteUserById,
+  storePreferences
 } = require('../controllers/usersController');
+const { auth } = require('../middleware/authentication');
 
 const router = express.Router();
 
@@ -17,6 +19,8 @@ router.route('/:id')
   .get(getUserById)
   .patch(updateUserById)
   .delete(deleteUserById);
+
+router.route("/preferences").post(auth,storePreferences)
 
 module.exports = router;
 

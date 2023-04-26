@@ -1,6 +1,6 @@
 const axios = require('axios');
 const bookModel = require('../models/bookModel');
-const Preferences = require('../models/preferenceModel');
+const User = require('../models/userModel');
 
 // Helper function to get user's book collection
 async function getBookCollectionForUser(_id) {
@@ -108,21 +108,30 @@ exports.deleteBookFromCollection = async (req, res, next) => {
 
 exports.recommendBooksByGenre = async (req, res, next) => {
     try {
-        const {_id} = req.user;
+        const { _id } = req.user;
 
-        const preferences = await Preferences.findOne({ user: _id});
-        
-        if (!preferences) {
-            return res.status(404).json({ success: false, message: "Preferences not found" });
+        const user = await User.findById(_id);
+        /* console.log('User:', user); */
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
         }
-        
-        const genres = preferences.genres.map((genre) => JSON.parse(genre).name);
-        const url = `https://www.googleapis.com/books/v1/volumes?q=subject:${genres.join('+OR+subject:')}`;
+        const { preferences, genres } = user;
+        /* console.log(preferences) */
+        if (preferences === "none") {
+            return res.status(400).json({ success: false, message: "User does not have any preference" });
+        }
+        const genreTitles = genres.filter((genre) => genre).map((genre) => JSON.parse(genre).name);
+        /* console.log('Genre Titles:', genreTitles); */
+        const url = `https://www.googleapis.com/books/v1/volumes?q=subject:${genreTitles.join("+subject:")}`;
+
         const response = await axios.get(url);
-        const books = response.data.items;
+        console.log("constructed url: ", url);
+        console.log('Google Books API Response:', response.data);
+        const books = response.data.items.slice(0,10);
+        console.log(books)
         res.json(books);
     } catch (error) {
-        next(error)
+        next(error);
     }
 };
 
