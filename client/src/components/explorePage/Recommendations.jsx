@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { DataContext } from '../../data/context';
 import MovieCard from '../card/MovieCard';
 
-import styles from '../card/MovieCard.module.scss';
-import BookCard from '../card/BookCard';
+import styles from '../card/Card.module.scss';
+
 
 const Recommendations = () => {
   const [recommendations, setRecommendations] = useState([]);
@@ -58,7 +59,12 @@ const Recommendations = () => {
   if (!isUserLoggedIn) {
     return (
       <p className={styles.recommendation_p}>
-        Please log in to view your own customized recommendations.
+        To unlock the full benefits of tailored recommendations, please{' '}
+        <Link className={styles.link} to="/login">
+          {' '}
+          <span>log in </span>{' '}
+        </Link >{' '}
+        to access your customized content.
       </p>
     );
   }
@@ -70,24 +76,26 @@ const Recommendations = () => {
   if (user.bookLover) {
     return (
       <div>
-        <h1 className={styles.top_movies}>Book Recommendations</h1>
+        <h1 className={styles.top_h1}>Book Recommendations</h1>
         {recommendations.length > 0 ? (
-          <div className={styles.explore_movies}>
+          <div className={styles.explore}>
             {recommendations.map((book) => (
               <BookCard key={book.id} title={book.volumeInfo.title} posterUrl={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null}/>
             ))}
           </div>
         ) : (
-          <p>No book recommendations available.</p>
+          <p className={styles.recommendation_p}>
+            No book recommendations available at the moment, try again later.
+          </p>
         )}
       </div>
     );
   } else {
     return (
       <div>
-        <h1 className={styles.top_movies}>Movie Recommendations</h1>
+        <h1 className={styles.top_h1}>Movie Recommendations</h1>
         {recommendations.length > 0 ? (
-          <div className={styles.explore_movies}>
+          <div className={styles.explore}>
             {recommendations.map((movie) => (
               <MovieCard
                 key={movie.id}
@@ -98,7 +106,9 @@ const Recommendations = () => {
             ))}
           </div>
         ) : (
-          <p>No movie recommendations available.</p>
+          <p className={styles.recommendation_p}>
+            No movie recommendations available at he moment, try again later.
+          </p>
         )}
       </div>
     );

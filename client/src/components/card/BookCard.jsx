@@ -1,21 +1,21 @@
+
 import React from 'react';
-import styles from '../card/MovieCard.module.scss';
+import styles from '../card/Card.module.scss';
+import CardButton from './CardButton';
 
-const BookCard = ({ title, posterUrl }) => {
-
-
+const BookCard = ({ authors, title, thumbnail }) => {
   return (
-    <div className={styles.movie}>
-      <img className={styles.movie_poster} src={posterUrl} alt={title} />
-      <div className={styles.movie_details}>
-        <h2 className={styles.movie_title}>{title}</h2>
+    <div className={styles.card}>
+      <img className={styles.card_poster} src={thumbnail} alt={title} />
+      <div className={styles.card_details}>
+        <h2 className={styles.card_title}>{title}</h2>
+        <p className={styles.author_p}>by {authors.join(', ')}</p>
       </div>
-      <div className={styles.btn}>
-        <button className={styles.outline}>Details</button>
-        <button className={styles.fill}>Add</button>
-      </div>
+
+    <CardButton/>
     </div>
   );
 };
 
 export default BookCard;
+

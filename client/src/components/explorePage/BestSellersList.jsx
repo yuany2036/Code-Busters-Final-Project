@@ -1,44 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../card/MovieCard.module.scss';
+import styles from '../card/Card.module.scss';
 import axios from 'axios';
 import BookCard from '../card/BookCard';
 
 const BestSellersList = () => {
-
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get("/books/popular");
-        setBooks(res.data.results);
+        const res = await axios.get('/books/popular');
+        setBooks(res.data.results.slice(0,20));
       } catch (err) {
         console.log(err);
       }
-    }
-    fetchBooks()
+    };
+    fetchBooks();
   }, []);
-console.log(books)
+
   return (
     <div>
-      <div className="listContainer">
+      <h1 className={styles.top_h1}>Top Bestsellers Books</h1>
+      <div className={styles.explore}>
         {books.map(
           ({
             authors,
             title,
-            description,
             infoLink,
             imageLinks: { thumbnail },
-          }) => {
-            return (
-              <div key={infoLink}>
-                <img src={thumbnail} />
-                <h1>{title}</h1>
-                <h2>{authors.join(", ")}</h2>
-                <p>{description}</p>
-              </div>
-            );
-          }
+          }) => (
+            <BookCard
+              key={infoLink}
+              authors={authors}
+              title={title}
+              thumbnail={thumbnail}
+            />
+          )
         )}
       </div>
     </div>
