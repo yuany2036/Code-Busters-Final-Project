@@ -1,7 +1,6 @@
-
 import React from 'react';
 import styles from '../card/Card.module.scss';
-import CardButton from './CardButton';
+import { Icon } from '@iconify/react';
 
 const BookCard = ({ authors, title, thumbnail }) => {
   return (
@@ -10,12 +9,17 @@ const BookCard = ({ authors, title, thumbnail }) => {
       <div className={styles.card_details}>
         <h2 className={styles.card_title}>{title}</h2>
         <p className={styles.author_p}>by {authors.join(', ')}</p>
+        <div className={styles.btn}>
+          <button className={styles.outline}>
+            <Icon icon="gg:details-more" color="#401d56" />
+          </button>
+          <button className={styles.fill}>
+            <Icon icon="material-symbols:heart-plus-outline" color="white" />{' '}
+          </button>
+        </div>
       </div>
-
-      <CardButton />
     </div>
   );
 };
 
 export default BookCard;
-
