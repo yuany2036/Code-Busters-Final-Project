@@ -9,6 +9,7 @@ const {
     successHandler
 } = require("../middleware/successHandlers");
 
+
 // Create a new User
 exports.createUser = async (req, res, next) => {
     try {
@@ -27,7 +28,7 @@ exports.createUser = async (req, res, next) => {
             email,
             password,
         });
-
+       
         user.save();
 
         const token = user.generateAuthToken();

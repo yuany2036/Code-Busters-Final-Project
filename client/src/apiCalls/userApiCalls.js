@@ -77,15 +77,15 @@ export const getUser = async (dispatch) => {
 };
 
 
-export const logout = async (usersDispatch, cartsDispatch) => {
+export const logout = async (usersDispatch /* , cartsDispatch */ ) => {
   try {
     await axios.get('/auth/logout');
     usersDispatch({
       type: 'LOGOUT'
     });
-    cartsDispatch({
-      type: 'RESET_CART'
-    });
+    /*    cartsDispatch({
+         type: 'RESET_CART'
+       }); */
   } catch (error) {
     dispatch({
       type: 'LOGOUT'
@@ -106,10 +106,23 @@ export const updateUser = async (dispatch, data) => {
     return error.response;
   }
 };
+
+export const deleteUser = async (usersDispatch) => {
+  try {
+    await axios.delete('/me');
+    usersDispatch({
+      type: 'DELETE_USER'
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 export default {
   signup,
   getUser,
   login,
   logout,
-  updateUser
+  updateUser,
+  deleteUser
 };
