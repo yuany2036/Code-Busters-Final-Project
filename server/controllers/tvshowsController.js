@@ -27,7 +27,7 @@ exports.searchTv = async (req, res, next) => {
 
 // External API call to search for tv shows by ID
 exports.searchTvById = async (req, res, next) => {
-  const id = req.body.id;
+  const id = req.query.id;
   const apiKey = process.env.MOVIEDB_API_KEY;
   const url = `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}&language=en-US`;
 
@@ -66,12 +66,10 @@ exports.addToTvCollection = async (req, res, next) => {
       (tvShow) => tvShow.title === title
     );
     if (alreadySaved) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: 'Tv Show already exists in collection',
-        });
+      return res.status(400).json({
+        success: false,
+        message: 'Tv Show already exists in collection',
+      });
     }
     tvShowCol.series.push({ id, poster_path : posterPath, title, genres, seasons });
     await tvShowCol.save();
@@ -89,12 +87,10 @@ exports.updateTvStatus = async (req, res, next) => {
     const tvCol = await getTvCollectionForUser(_id);
     const tvShow = tvCol.series.find((tvShow) => tvShow.id === tvId);
     if (!tvShow) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "Tv Show not found in user's collection",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Tv Show not found in user's collection",
+      });
     }
     tvShow.status = status;
     await tvCol.save();
@@ -112,12 +108,10 @@ exports.deleteTvFromCollection = async (req, res, next) => {
     const tvCol = await getTvCollectionForUser(_id);
     const tvIndex = tvCol.series.findIndex((tvShow) => tvShow.id === tvId);
     if (tvIndex === -1) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "Tv Show not found in user's collection",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Tv Show not found in user's collection",
+      });
     }
     tvCol.series.splice(tvIndex, 1);
     await tvCol.save();

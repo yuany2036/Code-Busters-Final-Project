@@ -36,7 +36,7 @@ const Router = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/collection" element={<Collection />} />
-      <Route path="/title/:movie_id" element={<TitlePage />} />
+      <Route path="/title/:category/:id" element={<TitlePage />} />
       <Route path="/preferences" element={<Preferences />} />
       <Route path="/reviews" element={<ReviewsSoloPage />} />
       <Route path="*" element={<NotFound />} />

@@ -28,7 +28,8 @@ exports.searchMovie = async (req, res, next) => {
 
 // External API call to search for movies by ID
 exports.searchMovieById = async (req, res, next) => {
-  const id = req.body.id;
+  console.log('hello worlds');
+  const id = req.query.id;
   const apiKey = process.env.MOVIEDB_API_KEY;
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`;
 
