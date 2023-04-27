@@ -22,7 +22,7 @@ const TitleInfo = (props) => {
     type: 'language',
   });
 
-  const [added, setAdded] = useState(false);
+  // const [added, setAdded] = useState(false);
   const [hearted, setHearted] = useState(false);
 
   const runtimeHours = Math.floor(runtime / 60);
@@ -49,7 +49,7 @@ const TitleInfo = (props) => {
             alt="movie poster"
             className={styles.poster_image}
           />
-          <div className={styles.icons_container}>
+          <div className={styles.icons_container_under_poster}>
             {/* <div onClick={() => setAdded((pre) => !pre)}>
           <Icon
             icon={added ? 'charm:tick' : 'ic:baseline-plus'}
@@ -79,9 +79,11 @@ const TitleInfo = (props) => {
               height="35"
             />
           </div>
+
+          <h2 className={styles.title_name}>{titleName}</h2>
         </div>
         <div className={styles.upper_container_right}>
-          <h2>{titleName}</h2>
+          <h2 className={styles.title_name}>{titleName}</h2>
           <h2 className={styles.tag_line}>{tagline}</h2>
           <p className={styles.overview}>{overview}</p>
           <div className={styles.mapped_info_container}>
@@ -96,7 +98,34 @@ const TitleInfo = (props) => {
           </div>
         </div>
       </div>
-      <div className={styles.divider}></div>
+      <div className={styles.icons}>
+        <div className={styles.icons_container}>
+          {/* <div onClick={() => setAdded((pre) => !pre)}>
+          <Icon
+            icon={added ? 'charm:tick' : 'ic:baseline-plus'}
+            width="44"
+            height="44"
+          />
+        </div> */}
+          <div onClick={() => setHearted((pre) => !pre)}>
+            <Icon
+              icon={
+                hearted
+                  ? 'material-symbols:heart-minus'
+                  : 'material-symbols:heart-plus-outline'
+              }
+              width="35"
+              height="35"
+            />
+          </div>
+          <Icon icon="material-symbols:share-outline" width="35" height="35" />
+          <Icon
+            icon="material-symbols:reviews-rounded"
+            width="35"
+            height="35"
+          />
+        </div>
+      </div>
     </div>
   );
 };
