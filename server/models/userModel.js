@@ -73,6 +73,12 @@ const UserSchema = new Schema(
       createdAt: true,
       updatedAt: true,
     },
+    facebookId: {
+      type: String,
+    },
+    googleId: {
+      type: String,
+    }
   }
 );
 

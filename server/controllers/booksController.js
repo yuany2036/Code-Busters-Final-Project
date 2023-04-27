@@ -50,8 +50,9 @@ exports.getBookCollection = async (req, res, next) => {
 
 // Add book to user's collection
 exports.addToBookCollection = async (req, res, next) => {
-  const { id, imageLinks, title, categories } = req.body;
+  const { id, thumbnail, title, categories } = req.body;
   const { _id } = req.user;
+
 
   try {
     let bookCol = await bookModel.findOne({ user: _id });
@@ -66,7 +67,7 @@ exports.addToBookCollection = async (req, res, next) => {
     }
     bookCol.books.push({
       id,
-      poster_path: imageLinks,
+      poster_path: thumbnail,
       title,
       genres: categories,
     });
@@ -154,7 +155,7 @@ exports.recommendBooksByGenre = async (req, res, next) => {
     // Fetch books from all the URLs and combine them
     const responses = await Promise.all(urls.map((url) => axios.get(url)));
     const books = responses.flatMap((response) =>
-      response.data.items.slice(0, 5)
+      response.data.items.slice(0,5)
     );
 
     res.json(books);

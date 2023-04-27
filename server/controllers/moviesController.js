@@ -55,7 +55,7 @@ exports.getMovieCollection = async (req, res, next) => {
 
 // Add movie to user's collection
 exports.addToMovieCollection = async (req, res, next) => {
-  const { id, poster_path, title, genres } = req.body;
+  const { id, posterPath, title, genres } = req.body;
   const { _id } = req.user;
 
   try {
@@ -67,15 +67,13 @@ exports.addToMovieCollection = async (req, res, next) => {
     // Check if movie already exists in user's collection
     const alreadySaved = movieCol.movies.find((movie) => movie.title === title);
     if (alreadySaved) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: 'Movie already exists in collection',
-        });
+      return res.status(400).json({
+        success: false,
+        message: 'Movie already exists in collection',
+      });
     }
     // Save movie to user's collection
-    movieCol.movies.push({ id, poster_path, title, genres });
+    movieCol.movies.push({ id, poster_path: posterPath, title, genres });
     await movieCol.save();
     return res.json({ success: true, message: 'Movie added to collection' });
   } catch (error) {
@@ -94,12 +92,10 @@ exports.updateMovieStatus = async (req, res, next) => {
     // Find movie in user's collection
     const movie = movieCol.movies.find((movie) => movie.id === movieId);
     if (!movie) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "Movie not found in user's collection",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found in user's collection",
+      });
     }
     // Update movie status
     movie.status = status;
@@ -122,12 +118,10 @@ exports.deleteMovieFromCollection = async (req, res, next) => {
       (movie) => movie.id === movieId
     );
     if (movieIndex === -1) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "Movie not found in user's collection",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found in user's collection",
+      });
     }
     // Remove movie from user's list
     movieCol.movies.splice(movieIndex, 1);
@@ -174,24 +168,59 @@ exports.recommendMoviesByGenre = async (req, res, next) => {
         .json({ success: false, message: 'User does not have any preference' });
     }
 
-    const genreIds = genres
-      .filter((genre) => genre)
-      .map((genre) => JSON.parse(genre).id);
-    console.log(genreIds);
+    let recommendedMovies = [];
+    let maxMovies = 20;
+    let moviesPerGenre = 5;
 
-    const urls = genreIds.map(
-      (genreId) =>
-        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}`
-    );
+    while (recommendedMovies.length < maxMovies && genres.length < 20) {
+      const genreIds = [...new Set(genres
+        .filter((genre) => genre)
+        .map((genre) => JSON.parse(genre).id)
+      )];
 
-    // Fetch movies from all the URLs and combine them
-    const responses = await Promise.all(urls.map((url) => axios.get(url)));
-    const movies = responses.flatMap((response) =>
-      response.data.results.slice(0, 5)
-    );
+      const urls = genreIds.map(
+        (genreId) =>
+          `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&vote_count.gte=1000&vote_average.gte=6`
+      );
 
-    res.json(movies);
+      console.log(`Fetching movies from API for genres: ${genreIds.join(',')}...`);
+      const responses = await Promise.all(urls.map((url) => axios.get(url)));
+      let movies = responses.flatMap((response) =>
+        response.data.results.slice(0, moviesPerGenre)
+      );
+      console.log(`Fetched ${movies.length} movies from API`);
+
+      const userMovies = await movieModel.findOne({ user: _id });
+      const userMovieIds = userMovies ? userMovies.movies.map((movie) => movie.id) : [];
+      console.log(`User has ${userMovieIds.length} movies in collection`);
+
+      const filteredMovies = userMovies ? movies.filter((movie) => !userMovieIds.includes(movie.id) && !recommendedMovies.find((recMovie) => recMovie.id === movie.id)) : movies;
+      console.log(`Filtered down to ${filteredMovies.length} movies`);
+
+      recommendedMovies = [...recommendedMovies, ...filteredMovies];
+      recommendedMovies = [...new Set(recommendedMovies)];
+      console.log(`Recommended movies so far: ${recommendedMovies.length}`);
+
+      if (filteredMovies.length === 0) {
+        console.log('No more movies left to recommend for these genres');
+        genres.push(null);
+        moviesPerGenre = 5;
+      } else {
+        moviesPerGenre = 10;
+      }
+    }
+
+    if (recommendedMovies.length === 0) {
+      console.log('No recommended movies found');
+      return res
+        .status(400)
+        .json({ success: false, message: 'No recommended movies found' });
+    }
+
+    console.log(`Returning ${recommendedMovies.length} recommended movies`);
+    res.json(recommendedMovies.slice(0, maxMovies));
   } catch (error) {
     next(error);
   }
 };
+

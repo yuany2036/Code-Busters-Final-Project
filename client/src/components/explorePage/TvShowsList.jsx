@@ -24,15 +24,16 @@ const TvShowsList = () => {
     <div>
       <h1 className={styles.top_h1}>Top Popular English TV Shows</h1>
       <div className={styles.explore}>
-              {tvShows.map((tvShow) => (
-              <TvShowCard
+        {tvShows.map((tvShow) => (
+          <TvShowCard
             key={tvShow.id}
             title={tvShow.name}
             posterPath={tvShow.poster_path}
+            id={tvShow.id}
           />
-      
+
         ))}
-    </div></div>
+      </div></div>
   );
 };
 

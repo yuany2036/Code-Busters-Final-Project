@@ -4,7 +4,11 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 require('dotenv').config();
+const passport = require('passport');
+require('./passport-setup')
+require('./passport-google-setup');
 
 // Importing Routes and Global Error Handlers
 const usersRouter = require('./routes/usersRouter');
@@ -14,6 +18,7 @@ const moviesRouter = require('./routes/moviesRouter');
 const tvshowsRouter = require('./routes/tvshowsRouter');
 const booksRouter = require('./routes/booksRouter');
 const gamesRouter = require('./routes/gamesRouter');
+const passportRouter = require('./routes/passportRouter');
 const {
   routeNotFound,
   globalErrorHandler,
@@ -37,6 +42,11 @@ app.use(
 app.use(morgan('dev'));
 app.use(cookieParser());
 
+// Add session middleware and initialize Passport
+app.use(session({ secret: 'some secret', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Routes
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
@@ -45,6 +55,7 @@ app.use('/movies', moviesRouter);
 app.use('/tvshows', tvshowsRouter);
 app.use('/books', booksRouter);
 app.use('/games', gamesRouter);
+app.use('/', passportRouter);
 
 // Error Handling Middleware
 app.use(routeNotFound);
