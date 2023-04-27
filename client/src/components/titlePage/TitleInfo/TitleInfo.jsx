@@ -86,7 +86,7 @@ const TitleInfo = (props) => {
           />
         </div>
         <Icon icon="material-symbols:share-outline" width="35" height="35" />
-        <Icon icon="carbon:star-review" width="35" height="35" />
+        <Icon icon="material-symbols:reviews-rounded" width="35" height="35" />
       </div>
     </div>
   );
