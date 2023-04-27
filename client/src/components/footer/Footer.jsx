@@ -18,7 +18,8 @@ const Footer = () => {
   if (
     location.pathname === '/' ||
     location.pathname === '/about' ||
-    location.pathname === '/explore'
+    location.pathname === '/explore' ||
+    location.pathname === '/profile'
   ) {
     return (
       <>

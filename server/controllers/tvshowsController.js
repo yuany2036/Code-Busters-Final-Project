@@ -54,7 +54,7 @@ exports.getTvCollection = async (req, res, next) => {
 
 // Add tv show to user's collection
 exports.addToTvCollection = async (req, res, next) => {
-  const { id, poster_path, name, genres, seasons } = req.body;
+  const { id, posterPath, title, genres, seasons } = req.body;
   const { _id } = req.user;
 
   try {
@@ -63,7 +63,7 @@ exports.addToTvCollection = async (req, res, next) => {
       tvShowCol = new tvModel({ user: _id, series: [] });
     }
     const alreadySaved = tvShowCol.series.find(
-      (tvShow) => tvShow.title === name
+      (tvShow) => tvShow.title === title
     );
     if (alreadySaved) {
       return res.status(400).json({
@@ -71,7 +71,7 @@ exports.addToTvCollection = async (req, res, next) => {
         message: 'Tv Show already exists in collection',
       });
     }
-    tvShowCol.series.push({ id, poster_path, title: name, genres, seasons });
+    tvShowCol.series.push({ id, poster_path : posterPath, title, genres, seasons });
     await tvShowCol.save();
     return res.json({ success: true, message: 'Tv Show added to collection' });
   } catch (error) {

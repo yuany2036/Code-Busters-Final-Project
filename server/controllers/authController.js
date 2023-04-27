@@ -1,5 +1,6 @@
-const User = require("../models/userModel");
+
 require("dotenv").config();
+const User = require("../models/userModel");
 const {
     authError,
     duplicateFieldsHandler
@@ -17,9 +18,8 @@ exports.createUser = async (req, res, next) => {
             lastName,
             username,
             email,
-            password
+            password,
         } = req.body;
-
         const user = await User.create({
             firstName,
             lastName,

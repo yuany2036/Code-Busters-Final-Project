@@ -1,7 +1,5 @@
 export const usersInitialState = {
   user: {
-    bookLover: false,
-    movieWatcher: false,
   },
   isUserLoggedIn: false,
 };
@@ -13,6 +11,10 @@ export const usersReducer = (state, action) => {
         ...state,
         user: {
           ...state.user,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+          username: action.payload.username,
+          email: action.payload.email,
           bookLover: action.payload.preferences === 'bookLover',
           movieWatcher: action.payload.preferences === 'movieWatcher',
         },
@@ -30,20 +32,19 @@ export const usersReducer = (state, action) => {
     case 'UPDATE_USER':
       return {
         ...state,
-        user: {
-          ...state.user,
-          bookLover: action.payload.preferences.bookLover,
-          movieWatcher: action.payload.preferences.movieWatcher,
-        },
+        user: action.payload,
       };
 
-    case 'UPDATE_PREFERENCES': // Add this case to handle preferences update
+    case 'DELETE_USER':
+      return usersInitialState;
+
+    case 'UPDATE_PREFERENCES':
       return {
         ...state,
         user: {
           ...state.user,
-          bookLover: action.payload.preferences === 'bookLover',
-          movieWatcher: action.payload.preferences === 'movieWatcher',
+          bookLover: action.payload.preferences,
+          movieWatcher: action.payload.preferences,
         },
       };
 
@@ -51,5 +52,3 @@ export const usersReducer = (state, action) => {
       return state;
   }
 };
-
-  

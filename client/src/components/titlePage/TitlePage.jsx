@@ -8,6 +8,7 @@ import TitleInfo from './TitleInfo/TitleInfo';
 import ViewByCategory from '../ViewByCategory/ViewByCategory';
 import Reviews from '../reviews/Reviews';
 import styles from './TitlePage.module.scss';
+import CrossUniverse from '../otherMedium/CrossUniverse';
 
 const TitlePage = () => {
   const [loading, setLoading] = useState(false);
@@ -39,35 +40,13 @@ const TitlePage = () => {
     })();
   }, [id]);
 
-  // const movie_id = 76600; //avatar
-  // // const movie_id = 677179; //creed 3
-  // // const movie_id = 496243; //parasite
-  // const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${apiKey}`;
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   (async () => {
-  //     try {
-  //       let res = await axios.get(movieDetailsUrl, {
-  //         accessControlAllowOrigin: 'http://localhost:5173/',
-  //         withCredentials: false,
-  //         mode: 'cors',
-  //       });
-  //       setTitle(res.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   })();
-  // }, []);
-
   return (
     <>
       {loading && <Loading />}
       {!loading && title && (
         <div className={styles.title_page_container}>
           <TitleInfo title={title} reviews={reviews} />
+          <CrossUniverse title={title} />
           <ViewByCategory />
           <Reviews reviews={reviews} />
         </div>
