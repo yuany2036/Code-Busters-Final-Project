@@ -7,17 +7,10 @@ import SearchResults from './searchResults/SearchResults';
 
 function NavBarModal({
   // children,
-  onClose,
-  setSearchValue,
+  closeModal,
   searchHandler,
   searchValue,
 }) {
-  const closeModal = () => {
-    setSearchValue('');
-    onClose();
-    document.body.style.removeProperty('overflow');
-  };
-
   return (
     <>
       {ReactDOM.createPortal(
@@ -31,7 +24,7 @@ function NavBarModal({
             <button onClick={closeModal}>Close</button>
           </div>
           <SearchBar searchValue={searchValue} searchHandler={searchHandler} />
-          <SearchResults searchTerm={searchValue} />
+          <SearchResults searchTerm={searchValue} closeModal={closeModal} />
           {/* <ViewByCategory /> */}
           {/* <div className={styles.modal_content}>{children}</div> */}
         </div>,

@@ -14,49 +14,16 @@ const TitlePage = () => {
   const [title, setTitle] = useState('');
   const [reviews, setReviews] = useState([]);
   const { id, category } = useParams();
-
-  console.log(id, category);
-
-  useEffect(() => {
-    setLoading(true);
-    (async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:4000/${category}/searchById`,
-          [
-            {
-              id: id,
-            },
-          ]
-        );
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  console.log(loading);
-
   const apiKey = 'ad6c50ff4b12daee4d3c2b875c8684fc';
-  const movie_id = 76600; //avatar
-  // const movie_id = 677179; //creed 3
-  // const movie_id = 496243; //parasite
-  const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${apiKey}`;
-
-  const movieReviewURL = `https://api.themoviedb.org/3/movie/${movie_id}/reviews?api_key=${apiKey}&language=en-US&page=1`;
+  const movieReviewURL = `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${apiKey}&language=en-US&page=1`;
 
   useEffect(() => {
     setLoading(true);
     (async () => {
       try {
-        let res = await axios.get(movieDetailsUrl, {
-          accessControlAllowOrigin: 'http://localhost:5173/',
-          withCredentials: false,
-          mode: 'cors',
-        });
+        let res = await axios.get(
+          `http://localhost:4000/${category}/searchById?id=${id}`
+        );
         setTitle(res.data);
         res = await axios.get(movieReviewURL, {
           accessControlAllowOrigin: 'http://localhost:5173/',
@@ -64,13 +31,36 @@ const TitlePage = () => {
           mode: 'cors',
         });
         setReviews(res.data.results);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.log(err);
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [id]);
+
+  // const movie_id = 76600; //avatar
+  // // const movie_id = 677179; //creed 3
+  // // const movie_id = 496243; //parasite
+  // const movieDetailsUrl = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${apiKey}`;
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   (async () => {
+  //     try {
+  //       let res = await axios.get(movieDetailsUrl, {
+  //         accessControlAllowOrigin: 'http://localhost:5173/',
+  //         withCredentials: false,
+  //         mode: 'cors',
+  //       });
+  //       setTitle(res.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <>

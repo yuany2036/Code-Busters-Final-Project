@@ -28,7 +28,8 @@ exports.searchMovie = async (req, res, next) => {
 
 // External API call to search for movies by ID
 exports.searchMovieById = async (req, res, next) => {
-  const id = req.body.id;
+  console.log('hello worlds');
+  const id = req.query.id;
   const apiKey = process.env.MOVIEDB_API_KEY;
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`;
 
@@ -67,12 +68,10 @@ exports.addToMovieCollection = async (req, res, next) => {
     // Check if movie already exists in user's collection
     const alreadySaved = movieCol.movies.find((movie) => movie.title === title);
     if (alreadySaved) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: 'Movie already exists in collection',
-        });
+      return res.status(400).json({
+        success: false,
+        message: 'Movie already exists in collection',
+      });
     }
     // Save movie to user's collection
     movieCol.movies.push({ id, poster_path, title, genres });
@@ -94,12 +93,10 @@ exports.updateMovieStatus = async (req, res, next) => {
     // Find movie in user's collection
     const movie = movieCol.movies.find((movie) => movie.id === movieId);
     if (!movie) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "Movie not found in user's collection",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found in user's collection",
+      });
     }
     // Update movie status
     movie.status = status;
@@ -122,12 +119,10 @@ exports.deleteMovieFromCollection = async (req, res, next) => {
       (movie) => movie.id === movieId
     );
     if (movieIndex === -1) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "Movie not found in user's collection",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found in user's collection",
+      });
     }
     // Remove movie from user's list
     movieCol.movies.splice(movieIndex, 1);

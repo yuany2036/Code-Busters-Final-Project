@@ -24,13 +24,21 @@ const LoggedInNavBar = () => {
     setDropDownMenu(!dropDownMenu);
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+    document.body.style.removeProperty('overflow');
+    document.removeEventListener('keydown', keyCloseModal);
+    setSearchValue('');
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', keyCloseModal);
+  };
+
   const keyCloseModal = (e) => {
-    if (e.key === 'Escape') {
-      document.removeEventListener('keydown', keyCloseModal);
-      setSearchValue('');
-      setShowModal(false);
-      document.body.style.removeProperty('overflow');
-    }
+    if (e.key === 'Escape') closeModal();
   };
   //show searchbar in dropdown menu
   // const showSearchBar = () => {
@@ -43,13 +51,9 @@ const LoggedInNavBar = () => {
 
     // Show modal when the user starts typing
     if (value.length > 0) {
-      setShowModal(true);
-      document.body.style.overflow = 'hidden';
-      document.addEventListener('keydown', keyCloseModal);
+      openModal();
     } else {
-      setShowModal(false);
-      document.body.style.removeProperty('overflow');
-      document.removeEventListener('keydown', keyCloseModal);
+      closeModal();
     }
   };
 
@@ -92,8 +96,8 @@ const LoggedInNavBar = () => {
           />
           {showModal && (
             <NavBarModal
-              onClose={setShowModal}
-              setSearchValue={setSearchValue}
+              closeModal={closeModal}
+              // setSearchValue={setSearchValue}
               searchValue={searchValue}
               searchHandler={searchHandler}
             >

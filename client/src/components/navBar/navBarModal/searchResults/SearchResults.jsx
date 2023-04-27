@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from './SearchResults.module.scss';
 
-const SearchResults = ({ searchTerm }) => {
+const SearchResults = ({ searchTerm, closeModal }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [activeCategory, setActiveCategory] = useState('Movies');
   const [loading, setLoading] = useState(false);
@@ -64,7 +64,7 @@ const SearchResults = ({ searchTerm }) => {
                   }
                   alt="movie poster"
                   width="200px"
-                  // onClick={() => }
+                  onClick={() => closeModal()}
                 />
               </Link>
               <h4>{title ? title : name}</h4>

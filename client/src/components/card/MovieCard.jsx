@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from '../card/Card.module.scss';
 import { Icon } from '@iconify/react';
+import { Link } from 'react-router-dom';
 
-
-const MovieCard = ({ title, posterPath }) => {
+const MovieCard = ({ title, posterPath, id }) => {
   const posterUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
   return (
@@ -13,9 +13,11 @@ const MovieCard = ({ title, posterPath }) => {
         <h2 className={styles.card_title}>{title}</h2>
       </div>
       <div className={styles.btn}>
-        <button className={styles.outline}>
+        <Link to={`/title/movies/${id}`}>
           <Icon icon="gg:details-more" color="#401d56" />
-        </button>
+        </Link>
+        {/* <button className={styles.outline}>
+        </button> */}
         <button className={styles.fill}>
           <Icon icon="material-symbols:heart-plus-outline" color="white" />{' '}
         </button>
