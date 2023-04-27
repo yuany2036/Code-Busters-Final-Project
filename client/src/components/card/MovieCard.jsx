@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from '../card/Card.module.scss';
 import { Icon } from '@iconify/react';
-import { Link } from 'react-router-dom';
 import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,6 +10,7 @@ const MovieCard = ({ title, posterPath, id }) => {
 
   const { isUserLoggedIn } = useContext(DataContext);
   const navigate = useNavigate();
+  const [added, setAdded] = useState(false);
 
   const addItemToCollection = async () => {
     try {
@@ -24,6 +24,9 @@ const MovieCard = ({ title, posterPath, id }) => {
       console.log(error);
     }
   };
+  const changeIcon = () => {
+    setAdded((previous) => !previous);
+  };
 
   const handleCardClick = () => {
     if (!isUserLoggedIn) {
@@ -31,6 +34,7 @@ const MovieCard = ({ title, posterPath, id }) => {
     } else {
       addItemToCollection();
     }
+    changeIcon();
   };
 
   const handleDetailsClick = () => {
@@ -44,16 +48,24 @@ const MovieCard = ({ title, posterPath, id }) => {
         <h2 className={styles.card_title}>{title}</h2>
       </div>
       <div className={styles.btn}>
-        <button className={styles.outline}>
-          <Icon
-            icon="gg:details-more"
-            color="#401d56"
-            onClick={handleDetailsClick}
-          />
-        </button>
-        <button className={styles.fill} onClick={handleCardClick}>
-          <Icon icon="material-symbols:heart-plus-outline" color="white" />{' '}
-        </button>
+        <Icon
+          className={styles.outline}
+          style={{ fontSize: '35px' }}
+          icon="gg:details-more"
+          color="#401d56"
+          onClick={handleDetailsClick}
+        />
+        <Icon
+          className={styles.fill}
+          onClick={handleCardClick}
+          icon={
+            added
+              ? 'material-symbols:heart-minus'
+              : 'material-symbols:heart-plus-outline'
+          }
+          color="white"
+          style={{ fontSize: '35px' }}
+        />{' '}
       </div>
     </div>
   );

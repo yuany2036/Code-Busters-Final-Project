@@ -5,6 +5,7 @@ import App from './App';
 import { DataContextProvider } from './data/context';
 import './styles/index.scss';
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <DataContextProvider>
     <BrowserRouter>
