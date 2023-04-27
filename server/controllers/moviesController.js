@@ -153,39 +153,56 @@ exports.recommendMoviesByGenre = async (req, res, next) => {
   try {
     const { _id } = req.user;
     const apiKey = process.env.MOVIEDB_API_KEY;
-    const maxMovies = 20;
-    let moviesPerGenre = 10;
-    let genres = req.user.genres.filter(Boolean);
+
+    const user = await User.findById(_id);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found' });
+    }
+
+    const { preferences, genres } = user;
+    if (preferences === 'none') {
+      return res
+        .status(400)
+        .json({ success: false, message: 'User does not have any preference' });
+    }
+
     let recommendedMovies = [];
+    let maxMovies = 20;
+    let moviesPerGenre = 5;
 
     while (recommendedMovies.length < maxMovies && genres.length < 20) {
-      const moviesPromises = genres.map((genre) =>
-        axios.get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${
-            JSON.parse(genre).id
-          }&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&vote_count.gte=1000&vote_average.gte=6`
-        )
+      const genreIds = [...new Set(genres
+        .filter((genre) => genre)
+        .map((genre) => JSON.parse(genre).id)
+      )];
+
+      const urls = genreIds.map(
+        (genreId) =>
+          `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&vote_count.gte=1000&vote_average.gte=6`
       );
-      const moviesResponses = await Promise.all(moviesPromises);
-      const movies = moviesResponses.flatMap((response) =>
+
+      console.log(`Fetching movies from API for genres: ${genreIds.join(',')}...`);
+      const responses = await Promise.all(urls.map((url) => axios.get(url)));
+      let movies = responses.flatMap((response) =>
         response.data.results.slice(0, moviesPerGenre)
       );
+      console.log(`Fetched ${movies.length} movies from API`);
 
       const userMovies = await movieModel.findOne({ user: _id });
-      const userMovieIds = userMovies
-        ? userMovies.movies.map((movie) => movie.id)
-        : [];
-      const filteredMovies = movies.filter(
-        (movie) =>
-          !userMovieIds.includes(movie.id) &&
-          !recommendedMovies.find((recMovie) => recMovie.id === movie.id)
-      );
-      recommendedMovies = [...recommendedMovies, ...filteredMovies].slice(
-        0,
-        maxMovies
-      );
+      const userMovieIds = userMovies ? userMovies.movies.map((movie) => movie.id) : [];
+      console.log(`User has ${userMovieIds.length} movies in collection`);
+
+      const filteredMovies = userMovies ? movies.filter((movie) => !userMovieIds.includes(movie.id) && !recommendedMovies.find((recMovie) => recMovie.id === movie.id)) : movies;
+      console.log(`Filtered down to ${filteredMovies.length} movies`);
+
+      recommendedMovies = [...recommendedMovies, ...filteredMovies];
+      recommendedMovies = [...new Set(recommendedMovies)];
+      console.log(`Recommended movies so far: ${recommendedMovies.length}`);
 
       if (filteredMovies.length === 0) {
+        console.log('No more movies left to recommend for these genres');
         genres.push(null);
         moviesPerGenre = 5;
       } else {
@@ -194,13 +211,16 @@ exports.recommendMoviesByGenre = async (req, res, next) => {
     }
 
     if (recommendedMovies.length === 0) {
+      console.log('No recommended movies found');
       return res
         .status(400)
         .json({ success: false, message: 'No recommended movies found' });
     }
 
-    res.json(recommendedMovies);
+    console.log(`Returning ${recommendedMovies.length} recommended movies`);
+    res.json(recommendedMovies.slice(0, maxMovies));
   } catch (error) {
     next(error);
   }
 };
+
