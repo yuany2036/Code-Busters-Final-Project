@@ -7,6 +7,7 @@ import TitleInfo from './TitleInfo/TitleInfo';
 import ViewByCategory from '../ViewByCategory/ViewByCategory';
 import Reviews from '../reviews/Reviews';
 import styles from './TitlePage.module.scss';
+import CrossUniverse from '../otherMedium/CrossUniverse';
 
 const TitlePage = () => {
   const [loading, setLoading] = useState(false);
@@ -44,6 +45,7 @@ const TitlePage = () => {
       }
     })();
   }, []);
+  console.log(title);
 
   return (
     <>
@@ -51,6 +53,7 @@ const TitlePage = () => {
       {!loading && title && (
         <div className={styles.title_page_container}>
           <TitleInfo title={title} reviews={reviews} />
+          <CrossUniverse title={title} />
           <ViewByCategory />
           <Reviews reviews={reviews} />
         </div>
