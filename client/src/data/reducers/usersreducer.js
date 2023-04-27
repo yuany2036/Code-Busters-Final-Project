@@ -12,11 +12,11 @@ export const usersReducer = (state, action) => {
       return {
         ...state,
         user: {
-          ...state.user,
-          bookLover: action.payload.preferences === 'bookLover',
-          movieWatcher: action.payload.preferences === 'movieWatcher',
-        },
-        isUserLoggedIn: true,
+            ...state.user,
+            bookLover: action.payload.preferences === 'bookLover',
+            movieWatcher: action.payload.preferences === 'movieWatcher',
+          },
+          isUserLoggedIn: true,
       };
 
     case 'LOGIN_FAILED':
@@ -37,7 +37,10 @@ export const usersReducer = (state, action) => {
         },
       };
 
-    case 'UPDATE_PREFERENCES': // Add this case to handle preferences update
+    case 'DELETE_USER':
+      return usersInitialState;
+
+    case 'UPDATE_PREFERENCES': 
       return {
         ...state,
         user: {
@@ -51,5 +54,3 @@ export const usersReducer = (state, action) => {
       return state;
   }
 };
-
-  
