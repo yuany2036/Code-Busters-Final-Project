@@ -6,6 +6,7 @@ const {
   deleteMovieFromCollection,
   getMovieCollection,
   searchMovieById,
+  movieReviewById,
   getPopularMovies,
   recommendMoviesByGenre,
 } = require('../controllers/moviesController');
@@ -19,6 +20,7 @@ router.route('/').get(searchMovie);
 router.route('/popular').get(getPopularMovies);
 router.route('/recommend').get(auth, recommendMoviesByGenre);
 router.route('/searchById').get(searchMovieById);
+router.route('/reviews').get(movieReviewById);
 router
   .route('/user')
   .get(auth, getMovieCollection)
