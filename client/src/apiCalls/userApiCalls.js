@@ -44,7 +44,6 @@ export const login = async (dispatch, data) => {
       email,
       password,
     });
-
     dispatch({
       type: 'LOGIN',
       payload: response.data.data
@@ -66,37 +65,32 @@ export const getUser = async (dispatch) => {
       type: 'LOGIN',
       payload: response.data.data
     });
-    // return response.data.data;
   } catch (error) {
-    console.log(error.response);
     dispatch({
       type: 'LOGOUT'
     });
-    // return error.response.data;
   }
 };
 
 
-export const logout = async (usersDispatch /* , cartsDispatch */ ) => {
+export const logout = async (usersDispatch ) => {
   try {
-    await axios.get('/auth/logout');
+    const response = await axios.get('/auth/logout');
+    usersDispatch({
+      type: 'LOGOUT',
+      payload: response.data.data
+    });
+  } catch (error) {
     usersDispatch({
       type: 'LOGOUT'
     });
-    /*    cartsDispatch({
-         type: 'RESET_CART'
-       }); */
-  } catch (error) {
-    dispatch({
-      type: 'LOGOUT'
-    });
   }
 };
 
-export const updateUser = async (dispatch, data) => {
+export const updateUser = async (usersDispatch, data) => {
   try {
     const response = await axios.patch('/me', data);
-    dispatch({
+    usersDispatch({
       type: 'UPDATE_USER',
       payload: response.data.data
     });

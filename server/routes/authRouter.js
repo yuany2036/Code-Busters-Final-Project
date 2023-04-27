@@ -8,7 +8,7 @@ const {
 const router = express.Router();
 
 // Route to create a new user
-router.post('/register', validateUser, sanitizeUser, createUser);
+router.post('/register',validateUser, sanitizeUser, createUser);
 
 // Routes to Login and Logout
 router.post('/login', loginValidation, login);

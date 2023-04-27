@@ -143,11 +143,11 @@ UserSchema.methods.getPublicFields = function () {
   return {
     firstName: this.firstName,
     lastName: this.lastName,
-    userName: this.username,
+    username: this.username,
     age: this.age,
     email: this.email,
     role: this.role,
-    avatar: this.avatarURL,
+    avatarURL: this.avatarURL,
     preferences: this.preferences,
     genres: this.genres,
   };

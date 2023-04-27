@@ -7,50 +7,71 @@ import { updateUser, deleteUser, logout } from '../../apiCalls/userApiCalls';
 import styles from '../userProfile/UserProfile.module.scss';
 import { Icon } from '@iconify/react';
 import img from '../../assets/user.png';
+import axios from 'axios';
 
 const Profile = () => {
   const {
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { user, usersDispatch,setError,setLoading } = useContext(DataContext);
+  const { user,usersDispatch } = useContext(DataContext);
+  console.log(user)
+
   const navigate = useNavigate();
 
   const [avatar, setAvatar] = useState('');
   const fileInputRef = useRef(null);
 
-  useEffect(() => {
-    if (user.avatar) {
-      setAvatar(user.avatar);
-    }
-  }, [user]);
-
   const onSubmit = async (data) => {
     try {
-      const response = await updateUser(usersDispatch, data);
-      console.log(response);
+      const updatedUserData = {};
+
+      if (data.firstName && data.firstName !== user.firstName) {
+        updatedUserData.firstName = data.firstName;
+      }
+      if (data.lastName && data.lastName !== user.lastName) {
+        updatedUserData.lastName = data.lastName;
+      }
+      if (data.username && data.username !== user.username) {
+        updatedUserData.username = data.username;
+      }
+      if (data.email && data.email !== user.email) {
+        updatedUserData.email = data.email;
+      }
+
+      if (Object.keys(updatedUserData).length > 0) {
+        const response = await axios.patch("/me", updatedUserData);
+        console.log(response.data.data);
+        if (response.status === 200) {
+          usersDispatch({
+            type: 'UPDATE_USER',
+            payload: response.data.data,
+          });
+          alert('Your profile has been updated');
+        }
+      } else {
+        alert('No changes were made');
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const deleteOnClick = async (data, event) => {
-    event.preventDefault();
+  const deleteOnClick = async (data) => {
     try {
-      const response = await deleteUser(usersDispatch, data);
-      console.log(response);
+      await deleteUser(usersDispatch, data);
+      alert('Your account has been deleted');
+      return navigate('/explore');
     } catch (error) {
       console.log(error);
     }
   };
   const logoutOnClick = async (data) => {
     try {
-      const response = await logout(usersDispatch, data);
-       if (response.statusCode < 400) {
-         return navigate('/explore');
-       }
-       setError(response);
-
+      await logout(usersDispatch, data);
+      alert('You have been logged out')
+      return navigate('/explore');
     } catch (error) {
       console.log(error);
     }
@@ -112,47 +133,55 @@ const Profile = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.inputs}>
               <div>
-                <label htmlFor="firstName">First Name:</label>
+                <label>First Name:</label>
                 <input
+                  {...register('firstName', { required: false })}
+                  type='text'
                   name="firstName"
                   placeholder="First name"
-                  defaultValue={user.firstName}
+                  defaultValue={user.firstName ?? ''}
                 />
                 <div className={styles.error_message}>
                   {errors.firstName && <span>{errors.firstName.message}</span>}
                 </div>
               </div>
               <div>
-                <label htmlFor="LastName">Last Name:</label>
+                <label>Last Name:</label>
 
                 <input
+                  {...register('lastName', { required: false })}
+                  type='text'
                   name="lastName"
                   placeholder="Last name"
-                  defaultValue={user.lastName}
+                  defaultValue={user.lastName ?? ''}
                 />
                 <div className={styles.error_message}>
                   {errors.lastName && <span>{errors.lastName.message}</span>}
                 </div>
               </div>
               <div>
-                <label htmlFor="username">Username:</label>
+                <label>Username:</label>
 
                 <input
+                  {...register('username', { required: false })}
+                  type='text'
                   name="username"
                   placeholder="Username"
-                  defaultValue={user.username}
+                  defaultValue={user.username ?? ''}
                 />
                 <div className={styles.error_message}>
                   {errors.lastName && <span>{errors.username.message}</span>}
                 </div>
               </div>
               <div>
-                <label htmlFor="email">Email:</label>
+                <label>Email:</label>
 
                 <input
+                  {...register('email', { required: false })}
+                  type='email'
                   name="email"
                   placeholder="Email"
-                  defaultValue={user.email}
+                  defaultValue={user.email ?? ''}
                 />
                 <div className={styles.error_message}>
                   {errors.email && <span>{errors.email.message}</span>}
