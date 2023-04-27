@@ -34,7 +34,7 @@ export const DataContextProvider = ({ children }) => {
         loading,
         setError,
         setLoading,
-        updateUserPreferences, 
+        updateUserPreferences,
       }}
     >
       {children}

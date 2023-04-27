@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './ProfileCircle.module.scss';
 import DataContext from '../../data/context';
+import { useNavigate } from 'react-router-dom';
 function ProfileCircle() {
   const { user } = useContext(DataContext);
-  const [userName, setUsername] = useState('');
+  const [userName, setUserName] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        console.log(user);
+        // console.log(user);
         const res = await user.username;
-        setUsername(res);
+        setUserName(res);
         console.log(res);
       } catch (error) {
         console.error('Failed to fetch username:', error);
@@ -18,11 +21,12 @@ function ProfileCircle() {
     };
     fetchUsername();
   }, []);
-  const testingFunction = () => {
-    console.log('working');
+
+  const goToProfile = () => {
+    navigate('/profile');
   };
   return (
-    <div onClick={testingFunction} className={styles.circle}>
+    <div onClick={goToProfile} className={styles.circle}>
       {userName && userName.charAt(0).toUpperCase()}
     </div>
   );
