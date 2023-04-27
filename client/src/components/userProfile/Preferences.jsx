@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import styles from './Preferences.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -66,9 +66,7 @@ const Preferences = () => {
       setGenres([...genres, { id: genreId, name: genreName }]);
     }
   };
-
-
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log('Submitting preferences...');
@@ -80,7 +78,7 @@ const Preferences = () => {
       console.log('Preferences stored successfully:', response.data);
       if (response.status === 200) {
         usersDispatch({
-          type: 'UPDATE_USER',
+          type: 'UPDATE_PREFERENCES',
           payload: {
             preferences: {
               bookLover,
@@ -95,8 +93,6 @@ const Preferences = () => {
       console.error('Failed to store preferences:', error.response.data);
     }
   };
-
-
 
   return (
     <div className={styles.preferences_container}>
