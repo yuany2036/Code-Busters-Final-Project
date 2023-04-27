@@ -13,7 +13,7 @@ const Profile = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { user, usersDispatch,setError,setLoading } = useContext(DataContext);
+  const { user, usersDispatch,setError} = useContext(DataContext);
   const navigate = useNavigate();
 
   const [avatar, setAvatar] = useState('');
