@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 axios.default.withCredientials === true;
 // import styles from './TitlePage.module.scss';
@@ -12,6 +13,32 @@ const TitlePage = () => {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('');
   const [reviews, setReviews] = useState([]);
+  const { id, category } = useParams();
+
+  console.log(id, category);
+
+  useEffect(() => {
+    setLoading(true);
+    (async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:4000/${category}/searchById`,
+          [
+            {
+              id: id,
+            },
+          ]
+        );
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  console.log(loading);
 
   const apiKey = 'ad6c50ff4b12daee4d3c2b875c8684fc';
   const movie_id = 76600; //avatar
