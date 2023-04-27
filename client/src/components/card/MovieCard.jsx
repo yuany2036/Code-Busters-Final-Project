@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import styles from '../card/Card.module.scss';
 import { Icon } from '@iconify/react';
-import { Link } from 'react-router-dom';
 import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
