@@ -31,9 +31,9 @@ const CrossUniverse = ({ title }) => {
   return (
     <div className={styles.medium_container}>
       <div className={styles.medium_container_left}>
-        <h2 className={styles.medium_container_left_title}>Hey there!</h2>
+        <h2 className={styles.medium_container_left_title}>How about..</h2>
         <div className={styles.medium_container_left_text}>
-          <p>would you like to expand your circle of interest?</p>
+          <p>expanding your circle of interest?</p>
           <p> maybe even cross to the other side of the universe ... </p>
         </div>
         <div className={styles.arrow}></div>

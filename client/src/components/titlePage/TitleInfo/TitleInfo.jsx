@@ -49,10 +49,40 @@ const TitleInfo = (props) => {
             alt="movie poster"
             className={styles.poster_image}
           />
-          <h2>{titleName}</h2>
+          <div className={styles.icons_container}>
+            {/* <div onClick={() => setAdded((pre) => !pre)}>
+          <Icon
+            icon={added ? 'charm:tick' : 'ic:baseline-plus'}
+            width="44"
+            height="44"
+          />
+        </div> */}
+            <div onClick={() => setHearted((pre) => !pre)}>
+              <Icon
+                icon={
+                  hearted
+                    ? 'material-symbols:heart-minus'
+                    : 'material-symbols:heart-plus-outline'
+                }
+                width="35"
+                height="35"
+              />
+            </div>
+            <Icon
+              icon="material-symbols:share-outline"
+              width="35"
+              height="35"
+            />
+            <Icon
+              icon="material-symbols:reviews-rounded"
+              width="35"
+              height="35"
+            />
+          </div>
         </div>
         <div className={styles.upper_container_right}>
-          <h2>{tagline}</h2>
+          <h2>{titleName}</h2>
+          <h2 className={styles.tag_line}>{tagline}</h2>
           <p className={styles.overview}>{overview}</p>
           <div className={styles.mapped_info_container}>
             {shortInfoArray.map((info) => {
@@ -66,28 +96,7 @@ const TitleInfo = (props) => {
           </div>
         </div>
       </div>
-      <div className={styles.icons_container}>
-        <div onClick={() => setAdded((pre) => !pre)}>
-          <Icon
-            icon={added ? 'charm:tick' : 'ic:baseline-plus'}
-            width="44"
-            height="44"
-          />
-        </div>
-        <div onClick={() => setHearted((pre) => !pre)}>
-          <Icon
-            icon={
-              hearted
-                ? 'material-symbols:heart-minus'
-                : 'material-symbols:heart-plus-outline'
-            }
-            width="35"
-            height="35"
-          />
-        </div>
-        <Icon icon="material-symbols:share-outline" width="35" height="35" />
-        <Icon icon="material-symbols:reviews-rounded" width="35" height="35" />
-      </div>
+      <div className={styles.divider}></div>
     </div>
   );
 };

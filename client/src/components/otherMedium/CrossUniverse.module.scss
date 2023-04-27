@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: space-around;
   font-family: $primary-font;
-  background-color: rgba(169, 174, 190, 0.944);
-  padding: 2rem;
+  background-color: rgba(197, 199, 206, 0.944);
+  padding: 4rem 2rem;
 
   &_left {
     &_title {
@@ -27,9 +27,8 @@
       }
     }
     &_text {
-      padding: 1rem 0;
+      padding: 1rem 1rem 1rem 0rem;
       line-height: 2rem;
-      font-style: italic;
       font-size: 1.4rem;
     }
 

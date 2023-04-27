@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './Reviews.module.scss';
 import avatarPic from '../../assets/person-placeholder.jpeg';
+import { useNavigate } from 'react-router-dom';
+import ReviewsSoloPage from './ReviewsSoloPage';
 
 const Reviews = ({ reviews }) => {
   const [expandedReviews, setExpandedReview] = useState([]);
-
+  const navigate = useNavigate();
   const readMoreHandler = function () {
     if (expandedReviews.includes(this)) {
       setExpandedReview((prev) => prev.filter((id) => id !== this));
@@ -31,6 +33,10 @@ const Reviews = ({ reviews }) => {
       );
     }
     return stars;
+  };
+
+  const gotToReviews = () => {
+    navigate('/reviews');
   };
 
   console.log(reviews);
@@ -91,7 +97,9 @@ const Reviews = ({ reviews }) => {
           );
         }
       )}
-      <button className={styles.buttons}>Read all reviews</button>
+      <button onClick={gotToReviews} className={styles.buttons}>
+        Read all reviews
+      </button>
     </div>
   );
 };

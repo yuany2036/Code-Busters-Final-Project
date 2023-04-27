@@ -12,6 +12,7 @@ import TitlePage from '../components/titlePage/TitlePage';
 import Collection from '../components/collection/Collection';
 import Profile from '../components/userProfile/UserProfile';
 import Preferences from '../components/userProfile/Preferences';
+import ReviewsSoloPage from '../components/reviews/ReviewsSoloPage';
 // import Animation from '../components/landingPage/landingAnimation/Animation';
 
 const Router = () => {
@@ -37,6 +38,7 @@ const Router = () => {
       <Route path="/collection" element={<Collection />} />
       <Route path="/title/:movie_id" element={<TitlePage />} />
       <Route path="/preferences" element={<Preferences />} />
+      <Route path="/reviews" element={<ReviewsSoloPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

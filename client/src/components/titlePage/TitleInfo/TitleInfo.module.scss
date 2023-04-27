@@ -4,12 +4,14 @@
   font-family: $primary-font;
   display: flex;
   flex-direction: column;
+
   color: $off-white-text;
   font-size: $primary-font-size;
 
   .upper_container {
     display: flex;
     align-items: center;
+
     gap: 1rem;
     text-align: center;
     position: relative;
@@ -38,10 +40,10 @@
       .poster_image {
         height: auto;
       }
-      h2 {
-        padding: 2rem 2rem 0rem 2rem;
-        font-size: $title-page-h2-font-size;
-      }
+      // h2 {
+      //   padding: 2rem 2rem 0rem 2rem;
+      //   font-size: $title-page-h2-font-size;
+      // }
     }
 
     &_right {
@@ -65,9 +67,12 @@
         font-size: $title-page-h3-font-size;
       }
 
-      h2,
-      h3 {
+      .tag_line {
         font-style: italic;
+        font-size: 1.2rem;
+      }
+      h3 {
+        text-transform: uppercase;
       }
 
       .mapped_info_container {
@@ -80,6 +85,11 @@
       }
     }
   }
+  .divider {
+    height: 4rem;
+    width: 100%;
+    background: $primary-gradient;
+  }
 }
 
 .icons_container {
@@ -87,8 +97,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 1rem;
-  background: $primary-gradient;
+  padding: 2rem;
+  // background: $primary-gradient;
 
   &:hover {
     cursor: pointer;
