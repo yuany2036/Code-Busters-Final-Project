@@ -3,7 +3,6 @@ import { Icon } from '@iconify/react';
 import styles from './Reviews.module.scss';
 import avatarPic from '../../assets/person-placeholder.jpeg';
 import { useNavigate } from 'react-router-dom';
-import ReviewsSoloPage from './ReviewsSoloPage';
 
 const Reviews = ({ reviews }) => {
   const [expandedReviews, setExpandedReview] = useState([]);
