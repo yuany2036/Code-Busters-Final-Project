@@ -1,7 +1,5 @@
 export const usersInitialState = {
   user: {
-    bookLover: false,
-    movieWatcher: false,
   },
   isUserLoggedIn: false,
 };
@@ -12,11 +10,15 @@ export const usersReducer = (state, action) => {
       return {
         ...state,
         user: {
-            ...state.user,
-            bookLover: action.payload.preferences === 'bookLover',
-            movieWatcher: action.payload.preferences === 'movieWatcher',
-          },
-          isUserLoggedIn: true,
+          ...state.user,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+          username: action.payload.username,
+          email: action.payload.email,
+          bookLover: action.payload.preferences === 'bookLover',
+          movieWatcher: action.payload.preferences === 'movieWatcher',
+        },
+        isUserLoggedIn: true,
       };
 
     case 'LOGIN_FAILED':
@@ -30,23 +32,19 @@ export const usersReducer = (state, action) => {
     case 'UPDATE_USER':
       return {
         ...state,
-        user: {
-          ...state.user,
-          bookLover: action.payload.preferences.bookLover,
-          movieWatcher: action.payload.preferences.movieWatcher,
-        },
+        user: action.payload,
       };
 
     case 'DELETE_USER':
       return usersInitialState;
 
-    case 'UPDATE_PREFERENCES': 
+    case 'UPDATE_PREFERENCES':
       return {
         ...state,
         user: {
           ...state.user,
-          bookLover: action.payload.preferences === 'bookLover',
-          movieWatcher: action.payload.preferences === 'movieWatcher',
+          bookLover: action.payload.preferences,
+          movieWatcher: action.payload.preferences,
         },
       };
 
