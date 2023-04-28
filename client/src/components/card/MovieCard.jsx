@@ -50,7 +50,7 @@ const MovieCard = ({ title, posterPath, id }) => {
       <div className={styles.btn}>
         <Icon
           className={styles.outline}
-          style={{ fontSize: '35px' }}
+          style={{ fontSize: '30px' }}
           icon="gg:details-more"
           color="#401d56"
           onClick={handleDetailsClick}
@@ -64,7 +64,7 @@ const MovieCard = ({ title, posterPath, id }) => {
               : 'material-symbols:heart-plus-outline'
           }
           color="white"
-          style={{ fontSize: '35px' }}
+          style={{ fontSize: '30px' }}
         />{' '}
       </div>
     </div>
