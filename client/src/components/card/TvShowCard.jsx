@@ -13,19 +13,28 @@ const TvShowCard = ({ id, title, posterPath }) => {
 
   const addItemToCollection = async () => {
     try {
-      const response = await axios.post("/tvshows/user", { title, posterPath, id });
+      const response = await axios.post('/tvshows/user', {
+        title,
+        posterPath,
+        id,
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleCardClick = () => {
     if (!isUserLoggedIn) {
       navigate('/login');
+    } else {
+      addItemToCollection();
     }
-    else { addItemToCollection(); }
-  }
+  };
+
+  const handleDetailsClick = () => {
+    navigate(`/title/tvshows/${id}`);
+  };
 
   return (
     <div className={styles.card}>
@@ -35,7 +44,11 @@ const TvShowCard = ({ id, title, posterPath }) => {
       </div>
       <div className={styles.btn}>
         <button className={styles.outline}>
-          <Icon icon="gg:details-more" color="#401d56" />
+          <Icon
+            icon="gg:details-more"
+            color="#401d56"
+            onClick={handleDetailsClick}
+          />
         </button>
         <button className={styles.fill} onClick={handleCardClick}>
           <Icon icon="material-symbols:heart-plus-outline" color="white" />{' '}
