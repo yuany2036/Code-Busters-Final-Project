@@ -4,7 +4,7 @@
   background: rgb(77, 129, 227);
   background: linear-gradient(
     45deg,
-    rgb(59, 111, 206) 0%,
+    rgb(100, 13, 214) 0%,
     rgba(11, 3, 45, 1) 100%
   );
   /* 
@@ -34,13 +34,14 @@ background: linear-gradient(164deg, rgba(5,34,91,1) 0%, rgba(82,46,235,1) 90%); 
   padding: 20px;
   align-items: center;
   justify-content: center;
+  text-align: center;
   border-radius: 12px;
   scroll-snap-align: start;
   transition: all 0.2s;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+/*   backdrop-filter: blur(4px);
+ */  border: 1px solid rgba(255, 255, 255, 0.18);
   height: 450px;
   width: 350px;
   margin: 1rem 1.5rem;
@@ -63,34 +64,30 @@ background: linear-gradient(164deg, rgba(5,34,91,1) 0%, rgba(82,46,235,1) 90%); 
     color: $primary-blue;
   }
   .btn {
-    button {
-      border: none;
-      margin: 0.3rem;
-      padding: 10px 20px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-    }
+    width: 80%;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+
     .outline {
-      background: transparent;
-      font-weight: 700;
-      color: #401d56;
-      border: 1px solid #401d56;
+/*       border: 1px solid #401d56;
+ */      width: 70px;
+      height: 35px;
+      border-radius: 6px;
       transition: all 0.3s ease;
+      margin: 1rem;
       &:hover {
-        color: rgba(255, 255, 255, 0.9);
         border-color: rgba(255, 255, 255, 0.9);
         transition: all 0.3s ease;
       }
     }
     .fill {
-      background: rgba(#401d56, 0.9);
-      color: rgba(255, 255, 255, 0.95);
-      filter: drop-shadow(0);
-      font-weight: bold;
+/*       background: rgba(#401d56, 0.9);
+ */      width: 70px;
+      height: 35px;
       transition: all 0.3s ease;
+/*       border-radius: 6px;
+ */      margin: 1rem;
     }
   }
 }

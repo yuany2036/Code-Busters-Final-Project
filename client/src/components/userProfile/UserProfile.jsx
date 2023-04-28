@@ -1,11 +1,13 @@
 import { useForm } from 'react-hook-form';
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 
 import { updateUser, deleteUser, logout } from '../../apiCalls/userApiCalls';
 import styles from '../userProfile/UserProfile.module.scss';
 import { Icon } from '@iconify/react';
+import { Tooltip } from 'react-tooltip';
+
 import img from '../../assets/user.png';
 import axios from 'axios';
 
@@ -15,7 +17,7 @@ const Profile = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { user, usersDispatch,setError} = useContext(DataContext);
+  const { user, usersDispatch } = useContext(DataContext);
   const navigate = useNavigate();
 
   const [avatar, setAvatar] = useState('');
@@ -39,7 +41,7 @@ const Profile = () => {
       }
 
       if (Object.keys(updatedUserData).length > 0) {
-        const response = await axios.patch("/me", updatedUserData);
+        const response = await axios.patch('/me', updatedUserData);
         console.log(response.data.data);
         if (response.status === 200) {
           usersDispatch({
@@ -68,7 +70,7 @@ const Profile = () => {
   const logoutOnClick = async (data) => {
     try {
       await logout(usersDispatch, data);
-      alert('You have been logged out')
+      alert('You have been logged out');
       return navigate('/explore');
     } catch (error) {
       console.log(error);
@@ -100,13 +102,27 @@ const Profile = () => {
   };
   return (
     <div className={styles.profile_container}>
-      <h1>Your profile Information, Mihaela {user.firstName}</h1>
-      <p>Here you can edit your personal info and update your profile photo</p>
+      <div className={styles.profile_greeting}>
+        <h1>Your profile Information, {user.firstName}</h1>
+        <p>
+          Here you can edit your personal info and update your profile photo
+        </p>
+      </div>
       <div className={styles.profile}>
         <div className={styles.profile_image}>
           <h3>Profile Image</h3>{' '}
-          <div className={styles.avatar} onClick={handleClickAvatar}>
+          <div className={styles.avatar}>
             <img src={avatar ? avatar : img} alt="placeholder" />
+            <Icon
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Choose your photo"
+              onClick={handleClickAvatar}
+              icon="material-symbols:add-a-photo-rounded"
+              color="#7e57c2"
+              width="35"
+              height="40"
+            />
+            <Tooltip id="my-tooltip" />
           </div>
           <div className={styles.upload}>
             <input
@@ -119,12 +135,7 @@ const Profile = () => {
             />
           </div>
           <div className={styles.submit}>
-            <input
-              type="submit"
-              className="button-bg"
-              value="Update Photo"
-              onClick={updateAvatar}
-            />
+            <input type="submit" value="Update Photo" onClick={updateAvatar} />
           </div>
         </div>
         <div className={styles.change_form}>
@@ -134,7 +145,7 @@ const Profile = () => {
                 <label>First Name:</label>
                 <input
                   {...register('firstName', { required: false })}
-                  type='text'
+                  type="text"
                   name="firstName"
                   placeholder="First name"
                   defaultValue={user.firstName ?? ''}
@@ -148,7 +159,7 @@ const Profile = () => {
 
                 <input
                   {...register('lastName', { required: false })}
-                  type='text'
+                  type="text"
                   name="lastName"
                   placeholder="Last name"
                   defaultValue={user.lastName ?? ''}
@@ -162,7 +173,7 @@ const Profile = () => {
 
                 <input
                   {...register('username', { required: false })}
-                  type='text'
+                  type="text"
                   name="username"
                   placeholder="Username"
                   defaultValue={user.username ?? ''}
@@ -176,7 +187,7 @@ const Profile = () => {
 
                 <input
                   {...register('email', { required: false })}
-                  type='email'
+                  type="email"
                   name="email"
                   placeholder="Email"
                   defaultValue={user.email ?? ''}
@@ -193,20 +204,24 @@ const Profile = () => {
         </div>
       </div>
       <div className={styles.more_actions}>
-        <h3>
-          <span>More Actions</span>
+        <h3>More Actions</h3>
 
-          <Icon icon="material-symbols:arrow-right-alt" color="#401d56" />
-        </h3>
+        <Icon
+          icon="material-symbols:arrow-right-alt"
+          color="#401d56"
+          width="40"
+        />
         <div>
           <button onClick={logoutOnClick}>Logout</button>
           <div className={styles.delete_btn}>
             <button
               onClick={deleteOnClick}
-              title="Note! Deleting your account is permanent"
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Note! Deleting your account is permanent"
             >
               Delete Account
             </button>
+            <Tooltip id="my-tooltip" />
           </div>
         </div>
       </div>

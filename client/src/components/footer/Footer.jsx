@@ -1,7 +1,7 @@
 import styles from './Footer.module.scss';
 import React, { useState } from 'react';
 import Logo from '../../assets/2.svg';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link} from 'react-router-dom';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -32,11 +32,15 @@ const Footer = () => {
 
               <div className={styles.footer_list}>
                 <ul className={styles.footer_list_item}>
-                  <li className={styles.footer_list_item_link}>About</li>
+                  <li className={styles.footer_list_item_link}>
+                    <Link to="/about">About</Link>{' '}
+                  </li>
                   <li className={styles.footer_list_item_link}>Contact</li>
                 </ul>
                 <ul className={styles.footer_list_item}>
-                  <li className={styles.footer_list_item_link}>Explore</li>
+                  <li className={styles.footer_list_item_link}>
+                    <Link to="/explore">Explore</Link>
+                  </li>
                   <li className={styles.footer_list_item_link}>Instagram</li>
                 </ul>
                 <ul className={styles.footer_list_item}>
