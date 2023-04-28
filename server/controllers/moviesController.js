@@ -28,7 +28,6 @@ exports.searchMovie = async (req, res, next) => {
 
 // External API call to search for movies by ID
 exports.searchMovieById = async (req, res, next) => {
-  console.log('hello worlds');
   const id = req.query.id;
   const apiKey = process.env.MOVIEDB_API_KEY;
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`;
@@ -37,6 +36,21 @@ exports.searchMovieById = async (req, res, next) => {
     const response = await axios.get(url);
     const movie = response.data;
     res.json(movie);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get reviews of a movie by ID
+exports.movieReviewById = async (req, res, next) => {
+  console.log('hey');
+  const id = req.query.id;
+  const apiKey = process.env.MOVIEDB_API_KEY;
+  const url = `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${apiKey}&language=en-US`;
+
+  try {
+    const response = await axios(url);
+    res.json(response.data);
   } catch (error) {
     next(error);
   }
@@ -174,17 +188,20 @@ exports.recommendMoviesByGenre = async (req, res, next) => {
     let moviesPerGenre = 5;
 
     while (recommendedMovies.length < maxMovies && genres.length < 20) {
-      const genreIds = [...new Set(genres
-        .filter((genre) => genre)
-        .map((genre) => JSON.parse(genre).id)
-      )];
+      const genreIds = [
+        ...new Set(
+          genres.filter((genre) => genre).map((genre) => JSON.parse(genre).id)
+        ),
+      ];
 
       const urls = genreIds.map(
         (genreId) =>
           `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&vote_count.gte=1000&vote_average.gte=6`
       );
 
-      console.log(`Fetching movies from API for genres: ${genreIds.join(',')}...`);
+      console.log(
+        `Fetching movies from API for genres: ${genreIds.join(',')}...`
+      );
       const responses = await Promise.all(urls.map((url) => axios.get(url)));
       let movies = responses.flatMap((response) =>
         response.data.results.slice(0, moviesPerGenre)
@@ -192,10 +209,18 @@ exports.recommendMoviesByGenre = async (req, res, next) => {
       console.log(`Fetched ${movies.length} movies from API`);
 
       const userMovies = await movieModel.findOne({ user: _id });
-      const userMovieIds = userMovies ? userMovies.movies.map((movie) => movie.id) : [];
+      const userMovieIds = userMovies
+        ? userMovies.movies.map((movie) => movie.id)
+        : [];
       console.log(`User has ${userMovieIds.length} movies in collection`);
 
-      const filteredMovies = userMovies ? movies.filter((movie) => !userMovieIds.includes(movie.id) && !recommendedMovies.find((recMovie) => recMovie.id === movie.id)) : movies;
+      const filteredMovies = userMovies
+        ? movies.filter(
+            (movie) =>
+              !userMovieIds.includes(movie.id) &&
+              !recommendedMovies.find((recMovie) => recMovie.id === movie.id)
+          )
+        : movies;
       console.log(`Filtered down to ${filteredMovies.length} movies`);
 
       recommendedMovies = [...recommendedMovies, ...filteredMovies];
@@ -224,4 +249,3 @@ exports.recommendMoviesByGenre = async (req, res, next) => {
     next(error);
   }
 };
-

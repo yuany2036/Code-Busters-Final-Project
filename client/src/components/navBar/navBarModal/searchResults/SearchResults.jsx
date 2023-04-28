@@ -50,6 +50,9 @@ const SearchResults = ({ searchTerm, closeModal }) => {
       </div>
       <div className={styles.results_container}>
         {loading && <h3>Loading...</h3>}
+        {searchResults.length === 0 && !loading && (
+          <h2>No results found for this category</h2>
+        )}
         {(activeCategory === 'Movies' || activeCategory === 'TV Shows') &&
           !loading &&
           searchResults.length > 0 &&
@@ -93,9 +96,6 @@ const SearchResults = ({ searchTerm, closeModal }) => {
               );
             }
           )}
-        {searchResults.length === 0 && (
-          <h2>No results found for this category</h2>
-        )}
       </div>
     </div>
   );

@@ -15,8 +15,6 @@ const TitlePage = () => {
   const [title, setTitle] = useState('');
   const [reviews, setReviews] = useState([]);
   const { id, category } = useParams();
-  const apiKey = 'ad6c50ff4b12daee4d3c2b875c8684fc';
-  const movieReviewURL = `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${apiKey}&language=en-US&page=1`;
 
   useEffect(() => {
     setLoading(true);
@@ -26,12 +24,12 @@ const TitlePage = () => {
           `http://localhost:4000/${category}/searchById?id=${id}`
         );
         setTitle(res.data);
-        res = await axios.get(movieReviewURL, {
-          accessControlAllowOrigin: 'http://localhost:5173/',
-          withCredentials: false,
-          mode: 'cors',
-        });
-        setReviews(res.data.results);
+        res = await axios.get(
+          `http://localhost:4000/${category}/reviews?id=${id}`
+        );
+        console.log('this should be reviews ->', res);
+        category === 'movies' && setReviews(res.data.results);
+        category === 'tvshows' && setReviews(res.data);
       } catch (err) {
         console.log(err);
       } finally {

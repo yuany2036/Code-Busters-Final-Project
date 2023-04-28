@@ -27,6 +27,7 @@ const TvShowCard = ({ id, title, posterPath }) => {
   const changeIcon = () => {
     setAdded((previous) => !previous);
   };
+
   const handleCardClick = () => {
     if (!isUserLoggedIn) {
       navigate('/login');
@@ -34,6 +35,10 @@ const TvShowCard = ({ id, title, posterPath }) => {
       addItemToCollection();
     }
     changeIcon();
+  };
+
+  const handleDetailsClick = () => {
+    navigate(`/title/tvshows/${id}`);
   };
 
   return (
@@ -47,7 +52,7 @@ const TvShowCard = ({ id, title, posterPath }) => {
           icon="gg:details-more"
           color="#401d56"
           className={styles.outline}
-          onClick={handleCardClick}
+          onClick={handleDetailsClick}
           style={{ fontSize: '35px' }}
         />
         <Icon

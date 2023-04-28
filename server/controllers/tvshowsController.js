@@ -40,6 +40,19 @@ exports.searchTvById = async (req, res, next) => {
   }
 };
 
+exports.tvReviewsById = async (req, res, next) => {
+  const id = req.query.id;
+  const apiKey = process.env.MOVIEDB_API_KEY;
+  const url = `https://api.themoviedb.org/3/tv/${id}/reviews?api_key=${apiKey}&language=en-US`;
+
+  try {
+    const response = await axios.get(url);
+    res.json(response.data.results);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Get user's tv collection
 exports.getTvCollection = async (req, res, next) => {
   const { _id } = req.user;
@@ -71,7 +84,13 @@ exports.addToTvCollection = async (req, res, next) => {
         message: 'Tv Show already exists in collection',
       });
     }
-    tvShowCol.series.push({ id, poster_path : posterPath, title, genres, seasons });
+    tvShowCol.series.push({
+      id,
+      poster_path: posterPath,
+      title,
+      genres,
+      seasons,
+    });
     await tvShowCol.save();
     return res.json({ success: true, message: 'Tv Show added to collection' });
   } catch (error) {

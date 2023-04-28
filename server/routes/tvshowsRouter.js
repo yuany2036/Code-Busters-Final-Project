@@ -2,6 +2,7 @@ const express = require('express');
 const {
   searchTv,
   searchTvById,
+  tvReviewsById,
   updateTvStatus,
   getTvCollection,
   addToTvCollection,
@@ -16,6 +17,7 @@ const router = express.Router();
 // Router to find tv shows
 router.route('/').get(searchTv);
 router.route('/searchById').get(searchTvById);
+router.route('/reviews').get(tvReviewsById);
 router.route('/popular').get(getPopularTvShows);
 router
   .route('/user')
