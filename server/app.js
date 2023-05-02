@@ -19,6 +19,7 @@ const tvshowsRouter = require('./routes/tvshowsRouter');
 const booksRouter = require('./routes/booksRouter');
 const gamesRouter = require('./routes/gamesRouter');
 const passportRouter = require('./routes/passportRouter');
+const cloudRouter = require('./routes/cloudRouter');
 const {
   routeNotFound,
   globalErrorHandler,
@@ -56,6 +57,7 @@ app.use('/tvshows', tvshowsRouter);
 app.use('/books', booksRouter);
 app.use('/games', gamesRouter);
 app.use('/', passportRouter);
+app.use('/cloud', cloudRouter)
 
 // Error Handling Middleware
 app.use(routeNotFound);
