@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styles from './LandingPage.module.scss';
 import video from '../../assets/Nebula_Background.mp4';
 
-// import Animation from './landingAnimation/Animation';
+//import Animation from './landingAnimation/Animation';
 
 const LandingPage = () => {
   const animationRef = useRef(null);
@@ -43,6 +43,7 @@ const LandingPage = () => {
 
           <div className={styles.third_section}>
             <h1></h1>
+           {/*  <Animation/> */}
             <p>
               <span>Entscape</span> - one place to discover them all
             </p>
