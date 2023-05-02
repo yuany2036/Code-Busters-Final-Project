@@ -10,7 +10,6 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
   const { isUserLoggedIn } = useContext(DataContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
-  console.log(id);
 
   const addItemToCollection = async () => {
     try {
