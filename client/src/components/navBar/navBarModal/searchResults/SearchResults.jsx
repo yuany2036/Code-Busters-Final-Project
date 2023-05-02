@@ -23,7 +23,6 @@ const SearchResults = ({ searchTerm, closeModal }) => {
         const res = await axios.get(
           `http://localhost:4000/${activeCategoryJoined}/?title=${searchTerm}`
         );
-        console.log(res);
         setSearchResults(res.data);
       } catch (err) {
         console.log(err.res);
@@ -82,15 +81,18 @@ const SearchResults = ({ searchTerm, closeModal }) => {
 
               return (
                 <div className={styles.results_card} key={id}>
-                  <img
-                    src={
-                      thumbnail
-                        ? thumbnail
-                        : 'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y3V0ZSUyMGNhdHxlbnwwfHwwfHw%3D&w=1000&q=80'
-                    }
-                    alt="book cover"
-                    width="200px"
-                  />
+                  <Link to={`/title/${activeCategoryJoined}/${id}`}>
+                    <img
+                      src={
+                        thumbnail
+                          ? thumbnail
+                          : 'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y3V0ZSUyMGNhdHxlbnwwfHwwfHw%3D&w=1000&q=80'
+                      }
+                      alt="book cover"
+                      width="200px"
+                      onClick={() => closeModal()}
+                    />
+                  </Link>
                   <h4>{title ? title : null}</h4>
                 </div>
               );
