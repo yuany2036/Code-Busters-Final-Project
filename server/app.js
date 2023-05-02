@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 require('dotenv').config();
 const passport = require('passport');
-require('./passport-setup')
-require('./passport-google-setup');
+require('./services/passport-setup')
+require('./services/passport-google-setup');
 
 // Importing Routes and Global Error Handlers
 const usersRouter = require('./routes/usersRouter');
