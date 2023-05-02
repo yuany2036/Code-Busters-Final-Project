@@ -16,14 +16,21 @@ const TitlePage = () => {
   const [reviews, setReviews] = useState([]);
   const { id, category } = useParams();
 
+  const isBook = category === 'books';
+
+  // const resetTitle = () => setTitle('');
+
   useEffect(() => {
+    // resetTitle();
     setLoading(true);
     (async () => {
       try {
         let res = await axios.get(
           `http://localhost:4000/${category}/searchById?id=${id}`
         );
-        setTitle(res.data);
+        console.log(res);
+        isBook && setTitle(res.data.volumeInfo);
+        !isBook && setTitle(res.data);
         res = await axios.get(
           `http://localhost:4000/${category}/reviews?id=${id}`
         );
@@ -43,7 +50,7 @@ const TitlePage = () => {
       {loading && <Loading />}
       {!loading && title && (
         <div className={styles.title_page_container}>
-          <TitleInfo title={title} reviews={reviews} />
+          <TitleInfo title={title} isBook={isBook} isLoading={loading} />
           <CrossUniverse title={title} />
           <ViewByCategory />
           <Reviews reviews={reviews} />
