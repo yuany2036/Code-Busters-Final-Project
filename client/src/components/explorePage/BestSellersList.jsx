@@ -10,7 +10,7 @@ const BestSellersList = () => {
     const fetchBooks = async () => {
       try {
         const res = await axios.get('/books/popular');
-        setBooks(res.data.results.slice(0,20));
+        setBooks(res.data.slice(0, 20));
       } catch (err) {
         console.log(err);
       }
@@ -24,16 +24,20 @@ const BestSellersList = () => {
       <div className={styles.explore}>
         {books.map(
           ({
-            authors,
-            title,
-            infoLink,
-            imageLinks: { thumbnail },
+            data: {
+              authors,
+              title,
+              infoLink,
+              imageLinks: { thumbnail },
+            },
+            id,
           }) => (
             <BookCard
               key={infoLink}
               authors={authors}
               title={title}
               thumbnail={thumbnail}
+              id={id}
             />
           )
         )}
