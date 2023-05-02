@@ -20,14 +20,18 @@ const TitlePage = () => {
     setLoading(true);
     (async () => {
       try {
+        // Grabbing data for the title
         let res = await axios.get(
           `http://localhost:4000/${category}/searchById?id=${id}`
         );
-        setTitle(res.data);
+        console.log(res);
+        category === 'movies' || (category === 'tvshows' && setTitle(res.data));
+        category === 'books' && setTitle(res.data.volumeInfo);
+
+        // Grabbing reviews
         res = await axios.get(
           `http://localhost:4000/${category}/reviews?id=${id}`
         );
-        console.log('this should be reviews ->', res);
         category === 'movies' && setReviews(res.data.results);
         category === 'tvshows' && setReviews(res.data);
       } catch (err) {
@@ -43,7 +47,7 @@ const TitlePage = () => {
       {loading && <Loading />}
       {!loading && title && (
         <div className={styles.title_page_container}>
-          <TitleInfo title={title} reviews={reviews} />
+          <TitleInfo title={title} reviews={reviews} category={category} />
           <CrossUniverse title={title} />
           <ViewByCategory />
           <Reviews reviews={reviews} />
