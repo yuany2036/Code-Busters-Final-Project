@@ -39,6 +39,10 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
     changeIcon();
   };
 
+  const handleDetailsClick = () => {
+    navigate(`/title/books/${id}`);
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.card_poster}>
@@ -57,6 +61,7 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
           icon="gg:details-more"
           color="whitesmoke"
           style={{ fontSize: '35px' }}
+          onClick={handleDetailsClick}
         />
         <Icon
           data-tooltip-id="my-tooltip"

@@ -2,6 +2,7 @@ const express = require('express');
 const {
   searchBook,
   searchBookByID,
+  bookReviewById,
   addToBookCollection,
   getBookCollection,
   updateBookStatus,
@@ -19,6 +20,7 @@ router.route('/').get(searchBook);
 router.route('/searchById').get(searchBookByID);
 router.route('/popular').get(getPopularBooks);
 router.route('/recommend').get(auth, recommendBooksByGenre);
+router.route('/reviews').get(bookReviewById);
 router
   .route('/user')
   .get(auth, getBookCollection)
