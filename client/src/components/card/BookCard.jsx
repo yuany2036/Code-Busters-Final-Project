@@ -41,7 +41,9 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
 
   return (
     <div className={styles.card}>
-      <img className={styles.card_poster} src={thumbnail} alt={title} />
+      <div className={styles.card_poster}>
+        <img src={thumbnail} alt={title} />
+      </div>
       <div className={styles.card_details}>
         <h2 className={styles.card_title}>{title}</h2>
         <p className={styles.author_p}>by {authors.join(', ')}</p>
@@ -53,7 +55,7 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
           data-tooltip-content="Discover more"
           className={styles.outline}
           icon="gg:details-more"
-          color="#401d56"
+          color="whitesmoke"
           style={{ fontSize: '35px' }}
         />
         <Icon
@@ -61,7 +63,6 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
           data-tooltip-content={
             added ? 'Remove from collection' : 'Add to collection'
           }
-          
           className={styles.fill}
           onClick={handleCardClick}
           icon={
@@ -69,11 +70,12 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
               ? 'material-symbols:heart-minus'
               : 'material-symbols:heart-plus-outline'
           }
-          color="white"
-          style={{ fontSize: '35px' }}
+          style={{
+            fontSize: '30px',
+            color: `${added ? 'rgb(160, 123, 223)' : 'whitesmoke'}`,
+          }}
         />{' '}
-        <Tooltip id="my-tooltip"
-        place='bottom'/>
+        <Tooltip id="my-tooltip" place="bottom" />
       </div>
     </div>
   );

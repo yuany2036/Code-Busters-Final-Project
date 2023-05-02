@@ -26,7 +26,7 @@ exports.searchBook = async (req, res, next) => {
 
 // External API call to search for books by ID
 exports.searchBookByID = async (req, res, next) => {
-  const id = req.body.id;
+  const id = req.query.id;
   const url = `https://www.googleapis.com/books/v1/volumes/${id}`;
   try {
     const response = await axios.get(url);
@@ -52,7 +52,6 @@ exports.getBookCollection = async (req, res, next) => {
 exports.addToBookCollection = async (req, res, next) => {
   const { id, thumbnail, title, categories } = req.body;
   const { _id } = req.user;
-
 
   try {
     let bookCol = await bookModel.findOne({ user: _id });
@@ -86,12 +85,10 @@ exports.updateBookStatus = async (req, res, next) => {
     const bookCol = await getBookCollectionForUser(_id);
     const book = bookCol.books.find((book) => book.id.toString() === bookId);
     if (!book) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "Book not found in user's collection",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Book not found in user's collection",
+      });
     }
     book.status = status;
     await bookCol.save();
@@ -111,12 +108,10 @@ exports.deleteBookFromCollection = async (req, res, next) => {
       (book) => book.id.toString() === bookId
     );
     if (bookIndex === -1) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "Book not found in user's collection",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "Book not found in user's collection",
+      });
     }
     bookCol.books.splice(bookIndex, 1);
     await bookCol.save();
@@ -155,7 +150,7 @@ exports.recommendBooksByGenre = async (req, res, next) => {
     // Fetch books from all the URLs and combine them
     const responses = await Promise.all(urls.map((url) => axios.get(url)));
     const books = responses.flatMap((response) =>
-      response.data.items.slice(0,5)
+      response.data.items.slice(0, 5)
     );
 
     res.json(books);
@@ -188,4 +183,3 @@ exports.getPopularBooks = async (req, res, next) => {
     next(error);
   }
 };
-

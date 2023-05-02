@@ -1,7 +1,7 @@
 import styles from './Footer.module.scss';
 import React, { useState } from 'react';
 import Logo from '../../assets/2.svg';
-import { useLocation, Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -13,14 +13,7 @@ const Footer = () => {
     console.log('New Subscriber:', email);
   };
 
-  const location = useLocation();
-
-  if (
-    location.pathname === '/' ||
-    location.pathname === '/about' ||
-    location.pathname === '/explore' ||
-    location.pathname === '/profile'
-  ) {
+{
     return (
       <>
         <div className={styles.footer_container}>

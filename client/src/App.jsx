@@ -4,19 +4,22 @@ import Router from './routes/Routes';
 import Footer from './components/footer/Footer';
 import LoggedInNavBar from './components/navBar/LoggedInNavBar';
 import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import DataContext from './data/context';
 import 'react-tooltip/dist/react-tooltip.css';
 
-
-
 function App() {
   const { isUserLoggedIn } = useContext(DataContext);
+  const currentRoute = useLocation().pathname;
+  const excludedRoutes = ['/register', '/login'];
+  const shouldRenderFooter = !excludedRoutes.includes(currentRoute);
+
   return (
     <>
       {isUserLoggedIn && <LoggedInNavBar />}
       {!isUserLoggedIn && <NavBar />}
       <Router />
-      <Footer />
+      {shouldRenderFooter && <Footer />}
     </>
   );
 }

@@ -26,6 +26,9 @@
       }
     }
   }
+  .video {
+    display: none;
+  }
   .team {
     height: 100%;
     width: 100%;
@@ -75,16 +78,38 @@
   }
 }
 
-@media screen and (min-width: 876px) {
+@media screen and (min-width: 768px) {
   .about {
     .mission {
+      position: relative;
+      height: 700px;
+      display: flex;
+      align-items: center;
       p {
-        font-size: 4rem;
-        line-height: 7rem;
+        width: 70%;
+        font-size: 2rem;
         transition-duration: 1s;
-        span:hover {
-          letter-spacing: 10px;
+        color: whitesmoke;
+        line-height: 3.5rem;
+        padding-left: 5rem;
+        span {
+          color: rgb(160, 123, 223);
+          font-style: normal;
+          font-size: 2.5rem;
         }
+      }
+    }
+    .video {
+      display: contents;
+      height: 300px;
+      video {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
       }
     }
     .team {
