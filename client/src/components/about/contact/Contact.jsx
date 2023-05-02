@@ -31,10 +31,10 @@ const Contact = () => {
       data: formData,
     })
       .then((res) => {
-        console.log('hello');
+        console.log(res);
       })
-      .catch((res) => {
-        console.log('error');
+      .catch((err) => {
+        console.log(err);
       });
   };
   return (
@@ -54,7 +54,7 @@ const Contact = () => {
             </div>
             <div className={styles.contact_form}>
               {message ? (
-                <p>Thank you for your message!</p>
+                <p>Thank you for your message! We will get back to you soon!</p>
               ) : (
                 <form onSubmit={handleSubmit}>
                   <input
@@ -97,22 +97,22 @@ const Contact = () => {
           <ul className={styles.list}>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="uil:facebook-f" color="rgb(62, 15, 94)" />{' '}
+                <Icon icon="uil:facebook-f" color="whitesmoke" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="gg:twitter" color="rgb(62, 15, 94)" />{' '}
+                <Icon icon="gg:twitter" color="whitesmoke" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="simple-icons:instagram" color="rgb(62, 15, 94)" />{' '}
+                <Icon icon="simple-icons:instagram" color="whitesmoke" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="akar-icons:linkedin-fill" color="rgb(62, 15, 94)" />{' '}
+                <Icon icon="akar-icons:linkedin-fill" color="whitesmoke" />{' '}
               </a>
             </li>
           </ul>

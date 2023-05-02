@@ -43,14 +43,16 @@ const TvShowCard = ({ id, title, posterPath }) => {
 
   return (
     <div className={styles.card}>
-      <img className={styles.card_poster} src={posterUrl} alt={title} />
+      <div className={styles.card_poster}>
+        <img src={posterUrl} alt={title} />
+      </div>
       <div className={styles.card_details}>
         <h2 className={styles.card_title}>{title}</h2>
       </div>
       <div className={styles.btn}>
         <Icon
           icon="gg:details-more"
-          color="#401d56"
+          color="whitesmoke"
           className={styles.outline}
           onClick={handleDetailsClick}
           style={{ fontSize: '35px' }}
@@ -63,8 +65,10 @@ const TvShowCard = ({ id, title, posterPath }) => {
               ? 'material-symbols:heart-minus'
               : 'material-symbols:heart-plus-outline'
           }
-          color="white"
-          style={{ fontSize: '35px' }}
+          style={{
+            fontSize: '30px',
+            color: `${added ? 'rgb(160, 123, 223)' : 'whitesmoke'}`,
+          }}
         />{' '}
       </div>{' '}
     </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './About.module.scss';
 import Contributors from './Contributors';
 import Contact from './contact/Contact';
+import video from '../../assets/Bokeh Purple.mp4';
 
 const About = () => {
   const contributors = [
@@ -44,6 +45,11 @@ const About = () => {
               knowledge, engage in discussions, argue, and revel in their shared{' '}
               <span>passion</span> .
             </p>
+          </div>
+          <div className={styles.video}>
+            <video autoPlay muted loop controls>
+              <source src={video} type="video/mp4" />
+            </video>
           </div>
           <div className={styles.team}>
             <h2>Meet the team</h2>

@@ -1,7 +1,7 @@
 // import { useContext } from 'react';
 // import DataContext from '../data/context';
 import { Routes, Route } from 'react-router-dom';
-// import LandingPage from '../components/landingPage/LandingPage';
+import LandingPage from '../components/landingPage/LandingPage';
 import HomePage from '../components/homePage/HomePage';
 import ExplorePage from '../components/explorePage/ExplorePage';
 import About from '../components/about/About';
@@ -30,7 +30,7 @@ const Router = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/explore" element={<ExplorePage />} />
-      {/* <Route path="/landing" elenment={<LandingPage />} /> */}
+      <Route path="/landing" element={<LandingPage />} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />

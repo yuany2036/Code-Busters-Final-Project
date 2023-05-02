@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
 
-const TitleInfo = ({ title, category }) => {
-  const isBook = category === 'books';
+const TitleInfo = (props) => {
   const {
-    //  for movies and tv shows
     poster_path,
+    title: titleName,
     tagline,
     overview,
     release_date,
@@ -15,16 +14,7 @@ const TitleInfo = ({ title, category }) => {
     original_language,
     genres,
     backdrop_path,
-    title: titleName,
-    // for books
-    pageCount,
-    authors,
-    language,
-    publishedDate,
-    subtitle,
-    description,
-    imageLinks: { thumbnail, smallThumbnail, small, medium, large, extraLarge },
-  } = title;
+  } = props.title;
 
   const posterURL = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
 
@@ -38,40 +28,24 @@ const TitleInfo = ({ title, category }) => {
   const runtimeHours = Math.floor(runtime / 60);
   const runtimeMinutes = runtime % 60;
 
-  let shortInfoArray = [];
-
-  if (category === 'movies' || category === 'tvshows') {
-    shortInfoArray = [
-      { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
-      { tag: 'Release Date', data: release_date },
-      { tag: 'Runtime', data: `${runtimeHours}h ${runtimeMinutes}m` },
-      { tag: 'Country', data: production_countries[0].name },
-      { tag: 'Language', data: languageNamesInEnglish.of(original_language) },
-    ];
-  } else {
-    shortInfoArray = [
-      // { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
-      // { tag: 'Published Date', data: release_date },
-      // { tag: 'Page Count', data: `${runtimeHours}h ${runtimeMinutes}m` },
-      // { tag: 'Country', data: production_countries[0].name },
-      // { tag: 'Language', data: languageNamesInEnglish.of(original_language) },
-    ];
-  }
+  const shortInfoArray = [
+    { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
+    { tag: 'Release Date', data: release_date },
+    { tag: 'Runtime', data: `${runtimeHours}h ${runtimeMinutes}m` },
+    { tag: 'Country', data: production_countries[0].name },
+    { tag: 'Language', data: languageNamesInEnglish.of(original_language) },
+  ];
 
   return (
     <div className={styles.info_container}>
       <div
         className={styles.upper_container}
-        style={{
-          '--background-img': `url(${isBook ? extraLarge : posterURL})`,
-        }}
+        style={{ '--background-img': `url(${posterURL})` }}
       >
         <div className={styles.overlay}></div>
         <div className={styles.upper_container_left}>
           <img
-            src={
-              isBook ? small : `https://image.tmdb.org/t/p/w300${poster_path}`
-            }
+            src={`https://image.tmdb.org/t/p/w300${poster_path}`}
             alt="movie poster"
             className={styles.poster_image}
           />
@@ -111,7 +85,7 @@ const TitleInfo = ({ title, category }) => {
         <div className={styles.upper_container_right}>
           <h2 className={styles.title_name}>{titleName}</h2>
           <h2 className={styles.tag_line}>{tagline}</h2>
-          <p className={styles.overview}>{isBook ? description : overview}</p>
+          <p className={styles.overview}>{overview}</p>
           <div className={styles.mapped_info_container}>
             {shortInfoArray.map((info) => {
               return (
