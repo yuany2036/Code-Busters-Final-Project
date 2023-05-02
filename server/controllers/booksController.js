@@ -213,7 +213,7 @@ exports.recommendBooksByGenre = async (req, res, next) => {
         genres.push(null);
         booksPerGenre = 5;
       } else {
-        booksPerGenre = 10;
+        booksPerGenre = 20;
       }
     }
 
