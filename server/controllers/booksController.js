@@ -135,44 +135,6 @@ exports.deleteBookFromCollection = async (req, res, next) => {
   }
 };
 
-exports.recommendBooksByGenre = async (req, res, next) => {
-  try {
-    const { _id } = req.user;
-
-    const user = await User.findById(_id);
-    if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: 'User not found' });
-    }
-    const { preferences, genres } = user;
-    if (preferences === 'none') {
-      return res
-        .status(400)
-        .json({ success: false, message: 'User does not have any preference' });
-    }
-    const genreTitles = genres
-      .filter((genre) => genre)
-      .map((genre) => JSON.parse(genre).name);
-    console.log('Genre Titles:', genreTitles);
-
-    const urls = genreTitles.map(
-      (genreTitle) =>
-        `https://www.googleapis.com/books/v1/volumes?q=subject:${genreTitle}`
-    );
-
-    // Fetch books from all the URLs and combine them
-    const responses = await Promise.all(urls.map((url) => axios.get(url)));
-    const books = responses.flatMap((response) =>
-      response.data.items.slice(0, 5)
-    );
-
-    res.json(books);
-  } catch (error) {
-    next(error);
-  }
-};
-
 exports.getPopularBooks = async (req, res, next) => {
   const endPoint = '/lists/current/mass-market-paperback.json';
   const APIKey = process.env.NY_TIMES_KEY;
@@ -193,6 +155,91 @@ exports.getPopularBooks = async (req, res, next) => {
     );
 
     res.status(200).json(results);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.recommendBooksByGenre = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+
+    const user = await User.findById(_id);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found' });
+    }
+
+    const { preferences, genres } = user;
+    if (preferences === 'none') {
+      return res
+        .status(400)
+        .json({ success: false, message: 'User does not have any preference' });
+    }
+
+    let recommendedBooks = [];
+    let maxBooks = 20;
+    let booksPerGenre = 5;
+
+    while (recommendedBooks.length < maxBooks && genres.length < 20) {
+      const genreTitles = [
+        ...new Set(
+          genres.filter((genre) => genre).map((genre) => JSON.parse(genre).name)
+        ),
+      ];
+
+      const urls = genreTitles.map(
+        (genreTitle) =>
+          `https://www.googleapis.com/books/v1/volumes?q=subject:${genreTitle}&maxResults=${booksPerGenre}`
+      );
+
+      console.log(
+        `Fetching books from API for genres: ${genreTitles.join(',')}...`
+      );
+      const responses = await Promise.all(urls.map((url) => axios.get(url)));
+      let books = responses.flatMap((response) =>
+        response.data.items.slice(0, booksPerGenre)
+      );
+      console.log(`Fetched ${books.length} books from API`);
+
+      const userBooks = await bookModel.findOne({ user: _id });
+      const userBookIds = userBooks
+        ? userBooks.books.map((book) => book.id)
+        : [];
+      console.log(`User has ${userBookIds.length} books in collection`);
+
+      const filteredBooks = userBooks
+        ? books.filter(
+            (book) =>
+              !userBookIds.includes(book.id) &&
+              !recommendedBooks.find((recBook) => recBook.id === book.id)
+          )
+        : books;
+      console.log(`Filtered down to ${filteredBooks.length} books`);
+
+      recommendedBooks = [...recommendedBooks, ...filteredBooks];
+      recommendedBooks = [...new Set(recommendedBooks)];
+      console.log(`Recommended books so far: ${recommendedBooks.length}`);
+
+      if (filteredBooks.length === 0) {
+        console.log('No more books left to recommend for these genres');
+        genres.push(null);
+        booksPerGenre = 5;
+      } else {
+        booksPerGenre = 20;
+      }
+    }
+
+    if (recommendedBooks.length === 0) {
+      console.log('No recommended books found');
+      return res
+        .status(400)
+        .json({ success: false, message: 'No recommended books found' });
+    }
+
+    console.log(`Returning ${recommendedBooks.length} recommended books`);
+    res.json(recommendedBooks.slice(0, maxBooks));
   } catch (error) {
     next(error);
   }

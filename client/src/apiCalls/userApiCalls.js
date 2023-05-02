@@ -9,7 +9,8 @@ export const signup = async (dispatch, data) => {
     lastName,
     username,
     email,
-    password
+    password,
+    avatarURL
   } = data;
   try {
     const response = await axios.post('/auth/register', {
@@ -18,12 +19,14 @@ export const signup = async (dispatch, data) => {
       username,
       email,
       password,
+      avatarURL,
     });
 
     dispatch({
       type: 'LOGIN',
-      payload: response.data.data
+      payload: response.data.data.user
     });
+    
     return response.data;
   } catch (error) {
     dispatch({

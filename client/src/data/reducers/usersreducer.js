@@ -15,8 +15,10 @@ export const usersReducer = (state, action) => {
           lastName: action.payload.lastName,
           username: action.payload.username,
           email: action.payload.email,
+          avatarURL: action.payload.avatarURL,
           bookLover: action.payload.preferences === 'bookLover',
           movieWatcher: action.payload.preferences === 'movieWatcher',
+          
         },
         isUserLoggedIn: true,
       };
@@ -45,6 +47,15 @@ export const usersReducer = (state, action) => {
           ...state.user,
           bookLover: action.payload.preferences,
           movieWatcher: action.payload.preferences,
+        },
+      };
+
+    case 'UPDATE_AVATAR':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          avatar: action.payload,
         },
       };
 

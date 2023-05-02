@@ -43,3 +43,34 @@ exports.deleteMe = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.updateUserAvatar = async (req, res, next) => {
+  try {
+    console.log("Request User:", req.user);
+    if (!req.body.avatarURL) {
+      throw new Error("Avatar URL is missing in the request.");
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { avatarURL: req.body.avatarURL },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      throw new Error("Failed to update user avatar.");
+    }
+
+    console.log("Updated user:", updatedUser);
+
+    res.status(200).json({
+      status: "success",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error in updateUserAvatar for user ID:", req.user._id, error);
+    next(error);
+  }
+};
+
+
