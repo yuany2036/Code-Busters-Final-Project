@@ -18,21 +18,20 @@ const TitlePage = () => {
 
   const isBook = category === 'books';
 
-  // const resetTitle = () => setTitle('');
-
   useEffect(() => {
-    // resetTitle();
     setLoading(true);
     (async () => {
       try {
         let res = await axios.get(
           `http://localhost:4000/${category}/searchById?id=${id}`
         );
-        console.log(res);
         isBook && setTitle(res.data.volumeInfo);
         !isBook && setTitle(res.data);
+        const identifier = !isBook
+          ? id
+          : res.data.volumeInfo.industryIdentifiers[0].identifier;
         res = await axios.get(
-          `http://localhost:4000/${category}/reviews?id=${id}`
+          `http://localhost:4000/${category}/reviews?id=${identifier}`
         );
         console.log('this should be reviews ->', res);
         category === 'movies' && setReviews(res.data.results);

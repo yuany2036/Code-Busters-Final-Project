@@ -39,8 +39,6 @@ const TitleInfo = ({ title, isBook, isLoading }) => {
   const runtimeHours = Math.floor(runtime / 60);
   const runtimeMinutes = runtime % 60;
 
-  console.log(isBook);
-
   useEffect(() => {
     if (!isBook) {
       const shortInfoArray = [
@@ -53,15 +51,19 @@ const TitleInfo = ({ title, isBook, isLoading }) => {
       setInfoArray(shortInfoArray);
     } else {
       const cleanedCategories = new Set();
-      categories.map((set) =>
+      categories?.map((set) =>
         set.split(' / ').map((single) => cleanedCategories.add(single))
       );
+
       const shortInfoArray = [
         { tag: 'Author', data: authors.join(', ') },
         { tag: 'Page Count', data: pageCount },
         { tag: 'Language', data: languageNamesInEnglish.of(language) },
         { tag: 'Published Date', data: publishedDate },
-        { tag: 'Genre', data: Array.from(cleanedCategories).join(', ') },
+        {
+          tag: 'Genre',
+          data: Array.from(cleanedCategories).slice(5).join(', '),
+        },
       ];
       setInfoArray(shortInfoArray);
     }
@@ -89,51 +91,57 @@ const TitleInfo = ({ title, isBook, isLoading }) => {
   };
 
   return (
-    <div className={styles.info_container}>
-      <div
-        className={styles.upper_container}
-        style={{
-          '--background-img': `url(${isBook ? imageLinks.large : posterURL})`,
-        }}
-      >
-        <div className={styles.overlay}></div>
-        <div className={styles.upper_container_left}>
-          <img
-            src={
-              isBook
-                ? imageLinks.small
-                : `https://image.tmdb.org/t/p/w300${poster_path}`
-            }
-            alt="movie poster"
-            className={styles.poster_image}
-          />
-          <div className={styles.icons_container_under_poster}>{Icons()}</div>
-          <h2 className={styles.title_name}>{titleName}</h2>
-        </div>
-        <div className={styles.upper_container_right}>
-          <h2 className={styles.title_name}>{titleName}</h2>
-          <h2 className={styles.tag_line}>{tagline}</h2>
-          <p className={styles.overview}>
-            {isBook
-              ? description.replaceAll('<p>', '').replaceAll('</p>', '')
-              : overview}
-          </p>
-          <div className={styles.mapped_info_container}>
-            {infoArray.map((info) => {
-              return (
-                <div key={info.tag} className={styles.mapped_info}>
-                  <h3>{info.tag}</h3>
-                  <p>{info.data}</p>
-                </div>
-              );
-            })}
+    <>
+      {!isLoading && (
+        <div className={styles.info_container}>
+          <div
+            className={styles.upper_container}
+            style={{
+              '--background-img': `url(${
+                isBook ? imageLinks?.large : posterURL
+              })`,
+            }}
+          >
+            <div className={styles.overlay}></div>
+            <div className={styles.upper_container_left}>
+              <img
+                src={
+                  isBook
+                    ? imageLinks?.small
+                    : `https://image.tmdb.org/t/p/w300${poster_path}`
+                }
+                alt="movie poster"
+                className={styles.poster_image}
+              />
+              <div className={styles.icons_container_under_poster}>
+                {Icons()}
+              </div>
+              <h2 className={styles.title_name}>{titleName}</h2>
+            </div>
+            <div className={styles.upper_container_right}>
+              <h2 className={styles.title_name}>{titleName}</h2>
+              <h2 className={styles.tag_line}>{tagline}</h2>
+              <p className={styles.overview}>
+                {isBook ? description : overview}
+              </p>
+              <div className={styles.mapped_info_container}>
+                {infoArray.map((info) => {
+                  return (
+                    <div key={info.tag} className={styles.mapped_info}>
+                      <h3>{info.tag}</h3>
+                      <p>{info.data}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <div className={styles.icons}>
+            <div className={styles.icons_container}>{Icons()}</div>
           </div>
         </div>
-      </div>
-      <div className={styles.icons}>
-        <div className={styles.icons_container}>{Icons()}</div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

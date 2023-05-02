@@ -23,7 +23,6 @@ const SearchResults = ({ searchTerm, closeModal }) => {
         const res = await axios.get(
           `http://localhost:4000/${activeCategoryJoined}/?title=${searchTerm}`
         );
-        console.log(res);
         setSearchResults(res.data);
       } catch (err) {
         console.log(err.res);

@@ -37,6 +37,20 @@ exports.searchBookByID = async (req, res, next) => {
   }
 };
 
+// External API call to get review for books by ISBN
+exports.bookReviewById = async (req, res, next) => {
+  console.log('hello!');
+  const id = req.query.id;
+  const APIKey = process.env.NY_TIMES_KEY;
+  const NYTurl = `https://api.nytimes.com/svc/books/v3/reviews.json?isbn=${id}&api-key=${APIKey}`;
+  try {
+    const response = await axios.get(NYTurl);
+    res.json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Get user's book collection
 exports.getBookCollection = async (req, res, next) => {
   const { _id } = req.user;
@@ -173,12 +187,12 @@ exports.getPopularBooks = async (req, res, next) => {
         const isbn = isbns[0]['isbn10'];
         const googleBooksAPIURL = `https://www.googleapis.com/books/v1/volumes?q=${title}+isbn:${isbn}`;
         const res = await axios.get(googleBooksAPIURL);
-        return res.data.items[0].volumeInfo;
+        // console.log(res.data.items[0].id);
+        return { data: res.data.items[0].volumeInfo, id: res.data.items[0].id };
       })
     );
 
-    res.status(200).json({ results });
-    console.log(results);
+    res.status(200).json(results);
   } catch (error) {
     next(error);
   }
