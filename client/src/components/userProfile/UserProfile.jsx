@@ -54,6 +54,7 @@ const Profile = () => {
             payload: response.data.data,
           });
           alert('Your profile has been updated');
+          window.location.reload();
         }
       } else {
         alert('No changes were made');
