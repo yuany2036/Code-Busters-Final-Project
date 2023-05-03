@@ -116,9 +116,13 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
       try {
         const endpoint = `/${category}/user`;
         const response = await axios.get(endpoint);
-        const collection = response.data[category];
+        const collection =
+          category === 'tvshows'
+            ? response.data['tvShows']
+            : response.data[category];
+        console.log(collection);
         const itemInCollection = collection.some(
-          (item) => item.id === Number(id)
+          (item) => String(item.id) === String(id)
         );
         console.log(itemInCollection);
         setHearted(itemInCollection);
@@ -144,9 +148,15 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
           thumbnail,
           id: title.id,
         };
-      } else {
+      } else if (category == 'movies') {
         data = {
           title: title.title, // Assuming 'title' is an object containing the movie's title as a string
+          posterPath: poster_path,
+          id: title.id,
+        };
+      } else {
+        data = {
+          title: title.name, // Assuming 'title' is an object containing the movie's title as a string
           posterPath: poster_path,
           id: title.id,
         };
