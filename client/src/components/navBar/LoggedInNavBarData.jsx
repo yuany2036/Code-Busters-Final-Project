@@ -1,7 +1,7 @@
 export const NavBarData = [
   {
     title: 'My collection',
-    path: '/collection',
+    path: '/',
     target: '_self',
   },
 

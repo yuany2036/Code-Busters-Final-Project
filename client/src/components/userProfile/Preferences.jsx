@@ -3,7 +3,7 @@ import axios from 'axios';
 import styles from './Preferences.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../data/context';
-//import img from '../../assets/Select-cuate.png';
+import img from '../../assets/Select-cuate.png';
 
 const Preferences = () => {
   const {
@@ -47,14 +47,6 @@ const Preferences = () => {
     }
   };
 
-  /* const handleGenreChange = (event) => {
-    const selectedGenres = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value
-    );
-    setGenres(selectedGenres);
-  };*/
-
   const handleGenreChange = (event) => {
     const genreId = event.target.value;
     const genreName = event.target.name;
@@ -96,6 +88,10 @@ const Preferences = () => {
 
   return (
     <div className={styles.preferences_container}>
+      <div className={styles.img_container}>
+        <img src={img} alt="" />
+       
+      </div>
       <div className={styles.preferences}>
         <h1> We'd love to get to know you better! </h1>
         <p>
@@ -122,17 +118,7 @@ const Preferences = () => {
               <span className={styles.checkmark}></span> Movie Watcher
             </label>
           </div>
-          {/* <p>Select your favorite genres:</p>
-        <select multiple value={genres} onChange={handleGenreChange}>
-          <option value="fantasy">Fantasy</option>
-          <option value="scienceFiction">Science Fiction</option>
-          <option value="romance">Romance</option>
-          {/* will add more genre options 
-  </select>
 
-        <button className={styles.submit} type="submit">
-          Submit
-  </button>*/}
           <div className={styles.genres}>
             <p className={styles.label}>Select your favorite genres:</p>
             {genresList.map((genre, index) => (
@@ -148,7 +134,6 @@ const Preferences = () => {
                 <span className={styles.checkmark}></span>
                 {genre.name}
               </label>
-
             ))}
           </div>
 

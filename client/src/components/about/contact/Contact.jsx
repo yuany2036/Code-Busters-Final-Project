@@ -97,22 +97,22 @@ const Contact = () => {
           <ul className={styles.list}>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="uil:facebook-f" color="whitesmoke" />{' '}
+                <Icon icon="uil:facebook-f" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="gg:twitter" color="whitesmoke" />{' '}
+                <Icon icon="gg:twitter" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="simple-icons:instagram" color="whitesmoke" />{' '}
+                <Icon icon="simple-icons:instagram" />{' '}
               </a>
             </li>
             <li className={styles.item}>
               <a href="#" className={styles.link}>
-                <Icon icon="akar-icons:linkedin-fill" color="whitesmoke" />{' '}
+                <Icon icon="akar-icons:linkedin-fill" />{' '}
               </a>
             </li>
           </ul>

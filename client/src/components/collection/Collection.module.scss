@@ -14,8 +14,9 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 30%;
+    height: 35%;
     position: relative;
+   // border-bottom: 2px solid $primary-blue;
 
     .image {
       width: 75%;
@@ -44,7 +45,10 @@
       }
       .profile_info {
         padding-left: 3rem;
-        p{
+        h2 {
+          text-align: center;
+        }
+        p {
           padding: 2rem;
         }
       }
@@ -60,24 +64,41 @@
       position: absolute;
       top: 0;
       right: 0;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: top;
-     // filter: blur(2px);
-      
-   
+      background: $primary-gradient;
     }
-       .icon {
-        cursor: pointer;
-        font-size: 70px;
-        color: rgb(126, 87, 194);
-              position: absolute;
-              z-index: 10;
-              top:55px;
-              right: 20px;
-        &:hover {
-          transform: scale(1.1);
-        }
+    .icon {
+      cursor: pointer;
+      font-size: 70px;
+      color: rgb(126, 87, 194);
+      position: absolute;
+      z-index: 10;
+      top: 55px;
+      right: 60px;
+      &:hover {
+        color: $primary-blue;
       }
+      p {
+        font-size: 1rem;
+        color: whitesmoke;
+      }
+    }
+  }
+
+  .choose_collection {
+    width: 100%;
+    height: 6%;
+    /*     border: 1px solid $primary-blue;
+ */
+    display: flex;
+    background-color: rgb(224, 219, 227);
+    div {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border: 2px solid whitesmoke;
+    }
   }
 }

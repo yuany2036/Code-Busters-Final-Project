@@ -42,11 +42,13 @@ const NavBar = () => {
     );
   });
 
+  
+
   return (
     <>
       <div className={styles.navbar}>
         <div className={styles.navbar_left}>
-          <div className={styles.logo}>
+          <NavLink to='/' className={styles.logo}>
             <img
               src={LogoDesktop}
               className={styles.logo_desktop}
@@ -57,7 +59,7 @@ const NavBar = () => {
               className={styles.logo_mobile}
               alt="website logo"
             />
-          </div>
+          </NavLink>
           <ul className={styles.links_left}>{navBarData}</ul>
         </div>
         <div className={styles.btns_container_navbar}>{navBarButtons}</div>

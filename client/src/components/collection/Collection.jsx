@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../../data/context';
+import ProfileCircle from '../navBar/ProfileCircle'
 
 import styles from '../collection/Collection.module.scss';
 import { Icon } from '@iconify/react';
@@ -39,7 +40,7 @@ const Collection = () => {
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Profile Pic" />
               ) : (
-                nickname && nickname.charAt(0).toUpperCase()
+              < ProfileCircle/>
               )}
             </div>
             <div className={styles.profile_info}>
@@ -49,13 +50,17 @@ const Collection = () => {
           </div>
           <div
             className={styles.settings}
-            style={{
-              backgroundImage: `url(${avatarUrl})`,
-            }}
+         
           ></div>
           <div className={styles.icon}>
             <Icon onClick={navigateTo} icon="ic:sharp-settings-suggest" />
+            <p>Settings</p>
           </div>
+        </div>
+        <div className={styles.choose_collection}>
+          <div>Movie Collection</div>
+          <div>TvShows Collection</div>
+          <div>Book Collection</div>
         </div>
         <div className={styles.collection_container}></div>
       </div>
