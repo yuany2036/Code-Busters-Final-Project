@@ -4,10 +4,9 @@ import styles from './TitleInfo.module.scss';
 import { DataContext } from '../../../data/context';
 import axios from 'axios';
 
-
-const TitleInfo = ({ title, isLoading, category,id,thumbnail }) => {
+const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
   const { isUserLoggedIn } = useContext(DataContext);
-  const [added, setAdded] = useState(false);
+  // const [added, setAdded] = useState(false);
   const [infoArray, setInfoArray] = useState([]);
   const [poster, setPoster] = useState('');
   const [backDrop, setBackDrop] = useState('');
@@ -112,37 +111,31 @@ const TitleInfo = ({ title, isLoading, category,id,thumbnail }) => {
     }
   }, [title]);
 
-  const getApiEndpoint = (category) => {
-    switch (category) {
-      case 'movies':
-        return '/movies/user';
-      case 'tvshows':
-        return '/tvshows/user';
-      case 'books':
-        return '/books/user';
-      default:
-        return '';
-    }
-  };
-
   const checkIfItemInCollection = async () => {
     if (isUserLoggedIn) {
       try {
-        const endpoint = getApiEndpoint(category);
+        const endpoint = `/${category}/user`;
         const response = await axios.get(endpoint);
         const collection = response.data[category];
-        const itemInCollection = collection.some((item) => item.id === id)
-        setAdded(itemInCollection);
+        const itemInCollection = collection.some(
+          (item) => item.id === Number(id)
+        );
+        console.log(itemInCollection);
+        setHearted(itemInCollection);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
   };
 
+  useEffect(() => {
+    checkIfItemInCollection();
+  }, [id, isUserLoggedIn]);
+
   const addToCollection = async () => {
     try {
-      const endpoint = getApiEndpoint(category);
-      console.log(title.id)
+      const endpoint = `/${category}/user`;
+      console.log(title.id);
       let data;
       if (category === 'books') {
         data = {
@@ -151,14 +144,14 @@ const TitleInfo = ({ title, isLoading, category,id,thumbnail }) => {
           thumbnail,
           id: title.id,
         };
-      } else  {
+      } else {
         data = {
           title: title.title, // Assuming 'title' is an object containing the movie's title as a string
-          posterPath : poster_path,
+          posterPath: poster_path,
           id: title.id,
         };
-      } 
-  
+      }
+
       const response = await axios.post(endpoint, data);
       console.log(response);
       console.log('addItemToCollection id:', data.id);
@@ -166,37 +159,41 @@ const TitleInfo = ({ title, isLoading, category,id,thumbnail }) => {
       console.log(error);
     }
   };
-  
 
   const removeFromCollection = async () => {
     try {
-      const endpoint = getApiEndpoint(category);
+      const endpoint = `/${category}/user`;
       let itemId;
-      if (category === "books") {
-        itemId = "bookId";
-      } else if (category === "movies") {
-        itemId = "movieId";
-      } else if (category === "tvshows") {
-        itemId = "tvId";
+      if (category === 'books') {
+        itemId = 'bookId';
+      } else if (category === 'movies') {
+        itemId = 'movieId';
+      } else if (category === 'tvshows') {
+        itemId = 'tvId';
       }
 
-      const response = await axios.delete(endpoint,{
-        data: { [itemId]: id }
-      })
-      console.log(response)
+      const response = await axios.delete(endpoint, {
+        data: { [itemId]: Number(id) },
+      });
+      console.log(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
+
+  // console.log(hearted);
+  // console.log(added);
 
   // For rendering icons
   const Icons = () => {
     return (
       <>
-        <div onClick={() => {
-          setHearted((pre) => !pre);
-          added ? removeFromCollection() : addToCollection();
-        }}>
+        <div
+          onClick={() => {
+            setHearted((pre) => !pre);
+            hearted ? removeFromCollection() : addToCollection();
+          }}
+        >
           <Icon
             icon={
               hearted
@@ -212,7 +209,6 @@ const TitleInfo = ({ title, isLoading, category,id,thumbnail }) => {
       </>
     );
   };
-  
 
   return (
     <>

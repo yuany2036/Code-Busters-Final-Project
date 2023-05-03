@@ -129,9 +129,9 @@ exports.deleteMovieFromCollection = async (req, res, next) => {
     // Find user's movie collection and populate movie details
     const movieCol = await getMovieCollectionForUser(_id);
     // Find movie in user's collection
-    const movieIndex = movieCol.movies.findIndex(
-      (movie) => movie.id === movieId
-    );
+    const movieIndex = movieCol.movies.findIndex((movie) => {
+      movie.id === movieId;
+    });
     if (movieIndex === -1) {
       return res.status(404).json({
         success: false,
