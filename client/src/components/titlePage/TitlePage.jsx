@@ -52,7 +52,7 @@ const TitlePage = () => {
           <TitleInfo title={title} isBook={isBook} isLoading={loading} />
           <CrossUniverse title={title} />
           <ViewByCategory />
-          <Reviews reviews={reviews} />
+          <Reviews reviews={reviews} category={category} id={id} />
         </div>
       )}
     </>
