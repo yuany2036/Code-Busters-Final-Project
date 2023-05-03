@@ -49,7 +49,7 @@ const TitlePage = () => {
       {loading && <Loading />}
       {!loading && title && (
         <div className={styles.title_page_container}>
-          <TitleInfo title={title} isBook={isBook} isLoading={loading} />
+          <TitleInfo title={title} category={category} isLoading={loading} />
           <CrossUniverse title={title} />
           <ViewByCategory />
           <Reviews reviews={reviews} />
