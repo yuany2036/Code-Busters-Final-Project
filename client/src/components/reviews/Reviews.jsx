@@ -4,7 +4,7 @@ import styles from './Reviews.module.scss';
 import avatarPic from '../../assets/person-placeholder.jpeg';
 import { useNavigate } from 'react-router-dom';
 
-const Reviews = ({ reviews }) => {
+const Reviews = ({ reviews, category, id }) => {
   const [expandedReviews, setExpandedReview] = useState([]);
   const navigate = useNavigate();
   const readMoreHandler = function () {
@@ -35,8 +35,10 @@ const Reviews = ({ reviews }) => {
   };
 
   const gotToReviews = () => {
-    navigate('/reviews');
+    navigate(`/${category}/${id}/reviews`);
   };
+
+  console.log(category);
 
   console.log(reviews);
   console.log(reviews.length);
@@ -96,7 +98,7 @@ const Reviews = ({ reviews }) => {
           );
         }
       )}
-      <button onClick={gotToReviews} className={styles.buttons}>
+      <button onClick={gotToReviews} className={styles.action_button}>
         Read all reviews
       </button>
     </div>

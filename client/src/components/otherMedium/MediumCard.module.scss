@@ -57,3 +57,17 @@
     }
   }
 }
+@media screen and (max-width: 415px) {
+  .card_container {
+    height: 20rem;
+    width: 100%;
+
+    img {
+      height: auto;
+      width: 9.5rem;
+    }
+    &_title {
+      max-width: 9.5rem;
+    }
+  }
+}

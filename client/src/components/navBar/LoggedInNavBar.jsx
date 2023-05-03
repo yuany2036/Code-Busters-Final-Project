@@ -24,6 +24,10 @@ const LoggedInNavBar = () => {
     setDropDownMenu(!dropDownMenu);
   };
 
+  const keyCloseModal = (e) => {
+    if (e.key === 'Escape') closeModal();
+  };
+
   const closeModal = () => {
     setShowModal(false);
     document.body.style.removeProperty('overflow');
@@ -37,9 +41,6 @@ const LoggedInNavBar = () => {
     document.addEventListener('keydown', keyCloseModal);
   };
 
-  const keyCloseModal = (e) => {
-    if (e.key === 'Escape') closeModal();
-  };
   //show searchbar in dropdown menu
   // const showSearchBar = () => {
   //   setSearchBar(!searchBar);
@@ -53,7 +54,12 @@ const LoggedInNavBar = () => {
     if (value.length > 0) {
       openModal();
     } else {
+      window.scrollTo(0, 0);
       closeModal();
+      // document.body.scrollTo = 0;
+
+      // document.documentElement.scrollTop = 0;
+      // document.documentElement.scrollTop = document.body.scrollTop = 100;
     }
   };
 

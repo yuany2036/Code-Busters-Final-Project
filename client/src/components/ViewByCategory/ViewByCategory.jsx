@@ -8,12 +8,34 @@ const ViewByCategory = () => {
 
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
+  const [screen, setScreen] = useState(window.innerWidth);
+  const [cardsNumber, setCardsNumber] = useState(15);
 
   const movieURL =
     'https://api.themoviedb.org/3/movie/popular?api_key=ad6c50ff4b12daee4d3c2b875c8684fc&language=en-US&page=1';
 
   const seriesURL =
     'https://api.themoviedb.org/3/tv/top_rated?api_key=ad6c50ff4b12daee4d3c2b875c8684fc&language=en-US&page=1';
+
+  useEffect(() => {
+    const screenHandler = () => {
+      setScreen(window.innerWidth);
+      console.log(screen);
+    };
+
+    window.addEventListener('resize', screenHandler);
+
+    return () => window.removeEventListener('resize', screenHandler);
+  }, [screen]);
+
+  useEffect(() => {
+    if (screen < 768) {
+      setCardsNumber(4);
+    } else {
+      setCardsNumber(15);
+    }
+    console.log(cardsNumber);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -23,13 +45,13 @@ const ViewByCategory = () => {
           withCredentials: false,
           mode: 'cors',
         });
-        setMovies(res.data.results.slice(0, 15));
+        setMovies(res.data.results.slice(0, cardsNumber));
         res = await axios.get(seriesURL, {
           accessControlAllowOrigin: 'http://localhost:5173/',
           withCredentials: false,
           mode: 'cors',
         });
-        setSeries(res.data.results.slice(0, 15));
+        setSeries(res.data.results.slice(0, cardsNumber));
       } catch (error) {
         console.log(error);
       }

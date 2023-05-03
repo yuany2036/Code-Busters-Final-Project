@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
 
-const TitleInfo = ({ title, isBook, isLoading }) => {
+const TitleInfo = ({ title, category, isLoading }) => {
   const [infoArray, setInfoArray] = useState([]);
+  const [poster, setPoster] = useState('');
+  const [backDrop, setBackDrop] = useState('');
+  const [summary, setSummary] = useState('');
+  const [expanded, setExpanded] = useState(false);
   const {
     // Destructuring for movies and tv shows
     poster_path,
@@ -16,6 +20,11 @@ const TitleInfo = ({ title, isBook, isLoading }) => {
     genres,
     backdrop_path,
     title: titleName,
+    name,
+    // Destructuring for only tv shows
+    number_of_episodes,
+    number_of_seasons,
+    first_air_date,
     // Destructuring for books
     pageCount,
     language,
@@ -25,9 +34,13 @@ const TitleInfo = ({ title, isBook, isLoading }) => {
     categories,
     publishedDate,
   } = title;
-  // const { thumbnail, smallThumbnail, small, medium, large } = imageLinks;
+  console.log(title);
 
-  const posterURL = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
+  const expandSummary = () => {
+    setExpanded((prev) => !prev);
+  };
+
+  const isBook = category === 'books';
 
   const languageNamesInEnglish = new Intl.DisplayNames(['en'], {
     type: 'language',
@@ -41,20 +54,45 @@ const TitleInfo = ({ title, isBook, isLoading }) => {
 
   useEffect(() => {
     if (!isBook) {
+      // Setting poster, backdrop and summary
+      setPoster(`https://image.tmdb.org/t/p/w300${poster_path}`);
+      setBackDrop(`https://image.tmdb.org/t/p/w500${backdrop_path}`);
+      setSummary(overview);
+      // Creating array for info
       const shortInfoArray = [
         { tag: 'Genre', data: genres.map((genre) => genre.name).join(', ') },
-        { tag: 'Release Date', data: release_date },
-        { tag: 'Runtime', data: `${runtimeHours}h ${runtimeMinutes}m` },
-        { tag: 'Country', data: production_countries[0].name },
+        { tag: 'Country', data: production_countries[0]?.name },
         { tag: 'Language', data: languageNamesInEnglish.of(original_language) },
       ];
+      // Additional info for movies
+      if (category === 'movies')
+        shortInfoArray.push(
+          {
+            tag: 'Runtime',
+            data: `${runtimeHours}h ${runtimeMinutes}m`,
+          },
+          { tag: 'Release Date', data: release_date }
+        );
+      // Additional info for shows
+      else
+        shortInfoArray.push(
+          { tag: 'Number of Seasons', data: number_of_seasons },
+          { tag: 'Number of Episodes', data: number_of_episodes },
+          { tag: 'First aired', data: first_air_date }
+        );
       setInfoArray(shortInfoArray);
     } else {
+      // Setting poster, backdrop and summary
+      setSummary(description);
+      const { thumbnail, smallThumbnail, small, medium, large } = imageLinks;
+      setPoster(small || medium || large || thumbnail || smallThumbnail);
+      setBackDrop(large || medium || small || thumbnail || smallThumbnail);
+      // Cleaning up genre
       const cleanedCategories = new Set();
       categories?.map((set) =>
         set.split(' / ').map((single) => cleanedCategories.add(single))
       );
-
+      // Creating array for books
       const shortInfoArray = [
         { tag: 'Author', data: authors.join(', ') },
         { tag: 'Page Count', data: pageCount },
@@ -62,7 +100,7 @@ const TitleInfo = ({ title, isBook, isLoading }) => {
         { tag: 'Published Date', data: publishedDate },
         {
           tag: 'Genre',
-          data: Array.from(cleanedCategories).slice(5).join(', '),
+          data: Array.from(cleanedCategories).slice(0, 5).join(', '),
         },
       ];
       setInfoArray(shortInfoArray);
@@ -97,33 +135,34 @@ const TitleInfo = ({ title, isBook, isLoading }) => {
           <div
             className={styles.upper_container}
             style={{
-              '--background-img': `url(${
-                isBook ? imageLinks?.large : posterURL
-              })`,
+              '--background-img': `url(${backDrop})`,
             }}
           >
             <div className={styles.overlay}></div>
             <div className={styles.upper_container_left}>
               <img
-                src={
-                  isBook
-                    ? imageLinks?.small
-                    : `https://image.tmdb.org/t/p/w300${poster_path}`
-                }
-                alt="movie poster"
+                src={poster}
+                alt={`${category} ${isBook ? 'cover' : 'poster'}`}
                 className={styles.poster_image}
               />
               <div className={styles.icons_container_under_poster}>
                 {Icons()}
               </div>
-              <h2 className={styles.title_name}>{titleName}</h2>
+              <h2 className={styles.title_name}>{titleName || name}</h2>
             </div>
             <div className={styles.upper_container_right}>
-              <h2 className={styles.title_name}>{titleName}</h2>
+              <h2 className={styles.title_name}>{titleName || name}</h2>
               <h2 className={styles.tag_line}>{tagline}</h2>
               <p className={styles.overview}>
-                {isBook ? description : overview}
+                {summary.length < 350 || expanded
+                  ? summary
+                  : `${summary.slice(0, 350)}...`}
               </p>
+              {summary.length > 350 && (
+                <button onClick={expandSummary}>
+                  {expanded ? 'Hide' : 'Read more'}
+                </button>
+              )}
               <div className={styles.mapped_info_container}>
                 {infoArray.map((info) => {
                   return (
