@@ -66,6 +66,18 @@
       line-height: 1.5;
       gap: 1rem;
 
+      button {
+        display: block;
+        border: none;
+        background: none;
+        padding-top: 1rem;
+        color: whitesmoke;
+        &:hover {
+          cursor: pointer;
+          color: whitesmoke;
+        }
+      }
+
       .overview {
         padding-bottom: 1rem;
       }
