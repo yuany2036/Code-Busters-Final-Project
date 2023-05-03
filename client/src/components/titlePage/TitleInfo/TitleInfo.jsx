@@ -1,8 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
+import { DataContext } from '../../../data/context';
+import axios from 'axios';
 
-const TitleInfo = ({ title, category, isLoading }) => {
+
+const TitleInfo = ({ title, isLoading, category,id,thumbnail }) => {
+  const { isUserLoggedIn } = useContext(DataContext);
+  const [added, setAdded] = useState(false);
   const [infoArray, setInfoArray] = useState([]);
   const [poster, setPoster] = useState('');
   const [backDrop, setBackDrop] = useState('');
@@ -107,11 +112,91 @@ const TitleInfo = ({ title, category, isLoading }) => {
     }
   }, [title]);
 
+  const getApiEndpoint = (category) => {
+    switch (category) {
+      case 'movies':
+        return '/movies/user';
+      case 'tvshows':
+        return '/tvshows/user';
+      case 'books':
+        return '/books/user';
+      default:
+        return '';
+    }
+  };
+
+  const checkIfItemInCollection = async () => {
+    if (isUserLoggedIn) {
+      try {
+        const endpoint = getApiEndpoint(category);
+        const response = await axios.get(endpoint);
+        const collection = response.data[category];
+        const itemInCollection = collection.some((item) => item.id === id)
+        setAdded(itemInCollection);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  };
+
+  const addToCollection = async () => {
+    try {
+      const endpoint = getApiEndpoint(category);
+      console.log(title.id)
+      let data;
+      if (category === 'books') {
+        data = {
+          authors,
+          title: title.title, // Assuming 'title' is an object containing the book's title as a string
+          thumbnail,
+          id: title.id,
+        };
+      } else  {
+        data = {
+          title: title.title, // Assuming 'title' is an object containing the movie's title as a string
+          posterPath : poster_path,
+          id: title.id,
+        };
+      } 
+  
+      const response = await axios.post(endpoint, data);
+      console.log(response);
+      console.log('addItemToCollection id:', data.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
+  const removeFromCollection = async () => {
+    try {
+      const endpoint = getApiEndpoint(category);
+      let itemId;
+      if (category === "books") {
+        itemId = "bookId";
+      } else if (category === "movies") {
+        itemId = "movieId";
+      } else if (category === "tvshows") {
+        itemId = "tvId";
+      }
+
+      const response = await axios.delete(endpoint,{
+        data: { [itemId]: id }
+      })
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   // For rendering icons
   const Icons = () => {
     return (
       <>
-        <div onClick={() => setHearted((pre) => !pre)}>
+        <div onClick={() => {
+          setHearted((pre) => !pre);
+          added ? removeFromCollection() : addToCollection();
+        }}>
           <Icon
             icon={
               hearted
@@ -127,6 +212,7 @@ const TitleInfo = ({ title, category, isLoading }) => {
       </>
     );
   };
+  
 
   return (
     <>
