@@ -60,7 +60,7 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
           className={styles.outline}
           icon="gg:details-more"
           color="whitesmoke"
-          style={{ fontSize: '35px' }}
+          style={{ fontSize: '40px' }}
           onClick={handleDetailsClick}
         />
         <Icon
@@ -76,7 +76,7 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
               : 'material-symbols:heart-plus-outline'
           }
           style={{
-            fontSize: '30px',
+            fontSize: '35px',
             color: `${added ? 'rgb(160, 123, 223)' : 'whitesmoke'}`,
           }}
         />{' '}
