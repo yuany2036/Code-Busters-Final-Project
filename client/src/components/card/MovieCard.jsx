@@ -17,9 +17,10 @@ const MovieCard = ({ title, posterPath, id }) => {
       try {
         const response = await axios.get('/movies/user');
         const userMovies = response.data.movies;
-        console.log(userMovies)
-        const isMovieInCollection = userMovies.some(movie => movie.id === id);
+        console.log(userMovies);
+        const isMovieInCollection = userMovies.some((movie) => movie.id === id);
         setAdded(isMovieInCollection);
+        console.log(isMovieInCollection);
       } catch (error) {
         console.log(error);
       }
@@ -29,7 +30,7 @@ const MovieCard = ({ title, posterPath, id }) => {
   useEffect(() => {
     checkIfMovieInCollection();
   }, [isUserLoggedIn, id]);
-  
+
   const addItemToCollection = async () => {
     try {
       const response = await axios.post('/movies/user', {
@@ -62,8 +63,7 @@ const MovieCard = ({ title, posterPath, id }) => {
     if (!isUserLoggedIn) {
       navigate('/login');
     } else {
-      added ? removeItemFromCollection() :
-      addItemToCollection();
+      added ? removeItemFromCollection() : addItemToCollection();
     }
     changeIcon();
   };
