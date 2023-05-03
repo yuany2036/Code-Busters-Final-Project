@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from '../card/Card.module.scss';
 import { Icon } from '@iconify/react';
 import { DataContext } from '../../data/context';
@@ -12,6 +12,24 @@ const MovieCard = ({ title, posterPath, id }) => {
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
 
+  const checkIfMovieInCollection = async () => {
+    if (isUserLoggedIn) {
+      try {
+        const response = await axios.get('/movies/user');
+        const userMovies = response.data.movies;
+        console.log(userMovies)
+        const isMovieInCollection = userMovies.some(movie => movie.id === id);
+        setAdded(isMovieInCollection);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkIfMovieInCollection();
+  }, [isUserLoggedIn, id]);
+  
   const addItemToCollection = async () => {
     try {
       const response = await axios.post('/movies/user', {
@@ -24,6 +42,18 @@ const MovieCard = ({ title, posterPath, id }) => {
       console.log(error);
     }
   };
+
+  const removeItemFromCollection = async () => {
+    try {
+      const response = await axios.delete('/movies/user', {
+        data: { movieId: id },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const changeIcon = () => {
     setAdded((previous) => !previous);
   };
@@ -32,6 +62,7 @@ const MovieCard = ({ title, posterPath, id }) => {
     if (!isUserLoggedIn) {
       navigate('/login');
     } else {
+      added ? removeItemFromCollection() :
       addItemToCollection();
     }
     changeIcon();

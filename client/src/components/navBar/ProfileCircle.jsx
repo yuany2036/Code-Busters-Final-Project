@@ -15,7 +15,6 @@ function ProfileCircle() {
         const res = await user.username;
         setUserName(res);
         const avatarRes = await user.avatarURL;
-        console.log('avatarRes:', avatarRes); // Log the avatar URL to the console
         setAvatarUrl(avatarRes);
       } catch (error) {
         console.error('Failed to fetch user data:', error);
@@ -27,8 +26,6 @@ function ProfileCircle() {
   const goToProfile = () => {
     navigate('/profile');
   };
-
-  console.log('avatarUrl:', avatarUrl); // Log the avatar URL to the console
 
   return (
     <div onClick={goToProfile} className={styles.circle}>
