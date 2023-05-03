@@ -38,7 +38,7 @@ const Router = () => {
       <Route path="/collection" element={<Collection />} />
       <Route path="/title/:category/:id" element={<TitlePage />} />
       <Route path="/preferences" element={<Preferences />} />
-      <Route path="/reviews" element={<ReviewsSoloPage />} />
+      <Route path="/:category/:id/reviews" element={<ReviewsSoloPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

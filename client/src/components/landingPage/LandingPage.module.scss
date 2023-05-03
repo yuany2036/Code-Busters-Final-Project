@@ -34,18 +34,20 @@
   background-color: #760a8c;
   color: white;
   mix-blend-mode: multiply;
+
   user-select: none;
   h1 {
-    font-size: 14rem;
+    font-size: $landing_title_text;
+    padding-bottom: 18rem;
   }
 }
 .text_p {
   position: absolute;
   color: whitesmoke;
-  top: 70%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.3rem;
+  font-size: $landing_under_title_text;
 }
 .arrow,
 .arrow:before {

@@ -46,7 +46,7 @@ const TitlePage = () => {
           <TitleInfo title={title} reviews={reviews} />
           <CrossUniverse title={title} />
           <ViewByCategory />
-          <Reviews reviews={reviews} />
+          <Reviews reviews={reviews} category={category} id={id} />
         </div>
       )}
     </>
