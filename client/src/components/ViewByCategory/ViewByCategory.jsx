@@ -5,11 +5,12 @@ import Cards from './Cards';
 
 const ViewByCategory = () => {
   const [activeCategory, setActiveCategory] = useState('Movies');
-
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
-  const [screen, setScreen] = useState(window.innerWidth);
-  const [cardsNumber, setCardsNumber] = useState(15);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [cardsNumber, setCardsNumber] = useState(
+    getInitialCardsNumber(screenWidth)
+  );
 
   const movieURL =
     'https://api.themoviedb.org/3/movie/popular?api_key=ad6c50ff4b12daee4d3c2b875c8684fc&language=en-US&page=1';
@@ -18,23 +19,17 @@ const ViewByCategory = () => {
     'https://api.themoviedb.org/3/tv/top_rated?api_key=ad6c50ff4b12daee4d3c2b875c8684fc&language=en-US&page=1';
 
   useEffect(() => {
-    const screenHandler = () => {
-      setScreen(window.innerWidth);
-      console.log(screen);
+    const handleResize = () => {
+      const newScreenWidth = window.innerWidth;
+      setScreenWidth(newScreenWidth);
+      setCardsNumber(getInitialCardsNumber(newScreenWidth));
     };
 
-    window.addEventListener('resize', screenHandler);
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', screenHandler);
-  }, [screen]);
-
-  useEffect(() => {
-    if (screen < 768) {
-      setCardsNumber(4);
-    } else {
-      setCardsNumber(15);
-    }
-    console.log(cardsNumber);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -56,13 +51,21 @@ const ViewByCategory = () => {
         console.log(error);
       }
     })();
-  }, []);
+  }, [cardsNumber]);
 
   const categories = [
     { category: 'Movies' },
     { category: 'TV Shows' },
     { category: 'Books' },
   ];
+
+  function getInitialCardsNumber(width) {
+    if (width < 768) {
+      return 4;
+    } else {
+      return 15;
+    }
+  }
 
   return (
     <div className={styles.explore_section}>
@@ -87,6 +90,7 @@ const ViewByCategory = () => {
         {activeCategory === 'TV Shows' && (
           <Cards titles={series} activeCategory={activeCategory} />
         )}
+
         {activeCategory === 'Books' && <h1>Books</h1>}
       </div>
     </div>
