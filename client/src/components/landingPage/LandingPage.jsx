@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import styles from './LandingPage.module.scss';
 import video from '../../assets/Nebula_Background.mp4';
-
-//import Animation from './landingAnimation/Animation';
+import Animation from './landingAnimation/Animation';
 
 const LandingPage = () => {
   const animationRef = useRef(null);
@@ -29,24 +28,22 @@ const LandingPage = () => {
         </div>
         <div className={styles.parallax}>
           <div ref={animationRef} className={styles.first_section}>
-            <h1></h1>
-            <p>Discover Movies, Tv-Shows and add them to your Collection</p>
+            <p>Discover Movies, Tv-Shows and Books </p>
+            <p>..and add them to your Collection</p>
           </div>
 
           <div className={styles.second_section}>
-            <h1></h1>
-            <p>
-              Find Your Next Page-Turning Thriller or Heartwarming Tale with Our
-              Books
-            </p>
+            <p>Share with us your preferences </p>
+            <p>..and we will provide tailored recommendations for you</p>{' '}
           </div>
 
           <div className={styles.third_section}>
-            <h1></h1>
-           {/*  <Animation/> */}
-            <p>
-              <span>Entscape</span> - one place to discover them all
-            </p>
+            <Animation></Animation>{' '}
+            <div>
+              <p>
+                <span>Entscape</span> - one place to discover them all
+              </p>
+            </div>
           </div>
         </div>
       </div>
