@@ -115,31 +115,32 @@
   align-items: center;
   justify-content: center;
   p {
-    padding: 3rem;
+    padding: 1rem;
     font-size: 1.5rem;
     color: rgb(103, 29, 118);
   }
 }
 
 .first_section {
- background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: end;
   p {
-    margin-left: 40rem;
+    width: 40%;
   }
 }
 
 .second_section {
   background-color: rgba(255, 255, 255, 0.5);
-  p {
-    margin-right: 60rem;
-    text-align: center;
-  }
+  display: flex;
+  align-items: start;
 }
 
 .third_section {
-  background-color: rgba(179, 47, 174, 0.4);
+  background-color: rgba(189, 74, 185, 0.4);
+  height: 950px;
+  justify-content: start;
   p {
-    margin-left: 40rem;
     color: whitesmoke;
     span {
       color: rgb(184, 47, 212);
@@ -174,4 +175,3 @@
 .third_section:before {
   z-index: -1;
 }
-
