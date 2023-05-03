@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { useContext, useState, useRef } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 
-import { updateUser, deleteUser, logout } from '../../apiCalls/userApiCalls';
+import { deleteUser, logout } from '../../apiCalls/userApiCalls';
 import styles from '../userProfile/UserProfile.module.scss';
 import { Icon } from '@iconify/react';
 import { Tooltip } from 'react-tooltip';
@@ -20,8 +20,13 @@ const Profile = () => {
   const { user, usersDispatch } = useContext(DataContext);
   const navigate = useNavigate();
 
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState("");
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    setAvatar(user.avatarURL);
+  }, [user.avatarURL]);
+
 
   const onSubmit = async (data) => {
     try {
@@ -49,6 +54,7 @@ const Profile = () => {
             payload: response.data.data,
           });
           alert('Your profile has been updated');
+          window.location.reload();
         }
       } else {
         alert('No changes were made');
@@ -91,12 +97,22 @@ const Profile = () => {
 
   const updateAvatar = async () => {
     try {
-      const response = await updateUser(usersDispatch, { avatar });
-      console.log(response);
+      const cloudinaryResponse = await axios.post("/cloud", { data: { base64Image: avatar } });
+
+      if (cloudinaryResponse.status === 201) {
+        const avatarUpdateResponse = await axios.patch("/me/update-avatar", { avatarURL: cloudinaryResponse.data.data.url });
+        usersDispatch({
+          type: "UPDATE_AVATAR",
+          payload: { avatar: avatarUpdateResponse.data.data.avatarURL },
+        });
+      }
+      alert("Your profile photo has been updated");
+      window.location.reload()
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleClickAvatar = () => {
     fileInputRef.current.click();
   };

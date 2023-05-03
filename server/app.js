@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 require('dotenv').config();
 const passport = require('passport');
-require('./passport-setup')
-require('./passport-google-setup');
+require('./services/passport-setup')
+require('./services/passport-google-setup');
 
 // Importing Routes and Global Error Handlers
 const usersRouter = require('./routes/usersRouter');
@@ -19,6 +19,7 @@ const tvshowsRouter = require('./routes/tvshowsRouter');
 const booksRouter = require('./routes/booksRouter');
 const gamesRouter = require('./routes/gamesRouter');
 const passportRouter = require('./routes/passportRouter');
+const cloudRouter = require('./routes/cloudRouter');
 const {
   routeNotFound,
   globalErrorHandler,
@@ -36,7 +37,7 @@ app.use(
 );
 app.use(
   express.json({
-    limit: '1MB',
+    limit: '10MB',
   })
 );
 app.use(morgan('dev'));
@@ -56,6 +57,7 @@ app.use('/tvshows', tvshowsRouter);
 app.use('/books', booksRouter);
 app.use('/games', gamesRouter);
 app.use('/', passportRouter);
+app.use('/cloud', cloudRouter)
 
 // Error Handling Middleware
 app.use(routeNotFound);

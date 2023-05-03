@@ -39,6 +39,10 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
     changeIcon();
   };
 
+  const handleDetailsClick = () => {
+    navigate(`/title/books/${id}`);
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.card_poster}>
@@ -56,7 +60,8 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
           className={styles.outline}
           icon="gg:details-more"
           color="whitesmoke"
-          style={{ fontSize: '35px' }}
+          style={{ fontSize: '40px' }}
+          onClick={handleDetailsClick}
         />
         <Icon
           data-tooltip-id="my-tooltip"
@@ -71,7 +76,7 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
               : 'material-symbols:heart-plus-outline'
           }
           style={{
-            fontSize: '30px',
+            fontSize: '35px',
             color: `${added ? 'rgb(160, 123, 223)' : 'whitesmoke'}`,
           }}
         />{' '}

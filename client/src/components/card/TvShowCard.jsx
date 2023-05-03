@@ -55,7 +55,7 @@ const TvShowCard = ({ id, title, posterPath }) => {
           color="whitesmoke"
           className={styles.outline}
           onClick={handleDetailsClick}
-          style={{ fontSize: '35px' }}
+          style={{ fontSize: '40px' }}
         />
         <Icon
           className={styles.fill}
@@ -66,7 +66,7 @@ const TvShowCard = ({ id, title, posterPath }) => {
               : 'material-symbols:heart-plus-outline'
           }
           style={{
-            fontSize: '30px',
+            fontSize: '35px',
             color: `${added ? 'rgb(160, 123, 223)' : 'whitesmoke'}`,
           }}
         />{' '}
