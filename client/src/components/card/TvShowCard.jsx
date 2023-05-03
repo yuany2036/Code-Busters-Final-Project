@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import styles from '../card/Card.module.scss';
 import { Icon } from '@iconify/react';
 import { DataContext } from '../../data/context';
@@ -12,6 +12,25 @@ const TvShowCard = ({ id, title, posterPath }) => {
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
 
+  const checkIfTvShowInCollection = async () => {
+    if (isUserLoggedIn) {
+      try {
+        const response = await axios.get('/tvshows/user');
+        const userTvShows = response.data.tvShows;
+        const isTvShowInCollection = userTvShows.some(
+          (tvShow) => tvShow.id === id
+        );
+        setAdded(isTvShowInCollection);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkIfTvShowInCollection();
+  }, [isUserLoggedIn, id]);
+
   const addItemToCollection = async () => {
     try {
       const response = await axios.post('/tvshows/user', {
@@ -24,6 +43,18 @@ const TvShowCard = ({ id, title, posterPath }) => {
       console.log(error);
     }
   };
+
+  const removeItemFromCollection = async () => {
+    try {
+      const response = await axios.delete('/tvshows/user', {
+        data: { tvId: id },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const changeIcon = () => {
     setAdded((previous) => !previous);
   };
@@ -32,6 +63,7 @@ const TvShowCard = ({ id, title, posterPath }) => {
     if (!isUserLoggedIn) {
       navigate('/login');
     } else {
+      added ? removeItemFromCollection() :
       addItemToCollection();
     }
     changeIcon();

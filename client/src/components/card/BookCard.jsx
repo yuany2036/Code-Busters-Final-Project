@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import styles from '../card/Card.module.scss';
 import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,23 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
   const { isUserLoggedIn } = useContext(DataContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
+
+  const checkIfBookInCollection = async () => {
+    if (isUserLoggedIn) {
+      try {
+        const response = await axios.get('/books/user');
+        const userBooks = response.data.books;
+        const isBookInCollection = userBooks.some((book) => book.id === id);
+        setAdded(isBookInCollection);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkIfBookInCollection();
+  }, [isUserLoggedIn, id]);
 
   const addItemToCollection = async () => {
     try {
@@ -26,6 +43,19 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
     }
   };
 
+  const removeItemFromCollection = async () => {
+    try {
+      const response = await axios.delete('/books/user', {
+        data: { bookId: id },
+      });
+      console.log(response);
+      console.log('removeItemFromCollection id:', id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
   const changeIcon = () => {
     setAdded((previous) => !previous);
   };
@@ -34,7 +64,7 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
     if (!isUserLoggedIn) {
       navigate('/login');
     } else {
-      addItemToCollection();
+      added ? removeItemFromCollection() : addItemToCollection();
     }
     changeIcon();
   };
