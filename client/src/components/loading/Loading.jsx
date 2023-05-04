@@ -2,8 +2,11 @@ import styles from './Loading.module.scss';
 
 const Loading = () => {
   return (
-    <div className={styles.load_container}>
-      <div className={styles.loading}>Loading...</div>
+    <div className={styles.loading_container}>
+      <div className={styles.loading_heart}>
+        <div></div>
+      </div>
+      <p>Loading...</p>
     </div>
   );
 };

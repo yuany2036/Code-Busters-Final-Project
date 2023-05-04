@@ -1,17 +1,10 @@
-import React /*{ useEffect } */ from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-//import { useNavigate } from 'react-router-dom';
 import styles from './NotFound.module.scss';
 import SearchBar from './SearchBar';
 
 const NotFound = () => {
-  // const navigate = useNavigate();
 
-  // useEffect(() => {
-  //  setTimeout(() => {
-  //   navigate('/');
-  //  }, 10000); // Redirect to homepage after 10 seconds
-  //}, [navigate]);
 
   return (
     <div className={styles.not_found}>

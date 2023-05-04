@@ -29,7 +29,6 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: #760a8c;
   color: white;
@@ -38,7 +37,7 @@
   user-select: none;
   h1 {
     font-size: $landing_title_text;
-    padding-bottom: 18rem;
+    padding-top: 12rem;
   }
 }
 .text_p {
@@ -115,8 +114,7 @@
   align-items: center;
   justify-content: center;
   p {
-    padding: 1rem;
-    font-size: 1.5rem;
+    font-size: $title-page-h3-font-size;
     color: rgb(103, 29, 118);
   }
 }
@@ -125,8 +123,8 @@
   background-color: rgba(255, 255, 255, 0.7);
   display: flex;
   align-items: end;
-  p {
-    width: 40%;
+  p{
+    padding: 1rem;
   }
 }
 
@@ -134,18 +132,25 @@
   background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: start;
+   p{
+    padding: 1rem;
+  }
 }
 
+
 .third_section {
-  background-color: rgba(189, 74, 185, 0.4);
+  background-color: rgba(167, 30, 163, 0.4);
   height: 950px;
   justify-content: start;
   p {
     color: whitesmoke;
     span {
-      color: rgb(184, 47, 212);
-      font-size: 2rem;
+      color: $primary-blue;
+      font-size: $title-page-h2-font-size;
     }
+  }
+  .hidden {
+    display: none;
   }
 }
 
@@ -175,3 +180,90 @@
 .third_section:before {
   z-index: -1;
 }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .main {
+    .container {
+      .title {
+        .text_h1 {
+          h1 {
+            padding-top: 2rem;
+          }
+        }
+      }
+
+      .arrow {
+        width: 20px;
+        height: 20px;
+      }
+      .arrow:before {
+        width: 10px;
+        height: 10px;
+      }
+    }
+    .parallax {
+      .third_section {
+        height: 400px;
+        .animation {
+          display: none;
+        }
+        .section_p {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          p{
+            padding-bottom: 2rem;
+            text-align: center;
+          }
+          .hidden {
+            display: contents;
+          }
+         
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .main {
+    .container {
+      .title {
+        .text_h1 {
+          h1 {
+            padding-top: 4rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1220px) {
+  .main {
+    .container {
+      .title {
+        .text_h1 {
+          h1 {
+            padding-top: 6rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1221px) and (max-width: 1550px) {
+  .main {
+    .container {
+      .title {
+        .text_p {
+          top: 60%;
+        }
+      }
+    }
+  }
+}
+

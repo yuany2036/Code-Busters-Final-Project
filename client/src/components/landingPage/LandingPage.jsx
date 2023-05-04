@@ -38,11 +38,13 @@ const LandingPage = () => {
           </div>
 
           <div className={styles.third_section}>
-            <Animation></Animation>{' '}
-            <div>
+            <div className={styles.animation}>
+            <Animation/></div>
+            <div className={styles.section_p}>
               <p>
                 <span>Entscape</span> - one place to discover them all
               </p>
+              <p className={styles.hidden}>..find a title and we will link it across the Universe of Entertainment</p>
             </div>
           </div>
         </div>

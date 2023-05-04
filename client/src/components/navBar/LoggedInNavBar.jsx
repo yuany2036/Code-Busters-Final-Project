@@ -83,7 +83,7 @@ const LoggedInNavBar = () => {
     <>
       <div className={styles.navbar}>
         <div className={styles.navbar_left}>
-          <div className={styles.logo}>
+          <NavLink to="/" className={styles.logo}>
             <img
               src={LogoDesktop}
               className={styles.logo_desktop}
@@ -94,7 +94,7 @@ const LoggedInNavBar = () => {
               className={styles.logo_mobile}
               alt="website logo"
             />
-          </div>
+          </NavLink>
           <SearchBar
             searchValue={searchValue}
             setSearchValue={setSearchValue}
