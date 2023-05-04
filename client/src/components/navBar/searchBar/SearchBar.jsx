@@ -1,7 +1,7 @@
 import Magnify from '~icons/mdi/magnify';
 import styles from '../NavBar.module.scss';
 
-const SearchBar = ({ searchValue, searchHandler }) => {
+const SearchBar = ({ searchValue, searchHandler, searchRef }) => {
   return (
     <div className={styles.search_bar}>
       <input
@@ -10,6 +10,7 @@ const SearchBar = ({ searchValue, searchHandler }) => {
         placeholder="Search..."
         value={searchValue}
         onChange={searchHandler}
+        ref={searchRef}
       />
       <Magnify className={styles.search_icon} />
     </div>
