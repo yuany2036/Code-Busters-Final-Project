@@ -41,12 +41,6 @@ const Collection = () => {
     navigate('/profile');
   };
 
-  const categories = [
-    { category: 'Movies' },
-    { category: 'TV Shows' },
-    { category: 'Books' },
-  ];
-
   const fetchMovieCollection = async () => {
     try {
       const response = await axios.get("movies/user")
@@ -56,6 +50,10 @@ const Collection = () => {
     } catch (error) {
       console.log(error.response.data)
     }
+  }
+
+  const handleMovieRemoved = () => {
+    fetchMovieCollection()
   }
 
   const fetchTvShowCollection = async () => {
@@ -69,6 +67,10 @@ const Collection = () => {
     }
   }
 
+  const handleTvShowRemoved = () => {
+    fetchTvShowCollection()
+  }
+
   const fetchBookCollection = async () => {
     try {
       const response = await axios.get("books/user")
@@ -79,9 +81,15 @@ const Collection = () => {
       console.log(error.response.data)
     }
   }
+
+  const handleBookRemoved = () => {
+    fetchBookCollection()
+  }
+
   useEffect(() => {
     fetchMovieCollection()
   }, [])
+
   return (
     <>
       <div className={styles.main_container}>
@@ -116,13 +124,13 @@ const Collection = () => {
         </div>
         {activeCategory === 'Movies' && (<div className={styles.movie_collection_container}>
           {movieCollection.map((movie) => (<MovieCard key={movie.id} id={movie.id}
-            title={movie.title} posterPath={movie.poster_path} activeCategory={activeCategory} />))}
+            title={movie.title} posterPath={movie.poster_path} activeCategory={activeCategory} onMovieRemoved={handleMovieRemoved} />))}
         </div>)
         }
         {activeCategory === 'TV Shows' && (
           <div className={styles.tvshows_collection_container}>
             {tvShowCollection.map((tvShow) => (<TvShowCard key={tvShow.id} id={tvShow.id}
-              title={tvShow.name} posterPath={tvShow.poster_path} activeCategory={activeCategory} />))}
+              title={tvShow.name} posterPath={tvShow.poster_path} activeCategory={activeCategory} onTvShowRemoved={handleTvShowRemoved}/>))}
           </div>)}
         {activeCategory === 'Books' && (
           <div className={styles.books_collection_container}>
@@ -136,6 +144,7 @@ const Collection = () => {
                   ? book.poster_path
                   : imgUrl
               } activeCategory={activeCategory}
+              onBookRemoved={handleBookRemoved}
             />))}
           </div>
         )}

@@ -5,7 +5,7 @@ import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const MovieCard = ({ title, posterPath, id }) => {
+const MovieCard = ({ title, posterPath, id ,onMovieRemoved}) => {
   const posterUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
   const { isUserLoggedIn ,moviesDispatch } = useContext(DataContext);
@@ -50,6 +50,9 @@ const MovieCard = ({ title, posterPath, id }) => {
         data: { movieId: id },
       });
       moviesDispatch({ type : "UPDATE_MOVIES", payload : response.data.movies })
+      if(onMovieRemoved){
+        onMovieRemoved()
+      }
     } catch (error) {
       console.log(error);
     }
