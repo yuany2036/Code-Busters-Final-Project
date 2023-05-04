@@ -9,186 +9,19 @@
   font-family: $primary-font;
 
   .arrow_container {
+    align-self: flex-start;
+    margin: 3rem;
     display: flex;
-    height: 10%;
-    width: 20%;
-  }
+align-items: center;
+    .arrow {
+      text-decoration: none;
+      padding: 0.5rem;
 
-  ul {
-    li {
-      margin: 0 0 24px;
-    }
-  }
-
-  // The Arrow
-
-  .arrow {
-    width: 64px;
-    transition: all 0.2s;
-
-    &.left {
-      position: absolute;
-      top: 60%;
-      left: 0;
-
-      > .shaft {
-        width: 0;
-        background-color: gray;
-
-        &:before,
-        &:after {
-          width: 0;
-          background-color: gray;
-        }
-
-        &:before {
-          transform: rotate(0);
-        }
-
-        &:after {
-          transform: rotate(0);
-        }
-      }
-    }
-
-    &.right {
-      top: 3px;
-
-      > .shaft {
-        width: 64px;
-        transition-delay: 0.2s;
-
-        &:before,
-        &:after {
-          width: 8px;
-          transition-delay: 0.3s;
-          transition: all 0.5s;
-        }
-
-        &:before {
-          transform: rotate(40deg);
-        }
-
-        &:after {
-          transform: rotate(-40deg);
-        }
-      }
-    }
-
-    > .shaft {
-      background-color: gray;
-      display: block;
-      height: 1px;
-      position: relative;
-      transition: all 0.2s;
-      transition-delay: 0;
-      will-change: transform;
-
-      &:before,
-      &:after {
-        background-color: gray;
-        content: '';
-        display: block;
-        height: 1px;
-        position: absolute;
-        top: 0;
-        right: 0;
-        transition: all 0.2s;
-        transition-delay: 0;
-      }
-
-      &:before {
-        transform-origin: top right;
-      }
-
-      &:after {
-        transform-origin: bottom right;
+      &:hover{
+        color: $primary-purple;
       }
     }
   }
-
-  // Animated Arrow Button
-
-  .animated_arrow {
-    margin-top: 2rem;
-    display: inline-block;
-    color: gray;
-    font-size: 1.25em;
-    font-style: italic;
-    text-decoration: none;
-    position: relative;
-    transition: all 0.2s;
-
-    &:hover {
-      color: white;
-
-      > .arrow .left {
-        > .shaft {
-          width: 64px;
-          transition-delay: 0.1s;
-          background-color: white;
-
-          &:before,
-          &:after {
-            width: 8px;
-            transition-delay: 0.1s;
-            background-color: white;
-          }
-
-          &:before {
-            transform: rotate(40deg);
-          }
-
-          &:after {
-            transform: rotate(-40deg);
-          }
-        }
-      }
-
-      > .main {
-        transform: translateX(64px + 16px);
-
-        > .arrow .right {
-          > .shaft {
-            width: 0;
-            transform: translateX(200%);
-            transition-delay: 0;
-
-            &:before,
-            &:after {
-              width: 0;
-              transition-delay: 0;
-              transition: all 0.1s;
-            }
-
-            &:before {
-              transform: rotate(0);
-            }
-
-            &:after {
-              transform: rotate(0);
-            }
-          }
-        }
-      }
-    }
-
-    > .main {
-      display: flex;
-      align-items: center;
-      transition: all 0.2s;
-
-      > .text {
-        margin: 0 16px 0 0;
-        line-height: 1;
-      }
-
-      > .arrow {
-        position: relative;
-      }
-    }
-  }
-
   .profile_greeting {
     width: 100%;
     height: 10%;
@@ -367,4 +200,17 @@
       }
     }
   }
+}
+
+@media (min-width: 769px) and (max-width: 1000px){
+   .more_actions {
+      h3 {
+        font-size: 1rem;
+        padding: 1rem;
+      }
+      div {
+        flex-direction: row;
+      }
+    }
+
 }

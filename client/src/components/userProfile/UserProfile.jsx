@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useContext, useState, useRef, useEffect } from 'react';
 import { DataContext } from '../../data/context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { deleteUser, logout } from '../../apiCalls/userApiCalls';
 import styles from '../userProfile/UserProfile.module.scss';
@@ -116,37 +116,16 @@ const Profile = () => {
   const handleClickAvatar = () => {
     fileInputRef.current.click();
   };
+
+
+
   return (
     <div className={styles.profile_container}>
       <div className={styles.arrow_container}>
-        <ul>
-          <li>
-            <a className={styles.animated_arrow}>
-              <span className={`${styles.arrow} ${styles.right}`}>
-                <span className={styles.shaft}></span>
-              </span>
-              <span className={styles.main}>
-                <span className={styles.text}>Back to Collection</span>
-                <span className={`${styles.arrow} ${styles.left}`}>
-                  <span className={styles.shaft}></span>
-                </span>
-              </span>
-            </a>
-          </li>
-          <li>
-            <a className={styles.animated_arrow}>
-              <span className={`${styles.arrow} ${styles.right}`}>
-                <span className={styles.shaft}></span>
-              </span>
-              <span className={styles.main}>
-                <span className={styles.text}>Back to Explore Page</span>
-                <span className={`${styles.arrow} ${styles.left}`}>
-                  <span className={styles.shaft}></span>
-                </span>
-              </span>
-            </a>
-          </li>
-        </ul>
+        <Icon icon="ic:outline-keyboard-double-arrow-left" color="#7e57c2" />
+        <Link className={styles.arrow} to="/">
+          Go back to Collection
+        </Link>
       </div>
 
       <div className={styles.profile_greeting}>

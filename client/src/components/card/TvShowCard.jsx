@@ -5,7 +5,7 @@ import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const TvShowCard = ({ id, title, posterPath }) => {
+const TvShowCard = ({ id, title, posterPath , styleClass}) => {
   const posterUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
   const { isUserLoggedIn } = useContext(DataContext);
@@ -74,7 +74,7 @@ const TvShowCard = ({ id, title, posterPath }) => {
   };
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${styleClass}`}>
       <div className={styles.card_poster}>
         <img src={posterUrl} alt={title} />
       </div>
