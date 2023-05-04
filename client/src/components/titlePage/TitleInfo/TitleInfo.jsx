@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
+import { DataContext } from '../../../data/context';
+import axios from 'axios';
 
-const TitleInfo = ({ title, category, isLoading }) => {
+const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
+  const { isUserLoggedIn } = useContext(DataContext);
+  // const [added, setAdded] = useState(false);
   const [infoArray, setInfoArray] = useState([]);
   const [poster, setPoster] = useState('');
   const [backDrop, setBackDrop] = useState('');
@@ -107,11 +111,99 @@ const TitleInfo = ({ title, category, isLoading }) => {
     }
   }, [title]);
 
+  const checkIfItemInCollection = async () => {
+    if (isUserLoggedIn) {
+      try {
+        const endpoint = `/${category}/user`;
+        const response = await axios.get(endpoint);
+        const collection =
+          category === 'tvshows'
+            ? response.data['tvShows']
+            : response.data[category];
+        console.log(collection);
+        const itemInCollection = collection.some(
+          (item) => String(item.id) === String(id)
+        );
+        console.log(itemInCollection);
+        setHearted(itemInCollection);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkIfItemInCollection();
+  }, [id, isUserLoggedIn]);
+
+  const addToCollection = async () => {
+    try {
+      const endpoint = `/${category}/user`;
+      console.log(title.id);
+      let data;
+      if (category === 'books') {
+        data = {
+          authors,
+          title: title.title, // Assuming 'title' is an object containing the book's title as a string
+          thumbnail,
+          id: title.id,
+        };
+      } else if (category == 'movies') {
+        data = {
+          title: title.title, // Assuming 'title' is an object containing the movie's title as a string
+          posterPath: poster_path,
+          id: title.id,
+        };
+      } else {
+        data = {
+          title: title.name, // Assuming 'title' is an object containing the movie's title as a string
+          posterPath: poster_path,
+          id: title.id,
+        };
+      }
+
+      const response = await axios.post(endpoint, data);
+      console.log(response);
+      console.log('addItemToCollection id:', data.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeFromCollection = async () => {
+    try {
+      const endpoint = `/${category}/user`;
+      let itemId;
+      if (category === 'books') {
+        itemId = 'bookId';
+      } else if (category === 'movies') {
+        itemId = 'movieId';
+      } else if (category === 'tvshows') {
+        itemId = 'tvId';
+      }
+
+      const response = await axios.delete(endpoint, {
+        data: { [itemId]: Number(id) },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(hearted);
+  // console.log(added);
+
   // For rendering icons
   const Icons = () => {
     return (
       <>
-        <div onClick={() => setHearted((pre) => !pre)}>
+        <div
+          onClick={() => {
+            setHearted((pre) => !pre);
+            hearted ? removeFromCollection() : addToCollection();
+          }}
+        >
           <Icon
             icon={
               hearted
