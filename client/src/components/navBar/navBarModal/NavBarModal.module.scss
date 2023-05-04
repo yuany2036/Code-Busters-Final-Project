@@ -18,13 +18,13 @@
   background-color: rgb(253, 252, 252);
   overflow-y: auto;
   position: fixed;
-  z-index: 4;
+  z-index: 10;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   .modal_top {
     h2 {
-      font-size: 3rem;
+      font-size: $navbar_modal_h2-font-size;
     }
     button {
       background-color: rgb(62, 15, 94);
@@ -47,6 +47,14 @@
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .modal {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
   }
 }
 
