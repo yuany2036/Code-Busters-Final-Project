@@ -49,7 +49,7 @@ const BookCard = ({ id, authors, title, thumbnail }) => {
         data: { bookId: id },
       });
       console.log(response);
-      console.log('removeItemFromCollection id:', id);
+      
     } catch (error) {
       console.log(error);
     }
