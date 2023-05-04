@@ -56,11 +56,22 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
   const runtimeHours = Math.floor(runtime / 60);
   const runtimeMinutes = runtime % 60;
 
+  const hideThePain = () => {
+    setPoster(
+      'https://image.stern.de/7528132/t/y8/v3/w1440/r0/-/harold-hide-the-pain-meme-02.jpg'
+    );
+    setBackDrop(
+      'https://3seaseurope.com/wp-content/uploads/2022/07/1-harold.webp'
+    );
+  };
+
   useEffect(() => {
     if (!isBook) {
       // Setting poster, backdrop and summary
-      setPoster(`https://image.tmdb.org/t/p/w300${poster_path}`);
-      setBackDrop(`https://image.tmdb.org/t/p/w500${backdrop_path}`);
+      if (poster_path) {
+        setPoster(`https://image.tmdb.org/t/p/w300${poster_path}`);
+        setBackDrop(`https://image.tmdb.org/t/p/w500${backdrop_path}`);
+      } else hideThePain();
       setSummary(overview);
       // Creating array for info
       const shortInfoArray = [
@@ -86,27 +97,41 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
         );
       setInfoArray(shortInfoArray);
     } else {
+      // Function for cleaning up summary text
+      const stripTags = (html) => {
+        const regex = /<[^>]*>/g;
+        return html.replace(regex, '');
+      };
       // Setting poster, backdrop and summary
-      setSummary(description);
-      const { thumbnail, smallThumbnail, small, medium, large } = imageLinks;
-      setPoster(small || medium || large || thumbnail || smallThumbnail);
-      setBackDrop(large || medium || small || thumbnail || smallThumbnail);
+      setSummary(stripTags(description));
+      if (imageLinks) {
+        const { thumbnail, smallThumbnail, small, medium, large } = imageLinks;
+        setPoster(small || medium || large || thumbnail || smallThumbnail);
+        setBackDrop(large || medium || small || thumbnail || smallThumbnail);
+      } else hideThePain();
+
       // Cleaning up genre
       const cleanedCategories = new Set();
       categories?.map((set) =>
-        set.split(' / ').map((single) => cleanedCategories.add(single))
+        set
+          .split(' / ')
+          .map((single) =>
+            cleanedCategories.add(single[0] + single.slice(1).toLowerCase())
+          )
       );
+
       // Creating array for books
       const shortInfoArray = [
         { tag: 'Author', data: authors.join(', ') },
         { tag: 'Page Count', data: pageCount },
         { tag: 'Language', data: languageNamesInEnglish.of(language) },
         { tag: 'Published Date', data: publishedDate },
-        {
+      ];
+      categories &&
+        shortInfoArray.push({
           tag: 'Genre',
           data: Array.from(cleanedCategories).slice(0, 5).join(', '),
-        },
-      ];
+        });
       setInfoArray(shortInfoArray);
     }
   }, [title]);
