@@ -219,6 +219,22 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
   // console.log(hearted);
   // console.log(added);
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: titleName || name,
+          text : `Check out this awesome ${titleName || name} on EntScape!`,
+          url: window.location.href
+        });
+        console.log('Successfully shared')
+      } catch (error) {
+        console.log('Error sharing:', error)
+      }
+    } else {
+      console.log('Web share not supported')
+    }};
+
   // For rendering icons
   const Icons = () => {
     return (
@@ -239,7 +255,8 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
             height="35"
           />
         </div>
-        <Icon icon="material-symbols:share-outline" width="35" height="35" />
+        <div onClick={handleShare}><Icon icon="material-symbols:share-outline" width="35" height="35" /></div>
+        
         <Icon icon="material-symbols:reviews-rounded" width="35" height="35" />
       </>
     );

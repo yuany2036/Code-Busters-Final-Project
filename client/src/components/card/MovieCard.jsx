@@ -8,7 +8,7 @@ import axios from 'axios';
 const MovieCard = ({ title, posterPath, id }) => {
   const posterUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
-  const { isUserLoggedIn } = useContext(DataContext);
+  const { isUserLoggedIn ,moviesDispatch } = useContext(DataContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
 
@@ -49,7 +49,7 @@ const MovieCard = ({ title, posterPath, id }) => {
       const response = await axios.delete('/movies/user', {
         data: { movieId: id },
       });
-      console.log(response);
+      moviesDispatch({ type : "UPDATE_MOVIES", payload : response.data.movies })
     } catch (error) {
       console.log(error);
     }

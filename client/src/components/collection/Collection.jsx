@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../../data/context';
 import ProfileCircle from '../navBar/ProfileCircle'
+import MovieCard from '../card/MovieCard';
+import TvShowCard from '../card/TvShowCard';
+import BookCard from '../card/BookCard';
+import axios from 'axios';
 
 import styles from '../collection/Collection.module.scss';
 import { Icon } from '@iconify/react';
@@ -10,7 +14,14 @@ const Collection = () => {
   const { user } = useContext(DataContext);
   const [nickname, setNickname] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [movieCollection, setMovieCollection] = useState([]);
+  const [tvShowCollection, setTvShowCollection] = useState([]);
+  const [bookCollection, setBookCollection] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('Movies');
   const navigate = useNavigate();
+
+  const imgUrl =
+    'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80';
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -30,6 +41,47 @@ const Collection = () => {
     navigate('/profile');
   };
 
+  const categories = [
+    { category: 'Movies' },
+    { category: 'TV Shows' },
+    { category: 'Books' },
+  ];
+
+  const fetchMovieCollection = async () => {
+    try {
+      const response = await axios.get("movies/user")
+      console.log(response.data.movies)
+      setMovieCollection(response.data.movies)
+      setActiveCategory('Movies')
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
+  const fetchTvShowCollection = async () => {
+    try {
+      const response = await axios.get("tvshows/user")
+      console.log(response.data.tvShows)
+      setTvShowCollection(response.data.tvShows)
+      setActiveCategory('TV Shows')
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
+  const fetchBookCollection = async () => {
+    try {
+      const response = await axios.get("books/user")
+      console.log(response.data.books)
+      setBookCollection(response.data.books)
+      setActiveCategory('Books')
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+  useEffect(() => {
+    fetchMovieCollection()
+  }, [])
   return (
     <>
       <div className={styles.main_container}>
@@ -40,7 +92,7 @@ const Collection = () => {
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Profile Pic" />
               ) : (
-              < ProfileCircle/>
+                < ProfileCircle />
               )}
             </div>
             <div className={styles.profile_info}>
@@ -50,7 +102,7 @@ const Collection = () => {
           </div>
           <div
             className={styles.settings}
-         
+
           ></div>
           <div className={styles.icon}>
             <Icon onClick={navigateTo} icon="ic:sharp-settings-suggest" />
@@ -58,11 +110,36 @@ const Collection = () => {
           </div>
         </div>
         <div className={styles.choose_collection}>
-          <div>Movie Collection</div>
-          <div>TvShows Collection</div>
-          <div>Book Collection</div>
+          <div onClick={fetchMovieCollection}>Movie Collection</div>
+          <div onClick={fetchTvShowCollection}>TvShows Collection</div>
+          <div onClick={fetchBookCollection}>Book Collection</div>
         </div>
-        <div className={styles.collection_container}></div>
+        {activeCategory === 'Movies' && (<div className={styles.movie_collection_container}>
+          {movieCollection.map((movie) => (<MovieCard key={movie.id} id={movie.id}
+            title={movie.title} posterPath={movie.poster_path} activeCategory={activeCategory} />))}
+        </div>)
+        }
+        {activeCategory === 'TV Shows' && (
+          <div className={styles.tvshows_collection_container}>
+            {tvShowCollection.map((tvShow) => (<TvShowCard key={tvShow.id} id={tvShow.id}
+              title={tvShow.name} posterPath={tvShow.poster_path} activeCategory={activeCategory} />))}
+          </div>)}
+        {activeCategory === 'Books' && (
+          <div className={styles.books_collection_container}>
+            {bookCollection.map((book) => (<BookCard
+              key={book.id}
+              id={book.id}
+              authors={book.authors || []}
+              title={book.title}
+              thumbnail={
+                book.poster_path
+                  ? book.poster_path
+                  : imgUrl
+              } activeCategory={activeCategory}
+            />))}
+          </div>
+        )}
+
       </div>
     </>
   );
