@@ -6,7 +6,7 @@ const Loading = () => {
       <div className={styles.loading_heart}>
         <div></div>
       </div>
-      <p>Loading...</p>
+      <p className={styles.heart_p}>Loading...</p>
     </div>
   );
 };
