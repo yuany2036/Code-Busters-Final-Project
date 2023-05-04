@@ -118,6 +118,37 @@ const Profile = () => {
   };
   return (
     <div className={styles.profile_container}>
+      <div className={styles.arrow_container}>
+        <ul>
+          <li>
+            <a className={styles.animated_arrow}>
+              <span className={`${styles.arrow} ${styles.right}`}>
+                <span className={styles.shaft}></span>
+              </span>
+              <span className={styles.main}>
+                <span className={styles.text}>Back to Collection</span>
+                <span className={`${styles.arrow} ${styles.left}`}>
+                  <span className={styles.shaft}></span>
+                </span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a className={styles.animated_arrow}>
+              <span className={`${styles.arrow} ${styles.right}`}>
+                <span className={styles.shaft}></span>
+              </span>
+              <span className={styles.main}>
+                <span className={styles.text}>Back to Explore Page</span>
+                <span className={`${styles.arrow} ${styles.left}`}>
+                  <span className={styles.shaft}></span>
+                </span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
       <div className={styles.profile_greeting}>
         <h1>Your profile Information, {user.firstName}</h1>
         <p>
