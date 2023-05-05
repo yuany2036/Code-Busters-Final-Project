@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../../data/context';
-import ProfileCircle from '../navBar/ProfileCircle'
+import ProfileCircle from '../navBar/ProfileCircle';
 import MovieCard from '../card/MovieCard';
 import TvShowCard from '../card/TvShowCard';
 import BookCard from '../card/BookCard';
@@ -43,14 +43,14 @@ const Collection = () => {
 
   const fetchMovieCollection = async () => {
     try {
-      const response = await axios.get("movies/user")
-      console.log(response.data.movies)
-      setMovieCollection(response.data.movies)
-      setActiveCategory('Movies')
+      const response = await axios.get('movies/user');
+      console.log(response.data.movies);
+      setMovieCollection(response.data.movies);
+      setActiveCategory('Movies');
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
+  };
 
   const handleMovieRemoved = () => {
     fetchMovieCollection()
@@ -58,14 +58,14 @@ const Collection = () => {
 
   const fetchTvShowCollection = async () => {
     try {
-      const response = await axios.get("tvshows/user")
-      console.log(response.data.tvShows)
-      setTvShowCollection(response.data.tvShows)
-      setActiveCategory('TV Shows')
+      const response = await axios.get('tvshows/user');
+      console.log(response.data.tvShows);
+      setTvShowCollection(response.data.tvShows);
+      setActiveCategory('TV Shows');
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
+  };
 
   const handleTvShowRemoved = () => {
     fetchTvShowCollection()
@@ -73,14 +73,16 @@ const Collection = () => {
 
   const fetchBookCollection = async () => {
     try {
-      const response = await axios.get("books/user")
-      console.log(response.data.books)
-      setBookCollection(response.data.books)
-      setActiveCategory('Books')
+      const response = await axios.get('books/user');
+      console.log(response.data.books);
+      setBookCollection(response.data.books);
+      setActiveCategory('Books');
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
+
+  };
+
 
   const handleBookRemoved = () => {
     fetchBookCollection()
@@ -100,18 +102,15 @@ const Collection = () => {
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Profile Pic" />
               ) : (
-                < ProfileCircle />
+                <ProfileCircle />
               )}
             </div>
             <div className={styles.profile_info}>
               <h2>Hi, {nickname}</h2>
-              <p>Check your collections</p>
+              <p>Manage your collections</p>
             </div>
           </div>
-          <div
-            className={styles.settings}
-
-          ></div>
+          <div className={styles.settings}></div>
           <div className={styles.icon}>
             <Icon onClick={navigateTo} icon="ic:sharp-settings-suggest" />
             <p>Settings</p>
@@ -122,33 +121,52 @@ const Collection = () => {
           <div onClick={fetchTvShowCollection}>TvShows Collection</div>
           <div onClick={fetchBookCollection}>Book Collection</div>
         </div>
-        {activeCategory === 'Movies' && (<div className={styles.movie_collection_container}>
-          {movieCollection.map((movie) => (<MovieCard key={movie.id} id={movie.id}
-            title={movie.title} posterPath={movie.poster_path} activeCategory={activeCategory} onMovieRemoved={handleMovieRemoved} />))}
-        </div>)
-        }
-        {activeCategory === 'TV Shows' && (
-          <div className={styles.tvshows_collection_container}>
-            {tvShowCollection.map((tvShow) => (<TvShowCard key={tvShow.id} id={tvShow.id}
-              title={tvShow.name} posterPath={tvShow.poster_path} activeCategory={activeCategory} onTvShowRemoved={handleTvShowRemoved}/>))}
-          </div>)}
-        {activeCategory === 'Books' && (
-          <div className={styles.books_collection_container}>
-            {bookCollection.map((book) => (<BookCard
-              key={book.id}
-              id={book.id}
-              authors={book.authors || []}
-              title={book.title}
-              thumbnail={
-                book.poster_path
-                  ? book.poster_path
-                  : imgUrl
-              } activeCategory={activeCategory}
-              onBookRemoved={handleBookRemoved}
-            />))}
+        {activeCategory === 'Movies' && (
+          <div className={`${styles.collection_container} ${styles.movie}`}>
+            {movieCollection.map((movie) => (
+              <MovieCard
+                styleClass={`${styles.card} ${styles.new_card}`}
+                key={movie.id}
+                id={movie.id}
+                title={movie.title}
+                posterPath={movie.poster_path}
+                activeCategory={activeCategory}
+                onMovieRemoved={handleMovieRemoved}
+              />
+            ))}
           </div>
         )}
-
+        {activeCategory === 'TV Shows' && (
+          <div className={`${styles.collection_container} ${styles.tvShow}`}>
+            {tvShowCollection.map((tvShow) => (
+              <TvShowCard
+                styleClass={`${styles.card} ${styles.new_card}`}
+                key={tvShow.id}
+                id={tvShow.id}
+                title={tvShow.name}
+                posterPath={tvShow.poster_path}
+                activeCategory={activeCategory}
+                onTvShowRemoved={handleTvShowRemoved}
+              />
+            ))}
+          </div>
+        )}
+        {activeCategory === 'Books' && (
+          <div className={`${styles.collection_container} ${styles.books}`}>
+            {bookCollection.map((book) => (
+              <BookCard
+                styleClass={`${styles.card} ${styles.new_card}`}
+                key={book.id}
+                id={book.id}
+                authors={book.authors || []}
+                title={book.title}
+                thumbnail={book.poster_path ? book.poster_path : imgUrl}
+                activeCategory={activeCategory}
+                onBookRemoved={handleBookRemoved}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

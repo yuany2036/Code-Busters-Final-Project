@@ -19,7 +19,6 @@ const TvShowsList = () => {
     fetchTVShows();
   }, []);
 
-
   return (
     <div>
       <h1 className={styles.top_h1}>Top Popular English TV Shows</h1>
@@ -31,9 +30,9 @@ const TvShowsList = () => {
             posterPath={tvShow.poster_path}
             id={tvShow.id}
           />
-
         ))}
-      </div></div>
+      </div>
+    </div>
   );
 };
 

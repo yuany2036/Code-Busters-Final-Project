@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #f5f5f5;
 
   .header {
@@ -15,16 +15,14 @@
     align-items: center;
     width: 100%;
     height: 35%;
-    position: relative;
-   // border-bottom: 2px solid $primary-blue;
+    border-bottom: 2px solid $primary-blue;
 
     .image {
-      width: 75%;
+      width: 85%;
       height: 100%;
       background: $primary-gradient;
       opacity: 0.8;
-      clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
-      position: absolute;
+      clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
       top: 0;
       left: 0;
       display: flex;
@@ -54,14 +52,13 @@
       }
     }
     .settings {
-      width: 45%;
+      width: 15%;
       height: 100%;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       padding-right: 3rem;
       clip-path: polygon(100% 0, 35% 0, 0 100%, 100% 100%);
-      position: absolute;
       top: 0;
       right: 0;
       background: $primary-gradient;
@@ -70,23 +67,20 @@
       cursor: pointer;
       font-size: 70px;
       color: rgb(126, 87, 194);
-      position: absolute;
-      z-index: 10;
-      top: 55px;
-      right: 60px;
+      padding-right: 3rem;
       &:hover {
         color: $primary-blue;
       }
       p {
         font-size: 1rem;
-        color: whitesmoke;
       }
     }
   }
 
   .choose_collection {
+
     width: 100%;
-    height: 6%;
+    height: 100px;
     /*     border: 1px solid $primary-blue;
  */
     display: flex;
@@ -99,6 +93,35 @@
       align-items: center;
       cursor: pointer;
       border: 2px solid whitesmoke;
+    }
+  }
+  .collection_container {
+    width: 100%;
+    height: 60%;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    padding: 4rem 1rem;
+    &.movie {
+      background-color: rgb(49, 16, 90);
+    }
+    .card {
+      &.new_card {
+        width: 250px;
+        height: 420px;
+        &.card_poster {
+          width: 200px;
+          height: 100px;
+        }
+      }
+    }
+
+    &.tvShow {
+      background-color: rgb(35, 7, 67);
+    }
+
+    &.books {
+      background-color: $primary-purple;
     }
   }
 }
