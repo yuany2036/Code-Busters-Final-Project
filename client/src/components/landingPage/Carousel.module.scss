@@ -1,0 +1,144 @@
+.carousel {
+  height: 35rem;
+  width: 50rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s ease-in;
+  padding: 1rem;
+}
+
+input[type='radio'] {
+  display: none;
+}
+
+.card {
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .cards {
+    position: relative;
+    width: 90%;
+    height: 95%;
+
+    img {
+      width: 80%;
+      height: 100%;
+      border-radius: 0.8rem;
+      object-fit: cover;
+    }
+  }
+
+  #pic_1:checked ~ .cards #poster_3,
+  #pic_2:checked ~ .cards #poster_1,
+  #pic_3:checked ~ .cards #poster_2 {
+    transform: translatex(-60%) scale(0.8);
+    opacity: 0.4;
+    z-index: 2;
+  }
+
+  #pic_1:checked ~ .cards #poster_2,
+  #pic_2:checked ~ .cards #poster_3,
+  #pic_3:checked ~ .cards #poster_1 {
+    transform: translatex(65%) scale(0.8);
+    opacity: 0.4;
+    z-index: 2;
+  }
+
+  #pic_1:checked ~ .cards #poster_1,
+  #pic_2:checked ~ .cards #poster_2,
+  #pic_3:checked ~ .cards #poster_3 {
+    transform: translatex(0) scale(1);
+    opacity: 1;
+    z-index: 3;
+
+    img {
+      box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);
+    }
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  .carousel {
+    .container {
+      .cards {
+        width: 80%;
+        height: 85%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .carousel {
+    .container {
+      padding-left: 1rem;
+      .cards {
+        width: 80%;
+        height: 70%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .carousel {
+    .container {
+      .cards {
+        width: 75%;
+        height: 70%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .carousel {
+    height: 30rem;
+    .container {
+      .cards {
+        width: 70%;
+        height: 60%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .carousel {
+    height: 30rem;
+    .container {
+      .cards {
+        width: 70%;
+        height: 60%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 450px) {
+  .carousel {
+    height: 20rem;
+    .container {
+      .cards {
+        width: 80%;
+        height: 60%;
+      }
+    }
+  }
+}
