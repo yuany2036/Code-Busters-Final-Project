@@ -41,7 +41,6 @@ const Collection = () => {
     navigate('/profile');
   };
 
-
   const fetchMovieCollection = async () => {
     try {
       const response = await axios.get('movies/user');
@@ -52,6 +51,10 @@ const Collection = () => {
       console.log(error.response.data);
     }
   };
+
+  const handleMovieRemoved = () => {
+    fetchMovieCollection()
+  }
 
   const fetchTvShowCollection = async () => {
     try {
@@ -64,6 +67,10 @@ const Collection = () => {
     }
   };
 
+  const handleTvShowRemoved = () => {
+    fetchTvShowCollection()
+  }
+
   const fetchBookCollection = async () => {
     try {
       const response = await axios.get('books/user');
@@ -73,10 +80,18 @@ const Collection = () => {
     } catch (error) {
       console.log(error.response.data);
     }
+
   };
+
+
+  const handleBookRemoved = () => {
+    fetchBookCollection()
+  }
+
   useEffect(() => {
-    fetchMovieCollection();
-  }, []);
+    fetchMovieCollection()
+  }, [])
+
   return (
     <>
       <div className={styles.main_container}>
@@ -116,6 +131,7 @@ const Collection = () => {
                 title={movie.title}
                 posterPath={movie.poster_path}
                 activeCategory={activeCategory}
+                onMovieRemoved={handleMovieRemoved}
               />
             ))}
           </div>
@@ -130,6 +146,7 @@ const Collection = () => {
                 title={tvShow.name}
                 posterPath={tvShow.poster_path}
                 activeCategory={activeCategory}
+                onTvShowRemoved={handleTvShowRemoved}
               />
             ))}
           </div>
@@ -145,6 +162,7 @@ const Collection = () => {
                 title={book.title}
                 thumbnail={book.poster_path ? book.poster_path : imgUrl}
                 activeCategory={activeCategory}
+                onBookRemoved={handleBookRemoved}
               />
             ))}
           </div>

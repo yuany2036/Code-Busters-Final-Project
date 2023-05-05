@@ -5,7 +5,7 @@ import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const TvShowCard = ({ id, title, posterPath , styleClass}) => {
+const TvShowCard = ({ id, title, posterPath , styleClass, onTvShowRemoved}) => {
   const posterUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
   const { isUserLoggedIn } = useContext(DataContext);
@@ -50,6 +50,9 @@ const TvShowCard = ({ id, title, posterPath , styleClass}) => {
         data: { tvId: id },
       });
       console.log(response);
+      if (onTvShowRemoved) {
+        onTvShowRemoved();
+      }
     } catch (error) {
       console.log(error);
     }
