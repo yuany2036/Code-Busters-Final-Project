@@ -133,7 +133,7 @@
   display: flex;
   align-items: start;
    p{
-    padding: 1rem;
+    padding: 1rem 10rem;
   }
 }
 
@@ -202,6 +202,11 @@
       }
     }
     .parallax {
+      .second_section{
+        p{
+          text-align: justify;
+        padding: 1rem;}
+      }
       .third_section {
         height: 400px;
         .animation {

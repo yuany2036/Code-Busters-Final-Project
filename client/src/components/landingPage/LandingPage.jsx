@@ -33,18 +33,31 @@ const LandingPage = () => {
           </div>
 
           <div className={styles.second_section}>
-            <p>Share with us your preferences </p>
-            <p>..and we will provide tailored recommendations for you</p>{' '}
+            <p>
+              We pride ourselves on offering tailored recommendations that are
+              personalized to your unique preferences. Whether you're looking
+              for a new book to read, a movie to watch, or a new tv show to try,
+              we've got you covered.{' '}
+            </p>
+            <p>
+              {' '}
+              Share your preferences with us today, and let us help you find
+              your next favorite thing!
+            </p>{' '}
           </div>
 
           <div className={styles.third_section}>
             <div className={styles.animation}>
-            <Animation/></div>
+              <Animation />
+            </div>
             <div className={styles.section_p}>
               <p>
                 <span>Entscape</span> - one place to discover them all
               </p>
-              <p className={styles.hidden}>..find a title and we will link it across the Universe of Entertainment</p>
+              <p className={styles.hidden}>
+                ..find a title and we will link it across the Universe of
+                Entertainment
+              </p>
             </div>
           </div>
         </div>

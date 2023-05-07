@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import DataContext from '../../data/context';
 import ProfileCircle from '../navBar/ProfileCircle';
 import MovieCard from '../card/MovieCard';
@@ -18,6 +18,8 @@ const Collection = () => {
   const [tvShowCollection, setTvShowCollection] = useState([]);
   const [bookCollection, setBookCollection] = useState([]);
   const [activeCategory, setActiveCategory] = useState('Movies');
+  const [collectionEmpty, setCollectionEmpty] = useState(true);
+
   const navigate = useNavigate();
 
   const imgUrl =
@@ -53,8 +55,8 @@ const Collection = () => {
   };
 
   const handleMovieRemoved = () => {
-    fetchMovieCollection()
-  }
+    fetchMovieCollection();
+  };
 
   const fetchTvShowCollection = async () => {
     try {
@@ -68,8 +70,8 @@ const Collection = () => {
   };
 
   const handleTvShowRemoved = () => {
-    fetchTvShowCollection()
-  }
+    fetchTvShowCollection();
+  };
 
   const fetchBookCollection = async () => {
     try {
@@ -80,17 +82,27 @@ const Collection = () => {
     } catch (error) {
       console.log(error.response.data);
     }
-
   };
 
-
   const handleBookRemoved = () => {
-    fetchBookCollection()
-  }
+    fetchBookCollection();
+  };
 
   useEffect(() => {
-    fetchMovieCollection()
-  }, [])
+    fetchMovieCollection();
+  }, []);
+
+  useEffect(() => {
+    if (
+      movieCollection.length === 0 &&
+      tvShowCollection.length === 0 &&
+      bookCollection.length === 0
+    ) {
+      setCollectionEmpty(true);
+    } else {
+      setCollectionEmpty(false);
+    }
+  }, [movieCollection, tvShowCollection, bookCollection]);
 
   return (
     <>
@@ -121,52 +133,92 @@ const Collection = () => {
           <div onClick={fetchTvShowCollection}>TvShows Collection</div>
           <div onClick={fetchBookCollection}>Book Collection</div>
         </div>
-        {activeCategory === 'Movies' && (
-          <div className={`${styles.collection_container} ${styles.movie}`}>
-            {movieCollection.map((movie) => (
-              <MovieCard
-                styleClass={`${styles.card} ${styles.new_card}`}
-                key={movie.id}
-                id={movie.id}
-                title={movie.title}
-                posterPath={movie.poster_path}
-                activeCategory={activeCategory}
-                onMovieRemoved={handleMovieRemoved}
-              />
-            ))}
-          </div>
-        )}
-        {activeCategory === 'TV Shows' && (
-          <div className={`${styles.collection_container} ${styles.tvShow}`}>
-            {tvShowCollection.map((tvShow) => (
-              <TvShowCard
-                styleClass={`${styles.card} ${styles.new_card}`}
-                key={tvShow.id}
-                id={tvShow.id}
-                title={tvShow.name}
-                posterPath={tvShow.poster_path}
-                activeCategory={activeCategory}
-                onTvShowRemoved={handleTvShowRemoved}
-              />
-            ))}
-          </div>
-        )}
-        {activeCategory === 'Books' && (
-          <div className={`${styles.collection_container} ${styles.books}`}>
-            {bookCollection.map((book) => (
-              <BookCard
-                styleClass={`${styles.card} ${styles.new_card}`}
-                key={book.id}
-                id={book.id}
-                authors={book.authors || []}
-                title={book.title}
-                thumbnail={book.poster_path ? book.poster_path : imgUrl}
-                activeCategory={activeCategory}
-                onBookRemoved={handleBookRemoved}
-              />
-            ))}
-          </div>
-        )}
+
+        {activeCategory === 'Movies' &&
+          (collectionEmpty ? (
+            <div className={styles.movie}>
+              <p>Your collection is empty.</p>
+              <p>
+                Browse the{' '}
+                <Link className={styles.link} to="/explore">
+                  Explore
+                </Link>{' '}
+                page or try the Search bar to add your favorite titles to your
+                Collection.
+              </p>
+            </div>
+          ) : (
+            <div className={`${styles.collection_container} ${styles.movie}`}>
+              {movieCollection.map((movie) => (
+                <MovieCard
+                  styleClass={`${styles.card} ${styles.new_card}`}
+                  key={movie.id}
+                  id={movie.id}
+                  title={movie.title}
+                  posterPath={movie.poster_path}
+                  activeCategory={activeCategory}
+                  onMovieRemoved={handleMovieRemoved}
+                />
+              ))}
+            </div>
+          ))}
+        {activeCategory === 'TV Shows' &&
+          (collectionEmpty ? (
+            <div className={styles.tvShow}>
+              <p>Your collection is empty.</p>
+              <p>
+                Browse the{' '}
+                <Link className={styles.link} to="/explore">
+                  Explore
+                </Link>{' '}
+                page or try the Search bar to add your favorite titles to your
+                Collection.
+              </p>
+            </div>
+          ) : (
+            <div className={`${styles.collection_container} ${styles.tvShow}`}>
+              {tvShowCollection.map((tvShow) => (
+                <TvShowCard
+                  styleClass={`${styles.card} ${styles.new_card}`}
+                  key={tvShow.id}
+                  id={tvShow.id}
+                  title={tvShow.title}
+                  posterPath={tvShow.poster_path}
+                  activeCategory={activeCategory}
+                  onTvShowRemoved={handleTvShowRemoved}
+                />
+              ))}
+            </div>
+          ))}
+        {activeCategory === 'Books' &&
+          (collectionEmpty ? (
+            <div className={styles.books}>
+              <p>Your collection is empty.</p>
+              <p>
+                Browse the{' '}
+                <Link className={styles.link} to="/explore">
+                  Explore
+                </Link>{' '}
+                page or try the Search bar to add your favorite titles to your
+                Collection.
+              </p>
+            </div>
+          ) : (
+            <div className={`${styles.collection_container} ${styles.books}`}>
+              {bookCollection.map((book) => (
+                <BookCard
+                  styleClass={`${styles.card} ${styles.new_card}`}
+                  key={book.id}
+                  id={book.id}
+                  authors={book.authors || []}
+                  title={book.title}
+                  thumbnail={book.poster_path ? book.poster_path : imgUrl}
+                  activeCategory={activeCategory}
+                  onBookRemoved={handleBookRemoved}
+                />
+              ))}
+            </div>
+          ))}
       </div>
     </>
   );

@@ -59,6 +59,10 @@ const BookCard = ({ id, authors, title, thumbnail,styleClass, onBookRemoved }) =
     }
   };
 
+ const maxChars = 20; // maximum number of characters to display
+
+ const truncatedName =
+   title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
 
   const changeIcon = () => {
     setAdded((previous) => !previous);
@@ -83,7 +87,7 @@ const BookCard = ({ id, authors, title, thumbnail,styleClass, onBookRemoved }) =
         <img src={thumbnail} alt={title} />
       </div>
       <div className={styles.card_details}>
-        <h2 className={styles.card_title}>{title}</h2>
+        <h2 className={styles.card_title}>{truncatedName}</h2>
         <p className={styles.author_p}>by {authors.join(', ')}</p>
       </div>
 

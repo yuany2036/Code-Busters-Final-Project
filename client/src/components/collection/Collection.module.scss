@@ -78,11 +78,8 @@
   }
 
   .choose_collection {
-
     width: 100%;
     height: 100px;
-    /*     border: 1px solid $primary-blue;
- */
     display: flex;
     background-color: rgb(224, 219, 227);
     div {
@@ -95,6 +92,38 @@
       border: 2px solid whitesmoke;
     }
   }
+
+  .movie,
+  .tvShow,
+  .books {
+          padding: 5rem;
+
+    p {
+      color: whitesmoke;
+      text-align: center;
+      line-height: 3rem;
+      .link{
+              text-decoration: none;
+              font-weight: 600;
+              &:hover{
+                color:whitesmoke;
+                text-decoration: underline;
+              }
+
+      }
+    }
+    &.movie {
+      background-color: rgb(26, 4, 53);
+    }
+    &.tvShow {
+      background-color: rgb(35, 7, 67);
+    }
+
+    &.books {
+      background-color: $primary-purple;
+    }
+  }
+
   .collection_container {
     width: 100%;
     height: 60%;
@@ -102,8 +131,9 @@
     display: flex;
     justify-content: center;
     padding: 4rem 1rem;
+
     &.movie {
-      background-color: rgb(49, 16, 90);
+      background-color: rgb(26, 4, 53);
     }
     .card {
       &.new_card {
@@ -122,6 +152,59 @@
 
     &.books {
       background-color: $primary-purple;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .main_container {
+    .header {
+      .image {
+        flex-direction: column;
+        width: 100%;
+        clip-path: none;
+        .profile_info {
+          padding-left: 0;
+          margin-top: 1rem;
+          p {
+            padding: 0;
+            margin-top: 1rem;
+          }
+        }
+        .avatar {
+          width: 100px;
+          height: 100px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .settings,
+      .icon {
+        display: none;
+      }
+    }
+    .choose_collection {
+      flex-direction: column;
+      height: 200px;
+      div {
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid whitesmoke;
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+
+    .collection_container {
+      .card {
+        &.new_card {
+          width: 180px;
+          height: 310px;
+        }
+      }
     }
   }
 }
