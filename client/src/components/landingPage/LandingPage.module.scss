@@ -29,6 +29,7 @@
   inset: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-color: #760a8c;
   color: white;
@@ -37,7 +38,7 @@
   user-select: none;
   h1 {
     font-size: $landing_title_text;
-    padding-top: 12rem;
+    padding-bottom: 18rem;
   }
 }
 .text_p {
@@ -107,24 +108,28 @@
 .third_section {
   position: relative;
   z-index: 1;
-  padding: 50px;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
   p {
-    font-size: $title-page-h3-font-size;
+    padding: 1rem;
+    font-size: $landing_side_text;
     color: rgb(103, 29, 118);
   }
 }
 
 .first_section {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(255, 255, 255, 0.7);
   display: flex;
-  align-items: end;
-  p{
-    padding: 1rem;
+  width: 100%;
+  padding: 1rem;
+
+  &_p {
+    width: 40%;
+    font-weight: bold;
+    justify-self: end;
+    text-align: center;
   }
 }
 
@@ -132,25 +137,29 @@
   background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: start;
-   p{
-    padding: 1rem;
-  }
+
+  flex-direction: column;
+
+  justify-content: center;
+  height: 45rem;
+  padding: 50px;
 }
 
-
 .third_section {
-  background-color: rgba(167, 30, 163, 0.4);
+  background-color: rgba(189, 74, 185, 0.4);
   height: 950px;
   justify-content: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+
   p {
     color: whitesmoke;
     span {
-      color: $primary-blue;
-      font-size: $title-page-h2-font-size;
+      color: rgb(184, 47, 212);
+      font-size: 2rem;
     }
-  }
-  .hidden {
-    display: none;
   }
 }
 
@@ -181,46 +190,17 @@
   z-index: -1;
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .main {
-    .container {
-      .title {
-        .text_h1 {
-          h1 {
-            padding-top: 2rem;
-          }
-        }
-      }
 
-      .arrow {
-        width: 20px;
-        height: 20px;
-      }
-      .arrow:before {
-        width: 10px;
-        height: 10px;
-      }
-    }
+
+@media screen and (max-width: 768px) {
+  .main {
     .parallax {
-      .third_section {
-        height: 400px;
-        .animation {
-          display: none;
-        }
-        .section_p {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          p{
-            padding-bottom: 2rem;
-            text-align: center;
-          }
-          .hidden {
-            display: contents;
-          }
-         
+      .first_section {
+        flex-wrap: wrap-reverse;
+        &_p {
+          justify-self: center;
+          width: 100%;
+          padding-top: 2rem;
         }
       }
     }
@@ -266,4 +246,3 @@
     }
   }
 }
-

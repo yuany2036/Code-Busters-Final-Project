@@ -90,7 +90,6 @@ const ViewByCategory = () => {
         {activeCategory === 'TV Shows' && (
           <Cards titles={series} activeCategory={activeCategory} />
         )}
-
         {activeCategory === 'Books' && <h1>Books</h1>}
       </div>
     </div>
