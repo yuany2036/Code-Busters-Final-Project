@@ -10,6 +10,7 @@ const bookSchema = new Schema({
       id: String,
       poster_path: Object,
       title: String,
+      authors: Array,
       status: {
         type: String,
         enum: ['Read', 'To Read'],

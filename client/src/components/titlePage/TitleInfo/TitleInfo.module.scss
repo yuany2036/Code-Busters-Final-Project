@@ -19,7 +19,6 @@
     background-position: center;
     background-image: var(--background-img);
     padding: 1rem 2rem;
-
     .overlay {
       position: absolute;
       top: 0;
@@ -37,7 +36,8 @@
       flex-direction: column;
       padding: 2rem;
       .poster_image {
-        height: auto;
+        // height: auto;
+        width: 250px;
       }
 
       .title_name {

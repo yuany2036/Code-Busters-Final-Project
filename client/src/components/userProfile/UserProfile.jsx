@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useContext, useState, useRef, useEffect } from 'react';
 import { DataContext } from '../../data/context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import { deleteUser, logout } from '../../apiCalls/userApiCalls';
 import styles from '../userProfile/UserProfile.module.scss';
@@ -116,8 +116,18 @@ const Profile = () => {
   const handleClickAvatar = () => {
     fileInputRef.current.click();
   };
+
+
+
   return (
     <div className={styles.profile_container}>
+      <div className={styles.arrow_container}>
+        <Icon icon="ic:outline-keyboard-double-arrow-left" color="#7e57c2" />
+        <Link className={styles.arrow} to="/">
+          Go back to Collection
+        </Link>
+      </div>
+
       <div className={styles.profile_greeting}>
         <h1>Your profile Information, {user.firstName}</h1>
         <p>

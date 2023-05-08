@@ -7,6 +7,21 @@
   height: auto;
   width: 100%;
   font-family: $primary-font;
+
+  .arrow_container {
+    align-self: flex-start;
+    margin: 3rem;
+    display: flex;
+align-items: center;
+    .arrow {
+      text-decoration: none;
+      padding: 0.5rem;
+
+      &:hover{
+        color: $primary-purple;
+      }
+    }
+  }
   .profile_greeting {
     width: 100%;
     height: 10%;
@@ -185,4 +200,17 @@
       }
     }
   }
+}
+
+@media (min-width: 769px) and (max-width: 1000px){
+   .more_actions {
+      h3 {
+        font-size: 1rem;
+        padding: 1rem;
+      }
+      div {
+        flex-direction: row;
+      }
+    }
+
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styles from './NavBar.module.scss';
 import Menu from '~icons/mdi/menu';
 import Close from '~icons/mdi/close';
@@ -15,6 +15,7 @@ import MenuSearchBar from './searchBar/MenuSearchBar';
 import NavBarModalContent from './navBarModal/navBarModalContent/NavBarModalContent';
 
 const LoggedInNavBar = () => {
+  const searchRef = useRef(null);
   const [dropDownMenu, setDropDownMenu] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -54,12 +55,11 @@ const LoggedInNavBar = () => {
     if (value.length > 0) {
       openModal();
     } else {
-      window.scrollTo(0, 0);
       closeModal();
-      // document.body.scrollTo = 0;
-
-      // document.documentElement.scrollTop = 0;
-      // document.documentElement.scrollTop = document.body.scrollTop = 100;
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 0);
+      searchRef.current.focus();
     }
   };
 
@@ -83,7 +83,7 @@ const LoggedInNavBar = () => {
     <>
       <div className={styles.navbar}>
         <div className={styles.navbar_left}>
-          <div className={styles.logo}>
+          <NavLink to="/" className={styles.logo}>
             <img
               src={LogoDesktop}
               className={styles.logo_desktop}
@@ -94,11 +94,11 @@ const LoggedInNavBar = () => {
               className={styles.logo_mobile}
               alt="website logo"
             />
-          </div>
+          </NavLink>
           <SearchBar
             searchValue={searchValue}
-            setSearchValue={setSearchValue}
             searchHandler={searchHandler}
+            searchRef={searchRef}
           />
           {showModal && (
             <NavBarModal

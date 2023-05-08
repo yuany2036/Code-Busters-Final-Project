@@ -25,8 +25,6 @@ function NavBarModal({
           </div>
           <SearchBar searchValue={searchValue} searchHandler={searchHandler} />
           <SearchResults searchTerm={searchValue} closeModal={closeModal} />
-          {/* <ViewByCategory /> */}
-          {/* <div className={styles.modal_content}>{children}</div> */}
         </div>,
         document.getElementById('modalRoot')
       )}

@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Icon } from '@iconify/react';
 import styles from './TitleInfo.module.scss';
+import { DataContext } from '../../../data/context';
+import axios from 'axios';
 
-const TitleInfo = ({ title, category, isLoading }) => {
+const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
+  const { isUserLoggedIn } = useContext(DataContext);
+  // const [added, setAdded] = useState(false);
   const [infoArray, setInfoArray] = useState([]);
   const [poster, setPoster] = useState('');
   const [backDrop, setBackDrop] = useState('');
@@ -52,11 +56,22 @@ const TitleInfo = ({ title, category, isLoading }) => {
   const runtimeHours = Math.floor(runtime / 60);
   const runtimeMinutes = runtime % 60;
 
+  const hideThePain = () => {
+    setPoster(
+      'https://image.stern.de/7528132/t/y8/v3/w1440/r0/-/harold-hide-the-pain-meme-02.jpg'
+    );
+    setBackDrop(
+      'https://3seaseurope.com/wp-content/uploads/2022/07/1-harold.webp'
+    );
+  };
+
   useEffect(() => {
     if (!isBook) {
       // Setting poster, backdrop and summary
-      setPoster(`https://image.tmdb.org/t/p/w300${poster_path}`);
-      setBackDrop(`https://image.tmdb.org/t/p/w500${backdrop_path}`);
+      if (poster_path) {
+        setPoster(`https://image.tmdb.org/t/p/w300${poster_path}`);
+        setBackDrop(`https://image.tmdb.org/t/p/w500${backdrop_path}`);
+      } else hideThePain();
       setSummary(overview);
       // Creating array for info
       const shortInfoArray = [
@@ -82,36 +97,154 @@ const TitleInfo = ({ title, category, isLoading }) => {
         );
       setInfoArray(shortInfoArray);
     } else {
+      // Function for cleaning up summary text
+      const stripTags = (html) => {
+        const regex = /<[^>]*>/g;
+        return html.replace(regex, '');
+      };
       // Setting poster, backdrop and summary
-      setSummary(description);
-      const { thumbnail, smallThumbnail, small, medium, large } = imageLinks;
-      setPoster(small || medium || large || thumbnail || smallThumbnail);
-      setBackDrop(large || medium || small || thumbnail || smallThumbnail);
+      setSummary(stripTags(description));
+      if (imageLinks) {
+        const { thumbnail, smallThumbnail, small, medium, large } = imageLinks;
+        setPoster(small || medium || large || thumbnail || smallThumbnail);
+        setBackDrop(large || medium || small || thumbnail || smallThumbnail);
+      } else hideThePain();
+
       // Cleaning up genre
       const cleanedCategories = new Set();
       categories?.map((set) =>
-        set.split(' / ').map((single) => cleanedCategories.add(single))
+        set
+          .split(' / ')
+          .map((single) =>
+            cleanedCategories.add(single[0] + single.slice(1).toLowerCase())
+          )
       );
+
       // Creating array for books
       const shortInfoArray = [
         { tag: 'Author', data: authors.join(', ') },
         { tag: 'Page Count', data: pageCount },
         { tag: 'Language', data: languageNamesInEnglish.of(language) },
         { tag: 'Published Date', data: publishedDate },
-        {
+      ];
+      categories &&
+        shortInfoArray.push({
           tag: 'Genre',
           data: Array.from(cleanedCategories).slice(0, 5).join(', '),
-        },
-      ];
+        });
       setInfoArray(shortInfoArray);
     }
   }, [title]);
+
+  const checkIfItemInCollection = async () => {
+    if (isUserLoggedIn) {
+      try {
+        const endpoint = `/${category}/user`;
+        const response = await axios.get(endpoint);
+        const collection =
+          category === 'tvshows'
+            ? response.data['tvShows']
+            : response.data[category];
+        console.log(collection);
+        const itemInCollection = collection.some(
+          (item) => String(item.id) === String(id)
+        );
+        console.log(itemInCollection);
+        setHearted(itemInCollection);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkIfItemInCollection();
+  }, [id, isUserLoggedIn]);
+
+  const addToCollection = async () => {
+    try {
+      const endpoint = `/${category}/user`;
+      console.log(title.id);
+      let data;
+      if (category === 'books') {
+        data = {
+          authors,
+          title: title.title, // Assuming 'title' is an object containing the book's title as a string
+          thumbnail,
+          id: title.id,
+        };
+      } else if (category == 'movies') {
+        data = {
+          title: title.title, // Assuming 'title' is an object containing the movie's title as a string
+          posterPath: poster_path,
+          id: title.id,
+        };
+      } else {
+        data = {
+          title: title.name, // Assuming 'title' is an object containing the movie's title as a string
+          posterPath: poster_path,
+          id: title.id,
+        };
+      }
+
+      const response = await axios.post(endpoint, data);
+      console.log(response);
+      console.log('addItemToCollection id:', data.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeFromCollection = async () => {
+    try {
+      const endpoint = `/${category}/user`;
+      let itemId;
+      if (category === 'books') {
+        itemId = 'bookId';
+      } else if (category === 'movies') {
+        itemId = 'movieId';
+      } else if (category === 'tvshows') {
+        itemId = 'tvId';
+      }
+
+      const response = await axios.delete(endpoint, {
+        data: { [itemId]: Number(id) },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(hearted);
+  // console.log(added);
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: titleName || name,
+          text : `Check out this awesome ${titleName || name} on EntScape!`,
+          url: window.location.href
+        });
+        console.log('Successfully shared')
+      } catch (error) {
+        console.log('Error sharing:', error)
+      }
+    } else {
+      console.log('Web share not supported')
+    }};
 
   // For rendering icons
   const Icons = () => {
     return (
       <>
-        <div onClick={() => setHearted((pre) => !pre)}>
+        <div
+          onClick={() => {
+            setHearted((pre) => !pre);
+            hearted ? removeFromCollection() : addToCollection();
+          }}
+        >
           <Icon
             icon={
               hearted
@@ -122,7 +255,8 @@ const TitleInfo = ({ title, category, isLoading }) => {
             height="35"
           />
         </div>
-        <Icon icon="material-symbols:share-outline" width="35" height="35" />
+        <div onClick={handleShare}><Icon icon="material-symbols:share-outline" width="35" height="35" /></div>
+        
         <Icon icon="material-symbols:reviews-rounded" width="35" height="35" />
       </>
     );

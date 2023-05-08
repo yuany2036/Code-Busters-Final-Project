@@ -1,7 +1,7 @@
 @import '../../styles/partials/variables';
 .not_found {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 5rem 1rem;
   display: flex;
   flex-direction: column;
@@ -11,19 +11,15 @@
   background-size: contain;
   background-position: bottom;
   background-repeat: no-repeat;
-  // background: rgb(149, 134, 171);
-  // background: linear-gradient(
-  //   177deg,
-  //   rgba(149, 134, 171, 1) 0%,
-  //  rgb(26, 2, 87) 90%
-  // );
+
   .not_found_text {
     padding: 2rem 0;
     h1 {
       color: rgb(62, 15, 94);
       padding-bottom: 2rem;
+      font-size: 1.4rem;
       span {
-        font-size: 2.6rem;
+        font-size: 2rem;
         display: block;
         text-transform: uppercase;
         &:first-of-type {
@@ -33,6 +29,8 @@
     }
     p {
       line-height: 1.8rem;
+      text-align: left;
+      font-size: 1rem;
       span {
         color: rgb(62, 15, 94);
         font-weight: 700;
@@ -84,11 +82,10 @@
   }
 }
 
-@media screen and (min-width: 876px) {
+@media screen and (min-width: 1500px) {
   .not_found {
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: right;
     .not_found_text {
       p {
         color: black;
@@ -105,7 +102,14 @@
       p {
         line-height: 2rem;
         text-align: justify;
-        padding-right: 80rem;
+              background-color: rgb(62, 15, 94, 0.6);
+                    width: 60%;
+                    color: whitesmoke;
+                    padding:  2rem;
+                    border-radius: 8px;
+                    
+
+
         span {
           font-size: 1.3rem;
           color: rgb(62, 15, 94);

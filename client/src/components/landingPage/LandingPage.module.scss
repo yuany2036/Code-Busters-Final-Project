@@ -190,6 +190,8 @@
   z-index: -1;
 }
 
+
+
 @media screen and (max-width: 768px) {
   .main {
     .parallax {
@@ -199,6 +201,46 @@
           justify-self: center;
           width: 100%;
           padding-top: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .main {
+    .container {
+      .title {
+        .text_h1 {
+          h1 {
+            padding-top: 4rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1220px) {
+  .main {
+    .container {
+      .title {
+        .text_h1 {
+          h1 {
+            padding-top: 6rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1221px) and (max-width: 1550px) {
+  .main {
+    .container {
+      .title {
+        .text_p {
+          top: 60%;
         }
       }
     }

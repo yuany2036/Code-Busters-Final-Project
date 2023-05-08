@@ -1,5 +1,6 @@
 import { useReducer, createContext, useState, useEffect } from 'react';
 import { usersInitialState, usersReducer } from '../data/reducers/usersreducer';
+import { moviesInitialState, moviesReducer } from '../data/reducers/moviesreducer';
 import { getUser } from '../apiCalls/userApiCalls';
 
 export const DataContext = createContext();
@@ -18,6 +19,14 @@ export const DataContextProvider = ({ children }) => {
     getUser(usersDispatch);
   }, []);
 
+  // Movies State
+  const [moviesState, moviesDispatch] = useReducer(
+    moviesReducer,
+    moviesInitialState
+  );
+
+
+
   const { user, isUserLoggedIn } = usersState;
 
   const updateUserPreferences = (preferences) => {
@@ -35,6 +44,8 @@ export const DataContextProvider = ({ children }) => {
         setError,
         setLoading,
         updateUserPreferences,
+        moviesState,
+        moviesDispatch,
       }}
     >
       {children}
