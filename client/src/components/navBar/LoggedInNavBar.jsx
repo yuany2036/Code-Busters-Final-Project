@@ -56,9 +56,6 @@ const LoggedInNavBar = () => {
       openModal();
     } else {
       closeModal();
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, 0);
       searchRef.current.focus();
     }
   };

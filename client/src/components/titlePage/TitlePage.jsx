@@ -33,13 +33,15 @@ const TitlePage = () => {
         res = await axios.get(
           `http://localhost:4000/${category}/reviews?id=${identifier}`
         );
-        console.log('this should be reviews ->', res);
         category === 'movies' && setReviews(res.data.results);
         category === 'tvshows' && setReviews(res.data);
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 0);
       }
     })();
   }, [id]);
