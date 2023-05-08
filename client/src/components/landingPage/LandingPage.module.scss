@@ -197,7 +197,16 @@
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 0.1em;
+    .link{
+      text-decoration: none;
+      color: rgba(189, 74, 185);
+      &:hover{
+        color: whitesmoke;
+        font-weight: 700;
+      }
+    }
   }
+
   .scroll_down::before {
     -webkit-animation: elasticus 1.2s cubic-bezier(1, 0, 0, 1) infinite;
     /* Safari 4+ */

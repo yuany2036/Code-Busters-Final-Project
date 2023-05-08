@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './LandingPage.module.scss';
 import video from '../../assets/Nebula_Background.mp4';
 import Animation from './landingAnimation/Animation';
@@ -38,16 +39,15 @@ const LandingPage = () => {
 
           <div className={styles.second_section}>
             <p>
-              Whether you're looking
-              for a new book to read, a movie to watch, or a edge-cutting tv show to try,
-              we've got you covered.{' '}
+              Whether you're looking for a new book to read, a movie to watch,
+              or a edge-cutting tv show to try, we've got you covered.{' '}
             </p>
             <div className={styles.wrapper}>
               <div className={styles.wrapper_inner}>
                 <div className={styles.scroll_down}>
                   <span className={styles.arrow_down}></span>
                   <span className={styles.scroll_title}>
-                    Share your preferences with us
+                    <Link className={styles.link} to="/register">Share your preferences with us</Link>
                   </span>
                 </div>
               </div>

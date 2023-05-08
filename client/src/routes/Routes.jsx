@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import DataContext from '../data/context';
+//import { useContext } from 'react';
+//import DataContext from '../data/context';
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from '../components/landingPage/LandingPage';
 import ExplorePage from '../components/explorePage/ExplorePage';
@@ -15,15 +15,15 @@ import ReviewsSoloPage from '../components/reviews/ReviewsSoloPage';
 // import Animation from '../components/landingPage/landingAnimation/Animation';
 
 const Router = () => {
-    const { isUserLoggedIn} =
-      useContext(DataContext);
+  /*   const { isUserLoggedIn} =
+      useContext(DataContext); */
   return (
     <Routes>
-      {isUserLoggedIn ? (
+     {/*  {isUserLoggedIn ? ( */}
         <Route path="/" element={<Collection />} />
-      ) : (
-        <Route path="/" element={<LandingPage />} />
-      )}
+    {/*   ) : ( */}
+        <Route path="/landing" element={<LandingPage />} />
+    {/*   )} */}
       <Route path="/explore" element={<ExplorePage />} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
