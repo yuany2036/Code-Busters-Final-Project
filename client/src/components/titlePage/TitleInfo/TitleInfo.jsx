@@ -149,7 +149,7 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
         );
         setHearted(itemInCollection);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -185,10 +185,9 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
 
       const response = await axios.post(endpoint, data);
       console.log(response);
-      console.log('addItemToCollection id:', data.id);
       heartButtonNotification(titleName, 'added to');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -210,7 +209,7 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
       heartButtonNotification(titleName, 'removed from');
       console.log(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

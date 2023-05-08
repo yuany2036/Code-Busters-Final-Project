@@ -36,7 +36,7 @@ const TitlePage = () => {
         category === 'movies' && setReviews(res.data.results);
         category === 'tvshows' && setReviews(res.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       } finally {
         setLoading(false);
         setTimeout(() => {
@@ -58,7 +58,7 @@ const TitlePage = () => {
             category={category}
             id={id}
           />
-          <CrossUniverse title={title} />
+          <CrossUniverse title={title} category={category} />
           <ViewByCategory />
           <Reviews reviews={reviews} category={category} id={id} />
         </div>
