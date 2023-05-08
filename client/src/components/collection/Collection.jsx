@@ -114,7 +114,7 @@ const Collection = () => {
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Profile Pic" />
               ) : (
-                <ProfileCircle />
+                <ProfileCircle styleClass={`${styles.circle} ${styles.new_circle}`} />
               )}
             </div>
             <div className={styles.profile_info}>
