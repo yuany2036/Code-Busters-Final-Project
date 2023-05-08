@@ -38,7 +38,6 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
     categories,
     publishedDate,
   } = title;
-  console.log(title);
 
   const expandSummary = () => {
     setExpanded((prev) => !prev);
@@ -145,14 +144,12 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
           category === 'tvshows'
             ? response.data['tvShows']
             : response.data[category];
-        console.log(collection);
         const itemInCollection = collection.some(
           (item) => String(item.id) === String(id)
         );
-        console.log(itemInCollection);
         setHearted(itemInCollection);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -164,7 +161,6 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
   const addToCollection = async () => {
     try {
       const endpoint = `/${category}/user`;
-      console.log(title.id);
       let data;
       if (category === 'books') {
         data = {
@@ -189,10 +185,9 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
 
       const response = await axios.post(endpoint, data);
       console.log(response);
-      console.log('addItemToCollection id:', data.id);
       heartButtonNotification(titleName, 'added to');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -214,7 +209,7 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
       heartButtonNotification(titleName, 'removed from');
       console.log(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

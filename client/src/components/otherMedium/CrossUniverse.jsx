@@ -2,31 +2,33 @@ import React, { useEffect, useState } from 'react';
 import MediumCard from './MediumCard';
 import styles from './CrossUniverse.module.scss';
 
-const CrossUniverse = ({ title }) => {
-  const [movies, setMovies] = useState([]);
+const CrossUniverse = ({ title, category }) => {
+  const [results, setResults] = useState([]);
 
   const apiKey = 'ad6c50ff4b12daee4d3c2b875c8684fc';
-  const movie_id = 76600; //avatar
-  // const movie_id = 677179; //creed 3
-  // const movie_id = 496243; //parasite
-  const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${title}`;
-
-  const movieURL =
-    'https://api.themoviedb.org/3/movie/popular?api_key=ad6c50ff4b12daee4d3c2b875c8684fc&language=en-US&page=1';
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchItems = async () => {
       try {
-        const response = await fetch(movieURL);
-        const data = await response.json();
-        setMovies(data.results.slice(0, 3));
+        if (category !== 'books') {
+          const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title.title}`);
+          const data = await response.json();
+          setResults(data.items.map(item => item.volumeInfo).slice(0, 3));
+        } else {
+          const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${title.title}`;
+          const response = await fetch(searchUrl);
+          const data = await response.json();
+          setResults(data.results.slice(0, 3));
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchMovies();
-  }, []);
+    fetchItems();
+  }, [category, title]);
+
+  const isBook = category !== 'books';
 
   return (
     <div className={styles.medium_container}>
@@ -39,8 +41,8 @@ const CrossUniverse = ({ title }) => {
         <div className={styles.arrow}></div>
       </div>
       <div className={styles.medium_container_right}>
-        {movies.map((movie) => (
-          <MediumCard key={movie.id} movie={movie} />
+        {results.map((item) => (
+          <MediumCard key={item.id} {...(isBook ? { book: item } : { movie: item })} />
         ))}
       </div>
     </div>
@@ -48,4 +50,5 @@ const CrossUniverse = ({ title }) => {
 };
 
 export default CrossUniverse;
+
 
