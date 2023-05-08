@@ -20,9 +20,9 @@ const Router = () => {
   return (
     <Routes>
      {/*  {isUserLoggedIn ? ( */}
-        <Route path="/" element={<Collection />} />
+        <Route path="/collection" element={<Collection />} />
     {/*   ) : ( */}
-        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
     {/*   )} */}
       <Route path="/explore" element={<ExplorePage />} />
       <Route path="/about" element={<About />} />

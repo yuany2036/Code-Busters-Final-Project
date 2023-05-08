@@ -80,7 +80,7 @@ const LoggedInNavBar = () => {
     <>
       <div className={styles.navbar}>
         <div className={styles.navbar_left}>
-          <NavLink to="/landing" className={styles.logo}>
+          <NavLink to="/" className={styles.logo}>
             <img
               src={LogoDesktop}
               className={styles.logo_desktop}

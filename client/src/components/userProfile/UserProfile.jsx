@@ -68,7 +68,7 @@ const Profile = () => {
     try {
       await deleteUser(usersDispatch, data);
       alert('Your account has been deleted');
-      return navigate('/landing');
+      return navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +77,7 @@ const Profile = () => {
     try {
       await logout(usersDispatch, data);
       alert('You have been logged out');
-      return navigate('/landing');
+      return navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +123,7 @@ const Profile = () => {
     <div className={styles.profile_container}>
       <div className={styles.arrow_container}>
         <Icon icon="ic:outline-keyboard-double-arrow-left" color="#7e57c2" />
-        <Link className={styles.arrow} to="/">
+        <Link className={styles.arrow} to="/collection">
           Go back to Collection
         </Link>
       </div>
