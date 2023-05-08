@@ -58,6 +58,13 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved}) => {
     }
   };
 
+  const maxChars = 20; // maximum number of characters to display
+
+  const truncatedName =
+    title.length > maxChars
+      ? title.slice(0, maxChars - 3) + '...'
+      : title;
+
   const changeIcon = () => {
     setAdded((previous) => !previous);
   };
@@ -83,7 +90,7 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved}) => {
         <img src={posterUrl} alt={title} />
       </div>
       <div className={styles.card_details}>
-        <h2 className={styles.card_title}>{title}</h2>
+        <h2 className={styles.card_title}>{truncatedName}</h2>
       </div>
       <div className={styles.btn}>
         <Icon
