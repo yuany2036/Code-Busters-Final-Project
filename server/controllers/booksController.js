@@ -64,7 +64,7 @@ exports.getBookCollection = async (req, res, next) => {
 
 // Add book to user's collection
 exports.addToBookCollection = async (req, res, next) => {
-  const { id, thumbnail, title, categories } = req.body;
+  const { id, thumbnail, title, categories,authors } = req.body;
   const { _id } = req.user;
 
   try {
@@ -83,6 +83,7 @@ exports.addToBookCollection = async (req, res, next) => {
       poster_path: thumbnail,
       title,
       genres: categories,
+      authors,
     });
     await bookCol.save();
     return res.json({ success: true, message: 'Book added to collection' });
@@ -121,6 +122,7 @@ exports.deleteBookFromCollection = async (req, res, next) => {
     const bookIndex = bookCol.books.findIndex(
       (book) => book.id.toString() === bookId
     );
+
     if (bookIndex === -1) {
       return res.status(404).json({
         success: false,

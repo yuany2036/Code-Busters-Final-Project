@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styles from './LandingPage.module.scss';
 import video from '../../assets/Nebula_Background.mp4';
 import Animation from './landingAnimation/Animation';
+import Carousel from './Carousel';
 
 const LandingPage = () => {
   const animationRef = useRef(null);
@@ -28,8 +29,11 @@ const LandingPage = () => {
         </div>
         <div className={styles.parallax}>
           <div ref={animationRef} className={styles.first_section}>
-            <p>Discover Movies, Tv-Shows and Books </p>
-            <p>..and add them to your Collection</p>
+            <Carousel />
+            <div className={styles.first_section_p}>
+              <p>Discover Movies, Tv-Shows and Books </p>
+              <p>..and add them to your Collection</p>
+            </div>
           </div>
 
           <div className={styles.second_section}>
