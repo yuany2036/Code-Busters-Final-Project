@@ -68,7 +68,7 @@ const Profile = () => {
     try {
       await deleteUser(usersDispatch, data);
       alert('Your account has been deleted');
-      return navigate('/explore');
+      return navigate('/landing');
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +77,7 @@ const Profile = () => {
     try {
       await logout(usersDispatch, data);
       alert('You have been logged out');
-      return navigate('/explore');
+      return navigate('/landing');
     } catch (error) {
       console.log(error);
     }
