@@ -38,16 +38,21 @@ const LandingPage = () => {
 
           <div className={styles.second_section}>
             <p>
-              We pride ourselves on offering tailored recommendations that are
-              personalized to your unique preferences. Whether you're looking
-              for a new book to read, a movie to watch, or a new tv show to try,
+              Whether you're looking
+              for a new book to read, a movie to watch, or a edge-cutting tv show to try,
               we've got you covered.{' '}
             </p>
-            <p>
-              {' '}
-              Share your preferences with us today, and let us help you find
-              your next favorite thing!
-            </p>{' '}
+            <div className={styles.wrapper}>
+              <div className={styles.wrapper_inner}>
+                <div className={styles.scroll_down}>
+                  <span className={styles.arrow_down}></span>
+                  <span className={styles.scroll_title}>
+                    Share your preferences with us
+                  </span>
+                </div>
+              </div>
+            </div>
+            <p> ..and let us help you find your next favorite thing!</p>{' '}
           </div>
 
           <div className={styles.third_section}>
