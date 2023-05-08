@@ -38,7 +38,6 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
     categories,
     publishedDate,
   } = title;
-  console.log(title);
 
   const expandSummary = () => {
     setExpanded((prev) => !prev);
@@ -145,11 +144,9 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
           category === 'tvshows'
             ? response.data['tvShows']
             : response.data[category];
-        console.log(collection);
         const itemInCollection = collection.some(
           (item) => String(item.id) === String(id)
         );
-        console.log(itemInCollection);
         setHearted(itemInCollection);
       } catch (error) {
         console.log(error);
@@ -164,7 +161,6 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
   const addToCollection = async () => {
     try {
       const endpoint = `/${category}/user`;
-      console.log(title.id);
       let data;
       if (category === 'books') {
         data = {
@@ -296,12 +292,12 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
                 {summary.length < 350 || expanded
                   ? summary
                   : `${summary.slice(0, 350)}...`}
+                {summary.length > 350 && (
+                  <button onClick={expandSummary}>
+                    {expanded ? '(Hide)' : '(Read more)'}
+                  </button>
+                )}
               </p>
-              {summary.length > 350 && (
-                <button onClick={expandSummary}>
-                  {expanded ? 'Hide' : 'Read more'}
-                </button>
-              )}
               <div className={styles.mapped_info_container}>
                 {infoArray.map((info) => {
                   return (
