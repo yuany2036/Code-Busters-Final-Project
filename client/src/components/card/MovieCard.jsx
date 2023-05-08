@@ -64,9 +64,7 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved }) => {
   const maxChars = 20; // maximum number of characters to display
 
   const truncatedName =
-    title.length > maxChars
-      ? title.slice(0, maxChars - 3) + '...'
-      : title;
+    title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
 
   const changeIcon = () => {
     setAdded((previous) => !previous);
