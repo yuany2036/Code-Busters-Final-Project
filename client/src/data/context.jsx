@@ -1,13 +1,22 @@
 import { useReducer, createContext, useState, useEffect } from 'react';
 import { usersInitialState, usersReducer } from '../data/reducers/usersreducer';
-import { moviesInitialState, moviesReducer } from '../data/reducers/moviesreducer';
+import {
+  moviesInitialState,
+  moviesReducer,
+} from '../data/reducers/moviesreducer';
 import { getUser } from '../apiCalls/userApiCalls';
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 export const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const heartButtonNotification = (title, action) =>
+    toast.success(`${title} has been ${action} your collection!`);
 
   // User State
   const [usersState, usersDispatch] = useReducer(
@@ -24,8 +33,6 @@ export const DataContextProvider = ({ children }) => {
     moviesReducer,
     moviesInitialState
   );
-
-
 
   const { user, isUserLoggedIn } = usersState;
 
@@ -46,6 +53,7 @@ export const DataContextProvider = ({ children }) => {
         updateUserPreferences,
         moviesState,
         moviesDispatch,
+        heartButtonNotification,
       }}
     >
       {children}

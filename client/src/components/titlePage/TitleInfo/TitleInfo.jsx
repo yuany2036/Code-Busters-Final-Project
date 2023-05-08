@@ -5,7 +5,7 @@ import { DataContext } from '../../../data/context';
 import axios from 'axios';
 
 const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
-  const { isUserLoggedIn } = useContext(DataContext);
+  const { isUserLoggedIn, heartButtonNotification } = useContext(DataContext);
   // const [added, setAdded] = useState(false);
   const [infoArray, setInfoArray] = useState([]);
   const [poster, setPoster] = useState('');
@@ -190,6 +190,7 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
       const response = await axios.post(endpoint, data);
       console.log(response);
       console.log('addItemToCollection id:', data.id);
+      heartButtonNotification(titleName, 'added to');
     } catch (error) {
       console.log(error);
     }
@@ -210,6 +211,7 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
       const response = await axios.delete(endpoint, {
         data: { [itemId]: Number(id) },
       });
+      heartButtonNotification(titleName, 'removed from');
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -224,16 +226,17 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
       try {
         await navigator.share({
           title: titleName || name,
-          text : `Check out this awesome ${titleName || name} on EntScape!`,
-          url: window.location.href
+          text: `Check out this awesome ${titleName || name} on EntScape!`,
+          url: window.location.href,
         });
-        console.log('Successfully shared')
+        console.log('Successfully shared');
       } catch (error) {
-        console.log('Error sharing:', error)
+        console.log('Error sharing:', error);
       }
     } else {
-      console.log('Web share not supported')
-    }};
+      console.log('Web share not supported');
+    }
+  };
 
   // For rendering icons
   const Icons = () => {
@@ -255,8 +258,10 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
             height="35"
           />
         </div>
-        <div onClick={handleShare}><Icon icon="material-symbols:share-outline" width="35" height="35" /></div>
-        
+        <div onClick={handleShare}>
+          <Icon icon="material-symbols:share-outline" width="35" height="35" />
+        </div>
+
         <Icon icon="material-symbols:reviews-rounded" width="35" height="35" />
       </>
     );
