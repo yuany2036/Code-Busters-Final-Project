@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 require('dotenv').config();
 const passport = require('passport');
-require('./services/passport-setup')
+require('./services/passport-setup');
 require('./services/passport-google-setup');
 
 // Importing Routes and Global Error Handlers
@@ -31,7 +31,11 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: ['http://localhost:4000', 'http://localhost:5173'],
+    origin: [
+      'http://localhost:4000',
+      'http://localhost:5173',
+      'https://entscape-frontend.onrender.com',
+    ],
     credentials: true,
   })
 );
@@ -44,7 +48,9 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 // Add session middleware and initialize Passport
-app.use(session({ secret: 'some secret', resave: false, saveUninitialized: false }));
+app.use(
+  session({ secret: 'some secret', resave: false, saveUninitialized: false })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -57,7 +63,7 @@ app.use('/tvshows', tvshowsRouter);
 app.use('/books', booksRouter);
 app.use('/games', gamesRouter);
 app.use('/', passportRouter);
-app.use('/cloud', cloudRouter)
+app.use('/cloud', cloudRouter);
 
 // Error Handling Middleware
 app.use(routeNotFound);
