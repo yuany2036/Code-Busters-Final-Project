@@ -9,12 +9,16 @@ import ViewByCategory from '../ViewByCategory/ViewByCategory';
 import Reviews from '../reviews/Reviews';
 import styles from './TitlePage.module.scss';
 import CrossUniverse from '../otherMedium/CrossUniverse';
+import { useContext } from 'react';
+import { DataContext } from '../../data/context';
 
 const TitlePage = () => {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('');
   const [reviews, setReviews] = useState([]);
   const { id, category } = useParams();
+
+  const { backendURL } = useContext(DataContext);
 
   const isBook = category === 'books';
 
@@ -23,7 +27,7 @@ const TitlePage = () => {
     (async () => {
       try {
         let res = await axios.get(
-          `http://localhost:4000/${category}/searchById?id=${id}`
+          `${backendURL}/${category}/searchById?id=${id}`
         );
         isBook && setTitle(res.data.volumeInfo);
         !isBook && setTitle(res.data);
@@ -31,7 +35,7 @@ const TitlePage = () => {
           ? id
           : res.data.volumeInfo.industryIdentifiers[0].identifier;
         res = await axios.get(
-          `http://localhost:4000/${category}/reviews?id=${identifier}`
+          `${backendURL}/${category}/reviews?id=${identifier}`
         );
         category === 'movies' && setReviews(res.data.results);
         category === 'tvshows' && setReviews(res.data);
