@@ -1,12 +1,15 @@
 import axios from 'axios';
+import { useContext } from 'react';
+import { DataContext } from '../data/context';
 
 axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true; // allow us to include cookies
 
 export const getMoviesByTitle = async (searchTerm, setState) => {
+  const { backendURL } = useContext(DataContext);
   try {
     const response = await axios.get(
-      `http://localhost:4000/movies/?title=${searchTerm}`
+      `${backendURL}/movies/?title=${searchTerm}`
     );
     setState(response.data);
   } catch (error) {
@@ -24,4 +27,3 @@ export const getMoviesByTitle = async (searchTerm, setState) => {
     console.log(error);
   }
 } */
-
