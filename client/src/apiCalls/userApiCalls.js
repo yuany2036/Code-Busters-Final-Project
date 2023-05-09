@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { useContext } from 'react';
-import { DataContext } from '../data/context';
+// import { DataContext } from '../data/context';
+// import { useContext } from 'react';
 
-const { backendURL } = useContext(DataContext);
+// const { backendURL } = useContext(DataContext);
 
-axios.defaults.baseURL = backendURL;
+axios.defaults.baseURL = 'https://entscape-backend.onrender.com';
 axios.defaults.withCredentials = true; // allow us to include cookies
 
 export const signup = async (dispatch, data) => {
