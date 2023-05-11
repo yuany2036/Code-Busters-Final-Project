@@ -36,9 +36,9 @@ exports.createUser = async (req, res, next) => {
             expiresIn: new Date(
                 Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
             ),
-            httpOnly: true,
+            httpOnly: process.env.NODE_ENV === "development",
             secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
         });
         successHandler(res, 201, {
             user,
@@ -75,9 +75,9 @@ exports.login = async (req, res, next) => {
             expiresIn: new Date(
                 Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
             ),
-            httpOnly: true,
+            httpOnly: process.env.NODE_ENV === "development",
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+            sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
         });
         successHandler(res, 201, user);
     } catch (error) {
