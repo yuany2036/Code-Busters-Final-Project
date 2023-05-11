@@ -12,10 +12,13 @@
   box-sizing: border-box;
 }
 
+html, body{
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .App {
   height: 100vh;
-  background-color: #000;
-  background-image: url('https://www.vowelor.com/wp-content/uploads/2019/03/Books-Vs-Movies-696x366.png');
-  background-size: cover;
-  background-position: center;
+
+
 }

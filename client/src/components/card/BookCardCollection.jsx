@@ -7,7 +7,7 @@ import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
 
 
-const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
+const BookCard = ({ id, title, thumbnail, onBookRemoved }) => {
   const { isUserLoggedIn } = useContext(DataContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
@@ -62,7 +62,8 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
  const maxChars = 20; // maximum number of characters to display
 
  const truncatedName =
-   title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
+    title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
+
 
   const changeIcon = () => {
     setAdded((previous) => !previous);
@@ -88,7 +89,6 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
       </div>
       <div className={styles.card_details}>
         <h2 className={styles.card_title}>{truncatedName}</h2>
-        <p className={styles.author_p}>by {authors.join(', ')}</p>
       </div>
 
       <div className={styles.btn}>

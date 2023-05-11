@@ -7,6 +7,7 @@
   color: white;
   background-color: #310e68;
   background-image: $primary-gradient;
+  overflow: hidden;
   .container {
     display: flex;
     flex-direction: column;
