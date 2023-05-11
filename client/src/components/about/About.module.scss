@@ -3,11 +3,14 @@
   height: 100%;
   width: 100%;
   font-family: $primary-font;
+    overflow: hidden;
+
 }
 
 .about {
   height: 100%;
   width: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   margin-top: 4rem;
@@ -58,7 +61,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin: 1rem;
         padding: 2rem;
         h3 {
           padding: 2rem;
@@ -131,6 +133,7 @@
         width: 100%;
         div {
           width: 40%;
+
           h3 {
             font-size: 1.8rem;
           }

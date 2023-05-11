@@ -3,6 +3,7 @@
   height: 100%;
   width: 100%;
   font-family: $primary-font;
+  overflow: hidden;
 }
 .container {
   position: relative;
@@ -128,7 +129,7 @@
 
   &_p {
     width: 40%;
-    font-weight: bold;
+    font-weight: 500;
     justify-self: end;
     text-align: center;
   }
@@ -142,10 +143,11 @@
   justify-content: center;
   height: 700px;
   p {
-    padding: 3rem 5rem;
     font-weight: 500;
     text-align: center;
     line-height: 3rem;
+    width: 60%;
+    padding: 3rem;
   }
 
   //the share arrow
@@ -197,10 +199,10 @@
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 0.1em;
-    .link{
+    .link {
       text-decoration: none;
       color: rgba(189, 74, 185);
-      &:hover{
+      &:hover {
         color: whitesmoke;
         font-weight: 700;
       }
@@ -208,18 +210,7 @@
   }
 
   .scroll_down::before {
-    -webkit-animation: elasticus 1.2s cubic-bezier(1, 0, 0, 1) infinite;
-    /* Safari 4+ */
-
-    -moz-animation: elasticus 1.2s cubic-bezier(1, 0, 0, 1) infinite;
-    /* Fx 5+ */
-
-    -o-animation: elasticus 1.2s cubic-bezier(1, 0, 0, 1) infinite;
-    /* Opera 12+ */
-
     animation: elasticus 1.2s cubic-bezier(1, 0, 0, 1) infinite;
-    /* IE 10+, Fx 29+ */
-
     position: absolute;
     top: 0px;
     left: 50%;
@@ -229,203 +220,21 @@
     background: rgb(103, 29, 118);
     content: ' ';
   }
-  @-webkit-keyframes elasticus {
-    0% {
-      -webkit-transform-origin: 0% 0%;
-      -ms-transform-origin: 0% 0%;
-      -moz-transform-origin: 0% 0%;
-      -o-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      -webkit-transform: scale(1, 0);
-      -ms-transform: scale(1, 0);
-      -moz-transform: scale(1, 0);
-      -o-transform: scale(1, 0);
-      transform: scale(1, 0);
-    }
-    50% {
-      -webkit-transform-origin: 0% 0%;
-      -ms-transform-origin: 0% 0%;
-      -moz-transform-origin: 0% 0%;
-      -o-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      -webkit-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
-      transform: scale(1, 1);
-    }
-    50.1% {
-      -webkit-transform-origin: 0% 100%;
-      -ms-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-      -o-transform-origin: 0% 100%;
-      transform-origin: 0% 100%;
-      -webkit-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
-      transform: scale(1, 1);
-    }
-    100% {
-      -webkit-transform-origin: 0% 100%;
-      -ms-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-      -o-transform-origin: 0% 100%;
-      transform-origin: 0% 100%;
-      -webkit-transform: scale(1, 0);
-      -ms-transform: scale(1, 0);
-      -moz-transform: scale(1, 0);
-      -o-transform: scale(1, 0);
-      transform: scale(1, 0);
-    }
-  }
-  @-moz-keyframes elasticus {
-    0% {
-      -webkit-transform-origin: 0% 0%;
-      -ms-transform-origin: 0% 0%;
-      -moz-transform-origin: 0% 0%;
-      -o-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      -webkit-transform: scale(1, 0);
-      -ms-transform: scale(1, 0);
-      -moz-transform: scale(1, 0);
-      -o-transform: scale(1, 0);
-      transform: scale(1, 0);
-    }
-    50% {
-      -webkit-transform-origin: 0% 0%;
-      -ms-transform-origin: 0% 0%;
-      -moz-transform-origin: 0% 0%;
-      -o-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      -webkit-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
-      transform: scale(1, 1);
-    }
-    50.1% {
-      -webkit-transform-origin: 0% 100%;
-      -ms-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-      -o-transform-origin: 0% 100%;
-      transform-origin: 0% 100%;
-      -webkit-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
-      transform: scale(1, 1);
-    }
-    100% {
-      -webkit-transform-origin: 0% 100%;
-      -ms-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-      -o-transform-origin: 0% 100%;
-      transform-origin: 0% 100%;
-      -webkit-transform: scale(1, 0);
-      -ms-transform: scale(1, 0);
-      -moz-transform: scale(1, 0);
-      -o-transform: scale(1, 0);
-      transform: scale(1, 0);
-    }
-  }
-  @-o-keyframes elasticus {
-    0% {
-      -webkit-transform-origin: 0% 0%;
-      -ms-transform-origin: 0% 0%;
-      -moz-transform-origin: 0% 0%;
-      -o-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      -webkit-transform: scale(1, 0);
-      -ms-transform: scale(1, 0);
-      -moz-transform: scale(1, 0);
-      -o-transform: scale(1, 0);
-      transform: scale(1, 0);
-    }
-    50% {
-      -webkit-transform-origin: 0% 0%;
-      -ms-transform-origin: 0% 0%;
-      -moz-transform-origin: 0% 0%;
-      -o-transform-origin: 0% 0%;
-      transform-origin: 0% 0%;
-      -webkit-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
-      transform: scale(1, 1);
-    }
-    50.1% {
-      -webkit-transform-origin: 0% 100%;
-      -ms-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-      -o-transform-origin: 0% 100%;
-      transform-origin: 0% 100%;
-      -webkit-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
-      transform: scale(1, 1);
-    }
-    100% {
-      -webkit-transform-origin: 0% 100%;
-      -ms-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-      -o-transform-origin: 0% 100%;
-      transform-origin: 0% 100%;
-      -webkit-transform: scale(1, 0);
-      -ms-transform: scale(1, 0);
-      -moz-transform: scale(1, 0);
-      -o-transform: scale(1, 0);
-      transform: scale(1, 0);
-    }
-  }
   @keyframes elasticus {
     0% {
-      -webkit-transform-origin: 0% 0%;
-      -ms-transform-origin: 0% 0%;
-      -moz-transform-origin: 0% 0%;
-      -o-transform-origin: 0% 0%;
       transform-origin: 0% 0%;
-      -webkit-transform: scale(1, 0);
-      -ms-transform: scale(1, 0);
-      -moz-transform: scale(1, 0);
-      -o-transform: scale(1, 0);
       transform: scale(1, 0);
     }
     50% {
-      -webkit-transform-origin: 0% 0%;
-      -ms-transform-origin: 0% 0%;
-      -moz-transform-origin: 0% 0%;
-      -o-transform-origin: 0% 0%;
       transform-origin: 0% 0%;
-      -webkit-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
       transform: scale(1, 1);
     }
     50.1% {
-      -webkit-transform-origin: 0% 100%;
-      -ms-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-      -o-transform-origin: 0% 100%;
       transform-origin: 0% 100%;
-      -webkit-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
       transform: scale(1, 1);
     }
     100% {
-      -webkit-transform-origin: 0% 100%;
-      -ms-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-      -o-transform-origin: 0% 100%;
       transform-origin: 0% 100%;
-      -webkit-transform: scale(1, 0);
-      -ms-transform: scale(1, 0);
-      -moz-transform: scale(1, 0);
-      -o-transform: scale(1, 0);
       transform: scale(1, 0);
     }
   }
@@ -440,13 +249,13 @@
   align-items: center;
   padding: 50px;
   font-weight: 600;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.1rem;
 
   p {
     color: whitesmoke;
     span {
       color: rgb(184, 47, 212);
-      font-size: 2rem;
+      font-size: 1.7rem;
     }
   }
   .hidden {
@@ -485,7 +294,7 @@
   .main {
     .text_h1 {
       h1 {
-        padding-bottom: 5rem;
+        padding-bottom: 7rem;
       }
     }
     .arrow {
@@ -495,6 +304,7 @@
     .parallax {
       .first_section {
         flex-wrap: wrap-reverse;
+        height: 700px;
         &_p {
           justify-self: center;
           width: 100%;
@@ -504,11 +314,13 @@
       .second_section {
         p {
           line-height: 2rem;
+                  width: 100%;
+
         }
       }
 
       .third_section {
-        height: 600px;
+        font-size: 1rem;
         .animation {
           display: none;
         }
@@ -533,13 +345,13 @@
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 769px) and (max-width: 1023px) {
   .main {
     .container {
       .title {
         .text_h1 {
           h1 {
-            padding-top: 4rem;
+            padding-top: 6rem;
           }
         }
       }

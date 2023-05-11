@@ -3,8 +3,8 @@ import styles from '../card/Card.module.scss';
 import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import { Tooltip } from 'react-tooltip';
-import axios from 'axios';
+/* import { Tooltip } from 'react-tooltip';
+ */import axios from 'axios';
 
 
 const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
@@ -102,10 +102,10 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
           onClick={handleDetailsClick}
         />
         <Icon
-          data-tooltip-id="my-tooltip"
+      /*     data-tooltip-id="my-tooltip"
           data-tooltip-content={
             added ? 'Remove from collection' : 'Add to collection'
-          }
+          } */
           className={styles.fill}
           onClick={handleCardClick}
           icon={
@@ -118,7 +118,7 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
             color: `${added ? 'rgb(160, 123, 223)' : 'whitesmoke'}`,
           }}
         />{' '}
-        <Tooltip id="my-tooltip" place="bottom" />
+   {/*      <Tooltip id="my-tooltip" place="bottom" /> */}
       </div>
     </div>
   );

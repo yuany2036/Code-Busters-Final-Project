@@ -10,8 +10,8 @@ const About = () => {
       h3: 'Gladys',
       role: 'Frontend Developer',
       p: "'I've always loved watching movies, but I found that I was always forgetting what I had seen or read. When I heard about this project, I knew that it was something that could help me and others like me keep track of our favorite titles and discover new ones.'",
-      recommendation1: 'Favorite book: "East of eden" by John Steinbeck',
-      recommendation2: 'Favorite movie: "A beautiful mind" ',
+      recommendation1: 'Favorite book: "The Alchemist" by Paulo Coelho',
+      recommendation2: 'Favorite movie: "Face Off" ',
     },
     {
       h3: 'Mihaela',

@@ -12,8 +12,8 @@
     transition: all 0.2s;
     background: rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    height: 420px;
-    width: 350px;
+    height: 400px;
+    width: 260px;
     margin: 1rem 1.5rem;
   
     &:hover {
@@ -22,8 +22,8 @@
     }
   
     .card_poster {
-      height: 250px;
-      width: 200px;
+      height: 220px;
+      width: 190px;
   
       img {
         height: 100%;
@@ -47,7 +47,6 @@
   
       .outline,
       .fill {
-        //  margin: 1rem;
         &:focus-visible {
           outline: none;
         }
@@ -57,3 +56,20 @@
       }
     }
   }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+ 
+  .book_card {
+    height: 300px;
+    width: 220px;
+    margin: 1rem 1.5rem;
+
+    .card_poster {
+      height: 180px;
+      width: 130px;
+    }
+    .card_title {
+      font-size: 0.8rem;
+    }
+  }
+}

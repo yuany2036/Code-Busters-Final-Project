@@ -5,7 +5,6 @@ import MovieCard from '../card/MovieCard';
 import TvShowCard from '../card/TvShowCard';
 import BookCardCollection from '../card/BookCardCollection';
 import axios from 'axios';
-
 import styles from '../collection/Collection.module.scss';
 import { Icon } from '@iconify/react';
 
@@ -31,7 +30,6 @@ const Collection = () => {
   const fetchMovieCollection = async () => {
     try {
       const response = await axios.get('movies/user');
-      console.log(response.data.movies);
       setMovieCollection(response.data.movies);
       setActiveCategory('Movies');
     } catch (error) {
@@ -46,7 +44,6 @@ const Collection = () => {
   const fetchTvShowCollection = async () => {
     try {
       const response = await axios.get('tvshows/user');
-      console.log(response.data.tvShows);
       setTvShowCollection(response.data.tvShows);
       setActiveCategory('TV Shows');
     } catch (error) {
@@ -61,7 +58,6 @@ const Collection = () => {
   const fetchBookCollection = async () => {
     try {
       const response = await axios.get('books/user');
-      console.log(response.data.books);
       setBookCollection(response.data.books);
       setActiveCategory('Books');
     } catch (error) {
@@ -102,6 +98,10 @@ const Collection = () => {
       <div className={styles.main_container}>
         <div className={styles.header}>
           <div className={styles.image}>
+            <div className={styles.hidden_icon}>
+              <p onClick={navigateTo}>Go to Settings</p>
+              <Icon icon="material-symbols:keyboard-double-arrow-right-rounded" />
+            </div>
             <div className={styles.avatar}>
               {' '}
               {user.avatarURL ? (
