@@ -36,7 +36,7 @@ exports.createUser = async (req, res, next) => {
             expiresIn: new Date(
                 Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
             ),
-            httpOnly: process.env.NODE_ENV === "production",
+            httpOnly: process.env.NODE_ENV === "development",
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
         });
@@ -75,7 +75,7 @@ exports.login = async (req, res, next) => {
             expiresIn: new Date(
                 Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
             ),
-            httpOnly: process.env.NODE_ENV === "production",
+            httpOnly: process.env.NODE_ENV === "development",
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
         });
