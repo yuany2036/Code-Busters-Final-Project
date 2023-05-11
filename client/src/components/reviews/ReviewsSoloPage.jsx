@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import styles from './Reviews.module.scss';
 import avatarPic from '../../assets/person-placeholder.jpeg';
 import { NavLink } from 'react-router-dom';
+import Loading from '../loading/Loading';
 
 const ReviewsSoloPage = () => {
   const [expandedReviews, setExpandedReview] = useState([]);
@@ -17,7 +18,7 @@ const ReviewsSoloPage = () => {
     const getReviews = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/${category}/reviews?id=${id}`
+          `https://entscape-backend.onrender.com/${category}/reviews?id=${id}`
         );
         setReviews(response.data.results || response.data);
       } catch (error) {
@@ -57,7 +58,7 @@ const ReviewsSoloPage = () => {
 
   return (
     <>
-      {loading && <div>Loading...</div>}
+      {loading && <Loading />}
       {!loading && (
         <div className={styles.reviews_container_solo}>
           <NavLink

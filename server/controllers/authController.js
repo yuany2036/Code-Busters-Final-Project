@@ -1,6 +1,9 @@
 
 require("dotenv").config();
 const User = require("../models/userModel");
+const BookModel = require("../models/bookModel");
+const MovieModel = require("../models/movieModel");
+const TvModel = require("../models/tvModel");
 const {
     authError,
     duplicateFieldsHandler
@@ -27,6 +30,15 @@ exports.createUser = async (req, res, next) => {
             email,
             password,
         });
+
+        const bookCollection = new BookModel({ userId: user._id });
+        await bookCollection.save();
+
+        const movieCollection = new MovieModel({ userId: user._id });
+        await movieCollection.save();
+
+        const tvCollection = new TvModel({ userId: user._id });
+        await tvCollection.save();
 
         user.save();
 

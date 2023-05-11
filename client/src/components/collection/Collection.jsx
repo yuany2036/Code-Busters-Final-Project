@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import DataContext from '../../data/context';
-import ProfileCircle from '../navBar/ProfileCircle';
 import MovieCard from '../card/MovieCard';
 import TvShowCard from '../card/TvShowCard';
 import BookCard from '../card/BookCard';
@@ -12,32 +11,18 @@ import { Icon } from '@iconify/react';
 
 const Collection = () => {
   const { user } = useContext(DataContext);
-  const [nickname, setNickname] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
   const [movieCollection, setMovieCollection] = useState([]);
   const [tvShowCollection, setTvShowCollection] = useState([]);
   const [bookCollection, setBookCollection] = useState([]);
   const [activeCategory, setActiveCategory] = useState('Movies');
-  const [collectionEmpty, setCollectionEmpty] = useState(true);
+  const [movieCollectionEmpty, setMovieCollectionEmpty] = useState(true);
+  const [bookCollectionEmpty, setBookCollectionEmpty] = useState(true);
+  const [tvShowCollectionEmpty, setTvShowCollectionEmpty] = useState(true);
 
   const navigate = useNavigate();
 
   const imgUrl =
     'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80';
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await user.username;
-        setNickname(response);
-        const avatarResponse = await user.avatarURL;
-        setAvatarUrl(avatarResponse);
-      } catch (error) {
-        console.error('Failed to fetch user data:', error);
-      }
-    };
-    fetchUserData();
-  }, []);
 
   const navigateTo = () => {
     navigate('/profile');
@@ -93,14 +78,22 @@ const Collection = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      movieCollection.length === 0 &&
-      tvShowCollection.length === 0 &&
-      bookCollection.length === 0
-    ) {
-      setCollectionEmpty(true);
+    if (movieCollection.length === 0) {
+      setMovieCollectionEmpty(true);
     } else {
-      setCollectionEmpty(false);
+      setMovieCollectionEmpty(false);
+    }
+
+    if (tvShowCollection.length === 0) {
+      setTvShowCollectionEmpty(true);
+    } else {
+      setTvShowCollectionEmpty(false);
+    }
+
+    if (bookCollection.length === 0 || !bookCollection) {
+      setBookCollectionEmpty(true);
+    } else {
+      setBookCollectionEmpty(false);
     }
   }, [movieCollection, tvShowCollection, bookCollection]);
 
@@ -111,14 +104,16 @@ const Collection = () => {
           <div className={styles.image}>
             <div className={styles.avatar}>
               {' '}
-              {avatarUrl ? (
-                <img src={avatarUrl} alt="Profile Pic" />
+              {user.avatarURL ? (
+                <img src={user.avatarURL} alt="Profile Pic" />
               ) : (
-                <ProfileCircle styleClass={`${styles.circle} ${styles.new_circle}`} />
+                <div className={styles.new_circle}>
+                  {user.username && user.username.charAt(0).toUpperCase()}
+                </div>
               )}
             </div>
             <div className={styles.profile_info}>
-              <h2>Hi, {nickname}</h2>
+              <h2>Hi, {user.username}</h2>
               <p>Manage your collections</p>
             </div>
           </div>
@@ -135,7 +130,7 @@ const Collection = () => {
         </div>
 
         {activeCategory === 'Movies' &&
-          (collectionEmpty ? (
+          (movieCollectionEmpty ? (
             <div className={styles.movie}>
               <p>Your collection is empty.</p>
               <p>
@@ -163,7 +158,7 @@ const Collection = () => {
             </div>
           ))}
         {activeCategory === 'TV Shows' &&
-          (collectionEmpty ? (
+          (tvShowCollectionEmpty ? (
             <div className={styles.tvShow}>
               <p>Your collection is empty.</p>
               <p>
@@ -191,7 +186,7 @@ const Collection = () => {
             </div>
           ))}
         {activeCategory === 'Books' &&
-          (collectionEmpty ? (
+          (bookCollectionEmpty ? (
             <div className={styles.books}>
               <p>Your collection is empty.</p>
               <p>
