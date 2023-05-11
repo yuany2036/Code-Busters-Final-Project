@@ -31,6 +31,8 @@ exports.createUser = async (req, res, next) => {
             password,
         });
 
+        user.save();
+
         const bookCollection = new BookModel({ userId: user._id });
         await bookCollection.save();
 
@@ -39,8 +41,6 @@ exports.createUser = async (req, res, next) => {
 
         const tvCollection = new TvModel({ userId: user._id });
         await tvCollection.save();
-
-        user.save();
 
         const token = user.generateAuthToken();
 
