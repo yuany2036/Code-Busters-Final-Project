@@ -7,7 +7,7 @@ import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
 
 
-const BookCard = ({ id, authors, title, thumbnail,styleClass, onBookRemoved }) => {
+const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
   const { isUserLoggedIn } = useContext(DataContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
@@ -82,7 +82,7 @@ const BookCard = ({ id, authors, title, thumbnail,styleClass, onBookRemoved }) =
   };
 
   return (
-    <div className={`${styles.card} ${styleClass}`}>
+    <div className={styles.card}>
       <div className={styles.card_poster}>
         <img src={thumbnail} alt={title} />
       </div>

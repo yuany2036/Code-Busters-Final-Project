@@ -4,7 +4,7 @@ import DataContext from '../../data/context';
 import ProfileCircle from '../navBar/ProfileCircle';
 import MovieCard from '../card/MovieCard';
 import TvShowCard from '../card/TvShowCard';
-import BookCard from '../card/BookCard';
+import BookCardCollection from '../card/BookCardCollection';
 import axios from 'axios';
 
 import styles from '../collection/Collection.module.scss';
@@ -206,8 +206,8 @@ const Collection = () => {
           ) : (
             <div className={`${styles.collection_container} ${styles.books}`}>
               {bookCollection.map((book) => (
-                <BookCard
-                  styleClass={`${styles.card} ${styles.new_card}`}
+                <BookCardCollection
+                  className={styles.book_card}
                   key={book.id}
                   id={book.id}
                   authors={book.authors || []}
