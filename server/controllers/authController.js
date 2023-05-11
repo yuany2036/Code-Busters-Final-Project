@@ -33,12 +33,12 @@ exports.createUser = async (req, res, next) => {
         const token = user.generateAuthToken();
 
         res.cookie("jwt", token, {
-            maxAge: new Date(
+            expiresIn: new Date(
                 Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
             ),
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "None",
+            sameSite: "Lax",
         });
         successHandler(res, 201, {
             user,
@@ -72,12 +72,12 @@ exports.login = async (req, res, next) => {
 
         // successHandler(res, 201, user);
         res.cookie('jwt', token, {
-            maxAge: new Date(
+            expiresIn: new Date(
                 Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
             ),
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
+            sameSite: 'Lax',
         });
         successHandler(res, 201, user);
     } catch (error) {
