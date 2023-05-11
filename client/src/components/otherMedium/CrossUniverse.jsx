@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MediumCard from './MediumCard';
 import styles from './CrossUniverse.module.scss';
 
+
 const CrossUniverse = ({ title, category }) => {
   const [results, setResults] = useState([]);
 
