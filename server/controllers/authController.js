@@ -38,7 +38,7 @@ exports.createUser = async (req, res, next) => {
             ),
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "None",
+            sameSite: "Lax",
         });
         successHandler(res, 201, {
             user,
@@ -77,7 +77,7 @@ exports.login = async (req, res, next) => {
             ),
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
+            sameSite: 'Lax',
         });
         successHandler(res, 201, user);
     } catch (error) {
