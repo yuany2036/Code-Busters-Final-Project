@@ -147,6 +147,7 @@
       &.new_card {
         width: 250px;
         height: 420px;
+        &:nth-child(2) p{display: none;}
         &.card_poster {
           width: 200px;
           height: 100px;
