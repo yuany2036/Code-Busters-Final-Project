@@ -18,7 +18,7 @@ const ReviewsSoloPage = () => {
     const getReviews = async () => {
       try {
         const response = await axios.get(
-          `https://entscape-backend.onrender.com/${category}/reviews?id=${id}`
+          `https://localhost:4000/${category}/reviews?id=${id}`
         );
         setReviews(response.data.results || response.data);
       } catch (error) {

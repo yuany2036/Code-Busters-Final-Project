@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import MediumCard from './MediumCard';
 import styles from './CrossUniverse.module.scss';
 
-
 const CrossUniverse = ({ title, category }) => {
   const [results, setResults] = useState([]);
 
@@ -12,9 +11,11 @@ const CrossUniverse = ({ title, category }) => {
     const fetchItems = async () => {
       try {
         if (category !== 'books') {
-          const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title.title}`);
+          const response = await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=intitle:${title.title}`
+          );
           const data = await response.json();
-          setResults(data.items.map(item => item.volumeInfo).slice(0, 3));
+          setResults(data.items.map((item) => item.volumeInfo).slice(0, 3));
         } else {
           const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${title.title}`;
           const response = await fetch(searchUrl);
@@ -43,7 +44,10 @@ const CrossUniverse = ({ title, category }) => {
       </div>
       <div className={styles.medium_container_right}>
         {results.map((item) => (
-          <MediumCard key={item.id} {...(isBook ? { book: item } : { movie: item })} />
+          <MediumCard
+            key={item.id}
+            {...(isBook ? { book: item } : { movie: item })}
+          />
         ))}
       </div>
     </div>
@@ -51,5 +55,3 @@ const CrossUniverse = ({ title, category }) => {
 };
 
 export default CrossUniverse;
-
-

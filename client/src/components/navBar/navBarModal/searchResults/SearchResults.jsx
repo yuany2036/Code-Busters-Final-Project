@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from './SearchResults.module.scss';
@@ -21,7 +21,7 @@ const SearchResults = ({ searchTerm, closeModal }) => {
     (async () => {
       try {
         const res = await axios.get(
-          `https://entscape-backend.onrender.com/${activeCategoryJoined}/?title=${searchTerm}`
+          `http://localhost:4000/${activeCategoryJoined}/?title=${searchTerm}`
         );
         setSearchResults(res.data);
       } catch (err) {

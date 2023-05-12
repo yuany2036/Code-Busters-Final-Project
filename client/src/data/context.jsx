@@ -15,7 +15,7 @@ export const DataContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const backendURL = 'https://entscape-backend.onrender.com';
+  const backendURL = 'http://localhost:4000';
 
   const heartButtonNotification = (title, action) =>
     toast.success(`${title} has been ${action} your collection!`);
