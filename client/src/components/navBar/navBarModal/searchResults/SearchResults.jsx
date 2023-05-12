@@ -77,8 +77,6 @@ const SearchResults = ({ searchTerm, closeModal }) => {
           searchResults.length === 10 &&
           searchResults.map(
             ({ volumeInfo: { title, imageLinks: { thumbnail } = {} }, id }) => {
-              console.log();
-
               return (
                 <div className={styles.results_card} key={id}>
                   <Link to={`/title/${activeCategoryJoined}/${id}`}>

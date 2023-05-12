@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import DataContext from './data/context';
 import 'react-tooltip/dist/react-tooltip.css';
+import styles from './App.module.scss';
 
 function App() {
   const { isUserLoggedIn } = useContext(DataContext);
