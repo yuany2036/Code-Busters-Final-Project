@@ -8,7 +8,7 @@ const MediumCard = ({ movie, book }) => {
   const navigate = useNavigate();
 
   const backupCover =
-    'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80';
+    'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=185&q=80';
 
   useEffect(() => {
     if (book) {
@@ -45,9 +45,11 @@ const MediumCard = ({ movie, book }) => {
 
   return (
     <div className={styles.card_container} onClick={handleClick}>
+      {/* <div className={styles.card_container_box}> */}
       <img className={styles.cover} src={imageUrl} alt={title} />
       <h4 className={styles.card_container_title}>{title ? title : 'Wait'}</h4>
     </div>
+    // </div>
   );
 };
 

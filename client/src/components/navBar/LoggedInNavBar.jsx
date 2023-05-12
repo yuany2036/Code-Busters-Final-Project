@@ -135,7 +135,7 @@ const LoggedInNavBar = () => {
           searchHandler={searchHandler}
         />
         <div className={styles.profileCircle}>
-          <ProfileCircle />
+          <ProfileCircle showDropDownMenu={showDropDownMenu} />
         </div>
 
         {navBarData}

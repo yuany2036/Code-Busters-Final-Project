@@ -9,6 +9,7 @@
   padding: 4rem 2rem;
 
   &_left {
+    padding-left: 1rem;
     &_title {
       @include center_title_text;
       font-size: 3rem;
@@ -58,6 +59,14 @@
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .medium_container {
+    &_right {
+      flex-wrap: wrap;
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   .medium_container {
     flex-wrap: wrap;
@@ -71,9 +80,6 @@
       .arrow {
         display: none;
       }
-    }
-    &_right {
-      flex-wrap: wrap;
     }
   }
 }
