@@ -7,14 +7,23 @@ const MediumCard = ({ movie, book }) => {
   const [bookCover, setBookCover] = useState('');
   const navigate = useNavigate();
 
+  const backupCover =
+    'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80';
+
   useEffect(() => {
     if (book) {
       if (book.imageLinks) {
         const { small, medium, large, thumbnail, smallThumbnail } =
           book.imageLinks;
-        const options = small || medium || large || thumbnail || smallThumbnail;
+        const options =
+          small ||
+          medium ||
+          large ||
+          thumbnail ||
+          smallThumbnail ||
+          backupCover;
         setBookCover(options);
-      }
+      } else setBookCover(backupCover);
     }
   }, [movie, book]);
 
@@ -36,7 +45,7 @@ const MediumCard = ({ movie, book }) => {
 
   return (
     <div className={styles.card_container} onClick={handleClick}>
-      <img src={imageUrl} alt={title} />
+      <img className={styles.cover} src={imageUrl} alt={title} />
       <h4 className={styles.card_container_title}>{title ? title : 'Wait'}</h4>
     </div>
   );

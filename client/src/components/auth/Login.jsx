@@ -1,13 +1,14 @@
 // import { useState } from 'react';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, Navigate, Link} from 'react-router-dom';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
 
 import { DataContext } from '../../data/context';
 import { login } from '../../apiCalls/userApiCalls';
 import styles from '../auth/Login.module.scss';
 import img from '../../assets/Mobile login-cuate.png';
 import { Icon } from '@iconify/react';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const {
@@ -29,6 +30,12 @@ const Login = () => {
       if (res.statusCode < 400) {
         setLoading(false);
         return navigate('/explore');
+      } else if (
+        res.includes('UnauthorizedError: Invalid email password combination')
+      ) {
+        toast.error('Invalid email password combination. Please try again.');
+      } else {
+        toast.error('Something went wrong, please try again later.');
       }
       setLoading(false);
       setError(res);
@@ -99,11 +106,11 @@ const Login = () => {
               </a>
             </div>
           </div>
-           <div className={styles.register}>
-          <p>
-           Don't have an account?  <Link to="/register">Register</Link>
-          </p>
-        </div>
+          <div className={styles.register}>
+            <p>
+              Don't have an account? <Link to="/register">Register</Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

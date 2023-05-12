@@ -67,7 +67,8 @@ const Profile = () => {
   const deleteOnClick = async (data) => {
     try {
       await deleteUser(usersDispatch, data);
-      alert('Your account has been deleted');
+      toast.success('Sad to see you leave, but your account has been deleted!');
+      // alert('Your account has been deleted');
       return navigate('/');
     } catch (error) {
       console.log(error);
