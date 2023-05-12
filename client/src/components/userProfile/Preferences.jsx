@@ -4,11 +4,10 @@ import styles from './Preferences.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../data/context';
 import img from '../../assets/Select-cuate.png';
+import { toast } from 'react-toastify';
 
 const Preferences = () => {
-  const {
-    usersDispatch
-  } = useContext(DataContext);
+  const { usersDispatch } = useContext(DataContext);
   const [bookLover, setBookLover] = useState(false);
   const [movieWatcher, setMovieWatcher] = useState(false);
   const [genres, setGenres] = useState([]);
@@ -16,17 +15,17 @@ const Preferences = () => {
   const navigate = useNavigate();
 
   const genresList = [
-    { name: "Romance", id: "10749" },
-    { name: 'Science Fiction', id: "878" },
-    { name: 'Fantasy', id: "14" },
-    { name: 'Mystery', id: "9648" },
-    { name: 'Thriller', id: "53" },
-    { name: 'Horror', id: "27" },
-    { name: 'History', id: "36" },
-    { name: 'Adventure', id: "12" },
-    { name: 'Drama', id: "18" },
-    { name: 'Crime', id: "80" },
-    { name: 'Comedy', id: "35" },
+    { name: 'Romance', id: '10749' },
+    { name: 'Science Fiction', id: '878' },
+    { name: 'Fantasy', id: '14' },
+    { name: 'Mystery', id: '9648' },
+    { name: 'Thriller', id: '53' },
+    { name: 'Horror', id: '27' },
+    { name: 'History', id: '36' },
+    { name: 'Adventure', id: '12' },
+    { name: 'Drama', id: '18' },
+    { name: 'Crime', id: '80' },
+    { name: 'Comedy', id: '35' },
   ];
 
   const handleBookLoverChange = () => {
@@ -58,13 +57,13 @@ const Preferences = () => {
       setGenres([...genres, { id: genreId, name: genreName }]);
     }
   };
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log('Submitting preferences...');
     try {
       const response = await axios.post('/users/preferences', {
-        preferences: bookLover ? "bookLover" : "movieWatcher",
+        preferences: bookLover ? 'bookLover' : 'movieWatcher',
         genres: genres.map(({ id, name }) => ({ id, name })),
       });
       console.log('Preferences stored successfully:', response.data);
@@ -78,7 +77,8 @@ const Preferences = () => {
             },
           },
         });
-        alert('Your preferences were submitted');
+        // alert('Your preferences were submitted');
+        toast.success('Your preferences have been submitted!');
         navigate('/explore');
       }
     } catch (error) {
@@ -90,7 +90,6 @@ const Preferences = () => {
     <div className={styles.preferences_container}>
       <div className={styles.img_container}>
         <img src={img} alt="" />
-       
       </div>
       <div className={styles.preferences}>
         <h1> We'd love to get to know you better! </h1>

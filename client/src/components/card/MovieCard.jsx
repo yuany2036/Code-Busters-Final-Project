@@ -40,7 +40,7 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved }) => {
         id,
       });
       console.log(response);
-      heartButtonNotification(title, 'added');
+      heartButtonNotification(title, 'added to');
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +52,7 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved }) => {
         data: { movieId: id },
       });
       moviesDispatch({ type: 'UPDATE_MOVIES', payload: response.data.movies });
-      heartButtonNotification(title, 'removed');
+      heartButtonNotification(title, 'removed from');
       if (onMovieRemoved) {
         onMovieRemoved();
       }

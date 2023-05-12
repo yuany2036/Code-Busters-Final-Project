@@ -6,9 +6,8 @@ import { Icon } from '@iconify/react';
 import { Tooltip } from 'react-tooltip';
 import axios from 'axios';
 
-
 const BookCard = ({ id, title, thumbnail, onBookRemoved }) => {
-  const { isUserLoggedIn } = useContext(DataContext);
+  const { isUserLoggedIn, heartButtonNotification } = useContext(DataContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
 
@@ -37,6 +36,7 @@ const BookCard = ({ id, title, thumbnail, onBookRemoved }) => {
         thumbnail,
         id,
       });
+      heartButtonNotification(title, 'added to');
       console.log(response);
       console.log('addItemToCollection id:', id);
     } catch (error) {
@@ -50,20 +50,19 @@ const BookCard = ({ id, title, thumbnail, onBookRemoved }) => {
         data: { bookId: id },
       });
       console.log(response);
+      heartButtonNotification(title, 'removed from');
       if (onBookRemoved) {
-        onBookRemoved()
+        onBookRemoved();
       }
-
     } catch (error) {
       console.log(error);
     }
   };
 
- const maxChars = 20; // maximum number of characters to display
+  const maxChars = 20; // maximum number of characters to display
 
- const truncatedName =
+  const truncatedName =
     title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
-
 
   const changeIcon = () => {
     setAdded((previous) => !previous);

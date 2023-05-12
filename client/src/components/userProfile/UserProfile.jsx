@@ -7,6 +7,7 @@ import { deleteUser, logout } from '../../apiCalls/userApiCalls';
 import styles from '../userProfile/UserProfile.module.scss';
 import { Icon } from '@iconify/react';
 import { Tooltip } from 'react-tooltip';
+import { toast } from 'react-toastify';
 
 import img from '../../assets/user.png';
 import axios from 'axios';
@@ -20,13 +21,12 @@ const Profile = () => {
   const { user, usersDispatch } = useContext(DataContext);
   const navigate = useNavigate();
 
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState('');
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     setAvatar(user.avatarURL);
   }, [user.avatarURL]);
-
 
   const onSubmit = async (data) => {
     try {
@@ -76,7 +76,8 @@ const Profile = () => {
   const logoutOnClick = async (data) => {
     try {
       await logout(usersDispatch, data);
-      alert('You have been logged out');
+      toast.success("You've been logged out!");
+      // alert('You have been logged out');
       return navigate('/');
     } catch (error) {
       console.log(error);
@@ -97,17 +98,21 @@ const Profile = () => {
 
   const updateAvatar = async () => {
     try {
-      const cloudinaryResponse = await axios.post("/cloud", { data: { base64Image: avatar } });
+      const cloudinaryResponse = await axios.post('/cloud', {
+        data: { base64Image: avatar },
+      });
 
       if (cloudinaryResponse.status === 201) {
-        const avatarUpdateResponse = await axios.patch("/me/update-avatar", { avatarURL: cloudinaryResponse.data.data.url });
+        const avatarUpdateResponse = await axios.patch('/me/update-avatar', {
+          avatarURL: cloudinaryResponse.data.data.url,
+        });
         usersDispatch({
-          type: "UPDATE_AVATAR",
+          type: 'UPDATE_AVATAR',
           payload: { avatar: avatarUpdateResponse.data.data.avatarURL },
         });
       }
-      alert("Your profile photo has been updated");
-      window.location.reload()
+      alert('Your profile photo has been updated');
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -116,8 +121,6 @@ const Profile = () => {
   const handleClickAvatar = () => {
     fileInputRef.current.click();
   };
-
-
 
   return (
     <div className={styles.profile_container}>
