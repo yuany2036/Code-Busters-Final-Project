@@ -38,10 +38,10 @@ const Reviews = ({ reviews, category, id }) => {
     navigate(`/${category}/${id}/reviews`);
   };
 
-  console.log(category);
+  // console.log(category);
 
-  console.log(reviews);
-  console.log(reviews.length);
+  // console.log(reviews);
+  // console.log(reviews.length);
 
   return (
     <div className={styles.reviews_container}>
@@ -58,7 +58,7 @@ const Reviews = ({ reviews, category, id }) => {
           },
           index
         ) => {
-          console.log(index);
+          // console.log(index);
           const date = new Date(created_at);
           const formattedDate = date.toLocaleDateString();
           return (

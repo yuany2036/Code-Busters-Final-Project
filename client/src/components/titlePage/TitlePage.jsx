@@ -16,6 +16,7 @@ const TitlePage = () => {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState('');
   const [reviews, setReviews] = useState([]);
+  const [relatedTitles, setRelatedTitles] = useState(true);
   const { id, category } = useParams();
 
   const { backendURL } = useContext(DataContext);
@@ -24,6 +25,7 @@ const TitlePage = () => {
 
   useEffect(() => {
     setLoading(true);
+    setRelatedTitles(true);
     (async () => {
       try {
         let res = await axios.get(
@@ -62,7 +64,13 @@ const TitlePage = () => {
             category={category}
             id={id}
           />
-          <CrossUniverse title={title} category={category} />
+          {relatedTitles && (
+            <CrossUniverse
+              title={title}
+              category={category}
+              setRelatedTitles={setRelatedTitles}
+            />
+          )}
           <ViewByCategory />
           <Reviews reviews={reviews} category={category} id={id} />
         </div>

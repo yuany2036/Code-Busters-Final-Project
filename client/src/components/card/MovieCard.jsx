@@ -18,10 +18,10 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved }) => {
       try {
         const response = await axios.get('/movies/user');
         const userMovies = response.data.movies;
-        console.log(userMovies);
+        // console.log(userMovies);
         const isMovieInCollection = userMovies.some((movie) => movie.id === id);
         setAdded(isMovieInCollection);
-        console.log(isMovieInCollection);
+        // console.log(isMovieInCollection);
       } catch (error) {
         console.log(error);
       }
