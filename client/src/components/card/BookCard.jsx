@@ -4,11 +4,10 @@ import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 /* import { Tooltip } from 'react-tooltip';
- */import axios from 'axios';
-
+ */ import axios from 'axios';
 
 const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
-  const { isUserLoggedIn } = useContext(DataContext);
+  const { isUserLoggedIn, heartButtonNotification } = useContext(DataContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
 
@@ -37,6 +36,7 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
         thumbnail,
         id,
       });
+      heartButtonNotification(title, 'added to');
       console.log(response);
       console.log('addItemToCollection id:', id);
     } catch (error) {
@@ -51,18 +51,18 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
       });
       console.log(response);
       if (onBookRemoved) {
-        onBookRemoved()
+        onBookRemoved();
       }
-
+      heartButtonNotification(title, 'removed from');
     } catch (error) {
       console.log(error);
     }
   };
 
- const maxChars = 20; // maximum number of characters to display
+  const maxChars = 20; // maximum number of characters to display
 
- const truncatedName =
-   title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
+  const truncatedName =
+    title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
 
   const changeIcon = () => {
     setAdded((previous) => !previous);
@@ -102,7 +102,7 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
           onClick={handleDetailsClick}
         />
         <Icon
-      /*     data-tooltip-id="my-tooltip"
+          /*     data-tooltip-id="my-tooltip"
           data-tooltip-content={
             added ? 'Remove from collection' : 'Add to collection'
           } */
@@ -118,7 +118,7 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
             color: `${added ? 'rgb(160, 123, 223)' : 'whitesmoke'}`,
           }}
         />{' '}
-   {/*      <Tooltip id="my-tooltip" place="bottom" /> */}
+        {/*      <Tooltip id="my-tooltip" place="bottom" /> */}
       </div>
     </div>
   );

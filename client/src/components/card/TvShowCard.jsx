@@ -1,14 +1,14 @@
-import React, { useContext, useState,useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styles from '../card/Card.module.scss';
 import { Icon } from '@iconify/react';
 import { DataContext } from '../../data/context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const TvShowCard = ({ id, title, posterPath , styleClass, onTvShowRemoved}) => {
+const TvShowCard = ({ id, title, posterPath, styleClass, onTvShowRemoved }) => {
   const posterUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
-  const { isUserLoggedIn } = useContext(DataContext);
+  const { isUserLoggedIn, heartButtonNotification } = useContext(DataContext);
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
 
@@ -38,6 +38,7 @@ const TvShowCard = ({ id, title, posterPath , styleClass, onTvShowRemoved}) => {
         posterPath,
         id,
       });
+      heartButtonNotification(title, 'added to');
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -50,6 +51,7 @@ const TvShowCard = ({ id, title, posterPath , styleClass, onTvShowRemoved}) => {
         data: { tvId: id },
       });
       console.log(response);
+      heartButtonNotification(title, 'removed from');
       if (onTvShowRemoved) {
         onTvShowRemoved();
       }
@@ -58,10 +60,10 @@ const TvShowCard = ({ id, title, posterPath , styleClass, onTvShowRemoved}) => {
     }
   };
 
- const maxChars = 20; // maximum number of characters to display
+  const maxChars = 20; // maximum number of characters to display
 
- const truncatedName =
-   title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
+  const truncatedName =
+    title.length > maxChars ? title.slice(0, maxChars - 3) + '...' : title;
 
   const changeIcon = () => {
     setAdded((previous) => !previous);
@@ -71,8 +73,7 @@ const TvShowCard = ({ id, title, posterPath , styleClass, onTvShowRemoved}) => {
     if (!isUserLoggedIn) {
       navigate('/login');
     } else {
-      added ? removeItemFromCollection() :
-      addItemToCollection();
+      added ? removeItemFromCollection() : addItemToCollection();
     }
     changeIcon();
   };

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './LandingPage.module.scss';
 import video from '../../assets/Nebula_Background.mp4';
@@ -7,6 +7,12 @@ import Carousel from './Carousel';
 
 const LandingPage = () => {
   const animationRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
+  }, []);
 
   const handleArrowClick = () => {
     animationRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -47,7 +53,9 @@ const LandingPage = () => {
                 <div className={styles.scroll_down}>
                   <span className={styles.arrow_down}></span>
                   <span className={styles.scroll_title}>
-                    <Link className={styles.link} to="/register">Share your preferences with us</Link>
+                    <Link className={styles.link} to="/register">
+                      Share your preferences with us
+                    </Link>
                   </span>
                 </div>
               </div>
