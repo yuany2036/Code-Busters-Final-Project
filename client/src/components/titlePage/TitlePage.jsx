@@ -24,6 +24,7 @@ const TitlePage = () => {
   const isBook = category === 'books';
 
   useEffect(() => {
+    setReviews('');
     setLoading(true);
     setRelatedTitles(true);
     (async () => {
@@ -72,7 +73,9 @@ const TitlePage = () => {
             />
           )}
           <ViewByCategory />
-          <Reviews reviews={reviews} category={category} id={id} />
+          {reviews.length > 0 && (
+            <Reviews reviews={reviews} category={category} id={id} />
+          )}
         </div>
       )}
     </>
