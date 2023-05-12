@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { DataContext } from '../data/context';
 
-axios.defaults.baseURL = 'https://entscape-backend.onrender.com';
+axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true; // allow us to include cookies
 
 export const getMoviesByTitle = async (searchTerm, setState) => {
