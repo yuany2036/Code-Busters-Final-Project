@@ -9,7 +9,7 @@ const Cards = ({ titles, activeCategory }) => {
     <div className={`${styles.poster_container} ${styles[category_container]}`}>
       {titles.map(({ poster_path, title, name, id }) => {
         return (
-          <div key={title} className={styles.title_box}>
+          <div key={id} className={styles.title_box}>
             <Link
               to={`/title/${activeCategory
                 .toLowerCase()
