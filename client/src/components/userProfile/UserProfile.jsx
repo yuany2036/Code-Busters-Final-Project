@@ -53,7 +53,8 @@ const Profile = () => {
             type: 'UPDATE_USER',
             payload: response.data.data,
           });
-          alert('Your profile has been updated');
+          toast.success('Your profile has been updated');
+          // alert('Your profile has been updated');
           window.location.reload();
         }
       } else {
@@ -112,7 +113,8 @@ const Profile = () => {
           payload: { avatar: avatarUpdateResponse.data.data.avatarURL },
         });
       }
-      alert('Your profile photo has been updated');
+      // alert('Your profile photo has been updated');
+      toast.success('Your profile photo has been updated');
       window.location.reload();
     } catch (error) {
       console.log(error);
