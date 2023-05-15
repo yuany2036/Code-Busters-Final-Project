@@ -29,8 +29,8 @@ exports.validateUser = [
   body('password')
     .notEmpty()
     .withMessage('Password is required')
-    .isLength({ min: 8 })
-    .withMessage('Password should be at least 8 characters long'),
+    .isLength({ min: 4 })
+    .withMessage('Password should be at least 4 characters long'),
   (req, res, next) => {
     const errors = validationResult(req);
 
