@@ -15,6 +15,8 @@ function App() {
   const excludedRoutes = ['/register', '/login'];
   const shouldRenderFooter = !excludedRoutes.includes(currentRoute);
 
+  console.log(process.env.NODE_ENV);
+
   return (
     <>
       {isUserLoggedIn && <LoggedInNavBar />}
