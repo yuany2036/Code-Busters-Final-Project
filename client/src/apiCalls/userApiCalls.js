@@ -4,7 +4,10 @@ import axios from 'axios';
 
 // const { backendURL } = useContext(DataContext);
 
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://entscape-backend.onrender.com'
+    : 'http://localhost:4000';
 axios.defaults.withCredentials = true; // allow us to include cookies
 
 export const signup = async (dispatch, data) => {
