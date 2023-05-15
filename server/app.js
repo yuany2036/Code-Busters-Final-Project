@@ -75,6 +75,8 @@ const { DB_PROTOCOL, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_NAME, DB_QUERIES } =
   process.env;
 const URI = `${DB_PROTOCOL}${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?${DB_QUERIES}`;
 
+console.log(`Starting server in ${process.env.NODE_ENV} mode`);
+
 mongoose.set('strictQuery', false);
 mongoose.connect(URI, {
   useNewUrlParser: true,
