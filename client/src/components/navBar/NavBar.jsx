@@ -42,13 +42,11 @@ const NavBar = () => {
     );
   });
 
-  
-
   return (
     <>
       <div className={styles.navbar}>
         <div className={styles.navbar_left}>
-          <NavLink to='/' className={styles.logo}>
+          <NavLink to="/" className={styles.logo}>
             <img
               src={LogoDesktop}
               className={styles.logo_desktop}
@@ -64,12 +62,8 @@ const NavBar = () => {
         </div>
         <div className={styles.btns_container_navbar}>{navBarButtons}</div>
         <div className={styles.toggle_btn}>
-          {!dropDownMenu && (
-            <Menu className={styles.menuBarsIcon} onClick={showDropDownMenu} />
-          )}
-          {dropDownMenu && (
-            <Close className={styles.closeIcon} onClick={showDropDownMenu} />
-          )}
+          {!dropDownMenu && <Menu onClick={showDropDownMenu} />}
+          {dropDownMenu && <Close onClick={showDropDownMenu} />}
         </div>
       </div>
       <div
