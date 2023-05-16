@@ -28,7 +28,7 @@ const SearchResults = ({ searchTerm, closeModal, showDropDownMenu }) => {
         );
         setSearchResults(res.data);
       } catch (err) {
-        console.log(err.res);
+        console.error(err.res);
       } finally {
         setLoading(false);
       }
