@@ -24,7 +24,6 @@ const ReviewsSoloPage = () => {
           `${backendURL}/${category}/reviews?id=${id}`
         );
         setReviews(response.data.results || response.data);
-        console.log(category);
       } catch (error) {
         console.error(error);
       } finally {
