@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { DataContext } from '../data/context';
 
 axios.defaults.baseURL =
+  // eslint-disable-next-line no-undef
   process.env.NODE_ENV === 'production'
     ? 'https://entscape-backend.onrender.com'
     : 'http://localhost:4000';
