@@ -33,7 +33,7 @@ const Collection = () => {
       setMovieCollection(response.data.movies);
       setActiveCategory('Movies');
     } catch (error) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     }
   };
 
@@ -47,7 +47,7 @@ const Collection = () => {
       setTvShowCollection(response.data.tvShows);
       setActiveCategory('TV Shows');
     } catch (error) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     }
   };
 
@@ -61,7 +61,7 @@ const Collection = () => {
       setBookCollection(response.data.books);
       setActiveCategory('Books');
     } catch (error) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     }
   };
 
@@ -86,7 +86,7 @@ const Collection = () => {
       setTvShowCollectionEmpty(false);
     }
 
-    if (bookCollection.length === 0 || !bookCollection) {
+    if (bookCollection.length === 0) {
       setBookCollectionEmpty(true);
     } else {
       setBookCollectionEmpty(false);

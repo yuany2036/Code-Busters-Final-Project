@@ -60,13 +60,11 @@ const Preferences = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Submitting preferences...');
     try {
       const response = await axios.post('/users/preferences', {
         preferences: bookLover ? 'bookLover' : 'movieWatcher',
         genres: genres.map(({ id, name }) => ({ id, name })),
       });
-      console.log('Preferences stored successfully:', response.data);
       if (response.status === 200) {
         usersDispatch({
           type: 'UPDATE_PREFERENCES',

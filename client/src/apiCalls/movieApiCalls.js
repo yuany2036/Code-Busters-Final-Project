@@ -17,7 +17,7 @@ export const getMoviesByTitle = async (searchTerm, setState) => {
     );
     setState(response.data);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

@@ -190,7 +190,6 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
       }
 
       const response = await axios.post(endpoint, data);
-      console.log(response);
       heartButtonNotification(titleName, 'added to');
     } catch (error) {
       console.error(error);
@@ -213,7 +212,6 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
         data: { [itemId]: Number(id) },
       });
       heartButtonNotification(titleName, 'removed from');
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -230,12 +228,11 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
           text: `Check out this awesome ${titleName || name} on EntScape!`,
           url: window.location.href,
         });
-        console.log('Successfully shared');
       } catch (error) {
-        console.log('Error sharing:', error);
+        console.error('Error sharing:', error);
       }
     } else {
-      console.log('Web share not supported');
+      console.error('Web share not supported');
     }
   };
 

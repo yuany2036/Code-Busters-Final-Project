@@ -19,7 +19,7 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
         const isBookInCollection = userBooks.some((book) => book.id === id);
         setAdded(isBookInCollection);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -37,10 +37,8 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
         id,
       });
       heartButtonNotification(title, 'added to');
-      console.log(response);
-      console.log('addItemToCollection id:', id);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -49,13 +47,12 @@ const BookCard = ({ id, authors, title, thumbnail, onBookRemoved }) => {
       const response = await axios.delete('/books/user', {
         data: { bookId: id },
       });
-      console.log(response);
       if (onBookRemoved) {
         onBookRemoved();
       }
       heartButtonNotification(title, 'removed from');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

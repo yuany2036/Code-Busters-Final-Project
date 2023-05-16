@@ -24,13 +24,12 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       const res = await signup(usersDispatch, data);
-      console.log(data);
 
       if (res.statusCode < 400) {
         return navigate('/preferences');
       }
     } catch (err) {
-      console.log('err ->', err);
+      console.error('err ->', err);
     }
   };
 
