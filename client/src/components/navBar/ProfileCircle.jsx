@@ -34,7 +34,7 @@ function ProfileCircle(showDropDownMenu) {
         <img
           src={avatarUrl}
           alt="Profile"
-          style={{ width: '100%', height: '100%', borderRadius: '30px' }}
+          // style={{ width: '100%', height: '100%', borderRadius: '30px' }}
         />
       ) : (
         userName && userName.charAt(0).toUpperCase()

@@ -103,6 +103,7 @@ const LoggedInNavBar = () => {
               // setSearchValue={setSearchValue}
               searchValue={searchValue}
               searchHandler={searchHandler}
+              showDropDownMenu={showDropDownMenu}
             >
               <NavBarModalContent />
             </NavBarModal>
