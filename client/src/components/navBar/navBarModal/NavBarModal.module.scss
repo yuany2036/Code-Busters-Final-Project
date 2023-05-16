@@ -19,7 +19,7 @@
   background-color: rgb(253, 252, 252);
   overflow-y: auto;
   position: fixed;
-  z-index: 10;
+  z-index: 11;
   top: 50%;
   left: 49%;
   transform: translate(-50%, -50%);
@@ -28,8 +28,10 @@
     padding-bottom: 1rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
     h2 {
-      font-size: $title-page-h2-font-size;
+      font-size: $navbar_modal_title-font-size;
     }
     button {
       background-color: rgb(62, 15, 94);
@@ -47,6 +49,13 @@
         color: rgb(62, 15, 94);
       }
     }
+
+    .close_icon {
+      color: $primary-blue;
+      font-size: 2rem;
+      cursor: pointer;
+      display: none;
+    }
   }
 }
 
@@ -57,7 +66,13 @@
     border-radius: 0;
     &_top {
       button {
-        padding: 0.7rem 1rem;
+        display: none;
+      }
+      .close_icon {
+        color: $primary-blue;
+        font-size: 2rem;
+        cursor: pointer;
+        display: block;
       }
     }
   }

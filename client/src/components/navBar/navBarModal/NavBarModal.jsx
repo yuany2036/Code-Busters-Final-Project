@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from './NavBarModal.module.scss';
 import SearchBar from '../searchBar/SearchBar';
-// import ViewByCategory from '../../ViewByCategory/ViewByCategory';
 import SearchResults from './searchResults/SearchResults';
+import Close from '~icons/mdi/close';
 
 function NavBarModal({
   // children,
@@ -23,9 +23,14 @@ function NavBarModal({
           <div className={styles.modal_top}>
             <h2>Search EntScape</h2>
             <button onClick={closeModal}>Close</button>
+            <Close className={styles.close_icon} onClick={closeModal} />
           </div>
           <SearchBar searchValue={searchValue} searchHandler={searchHandler} />
-          <SearchResults searchTerm={searchValue} closeModal={closeModal} showDropDownMenu={showDropDownMenu} />
+          <SearchResults
+            searchTerm={searchValue}
+            closeModal={closeModal}
+            showDropDownMenu={showDropDownMenu}
+          />
         </div>,
         document.getElementById('modalRoot')
       )}
