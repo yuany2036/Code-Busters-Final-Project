@@ -7,7 +7,7 @@ const User = require('../models/userModel');
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:4000/auth/facebook/callback", // Update this with your callback URL
+    callbackURL: "https://entscape-backend.onrender.com/auth/facebook/callback", // Update this with your callback URL
     profileFields: ['id', 'displayName', 'email']
   },
   async function(accessToken, refreshToken, profile, cb) {
