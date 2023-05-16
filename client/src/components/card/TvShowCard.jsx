@@ -22,7 +22,7 @@ const TvShowCard = ({ id, title, posterPath, styleClass, onTvShowRemoved }) => {
         );
         setAdded(isTvShowInCollection);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -39,9 +39,8 @@ const TvShowCard = ({ id, title, posterPath, styleClass, onTvShowRemoved }) => {
         id,
       });
       heartButtonNotification(title, 'added to');
-      console.log(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -50,13 +49,12 @@ const TvShowCard = ({ id, title, posterPath, styleClass, onTvShowRemoved }) => {
       const response = await axios.delete('/tvshows/user', {
         data: { tvId: id },
       });
-      console.log(response);
       heartButtonNotification(title, 'removed from');
       if (onTvShowRemoved) {
         onTvShowRemoved();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

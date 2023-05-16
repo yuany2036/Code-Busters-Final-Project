@@ -12,7 +12,7 @@ const BestSellersList = () => {
         const res = await axios.get('/books/popular');
         setBooks(res.data.slice(0, 20));
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     fetchBooks();

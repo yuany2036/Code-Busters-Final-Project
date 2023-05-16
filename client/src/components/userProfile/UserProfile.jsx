@@ -47,7 +47,6 @@ const Profile = () => {
 
       if (Object.keys(updatedUserData).length > 0) {
         const response = await axios.patch('/me', updatedUserData);
-        console.log(response.data.data);
         if (response.status === 200) {
           usersDispatch({
             type: 'UPDATE_USER',
@@ -61,7 +60,7 @@ const Profile = () => {
         alert('No changes were made');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -72,7 +71,7 @@ const Profile = () => {
       // alert('Your account has been deleted');
       return navigate('/');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   const logoutOnClick = async (data) => {
@@ -82,7 +81,7 @@ const Profile = () => {
       // alert('You have been logged out');
       return navigate('/');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   const onAvatarChange = (e) => {
@@ -117,7 +116,7 @@ const Profile = () => {
       toast.success('Your profile photo has been updated');
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

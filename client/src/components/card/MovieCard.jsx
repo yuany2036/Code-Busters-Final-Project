@@ -23,7 +23,7 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved }) => {
         setAdded(isMovieInCollection);
         // console.log(isMovieInCollection);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -39,10 +39,9 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved }) => {
         posterPath,
         id,
       });
-      console.log(response);
       heartButtonNotification(title, 'added to');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -57,7 +56,7 @@ const MovieCard = ({ title, posterPath, id, styleClass, onMovieRemoved }) => {
         onMovieRemoved();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
