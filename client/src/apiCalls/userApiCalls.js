@@ -96,7 +96,7 @@ export const updateUser = async (usersDispatch, data) => {
     });
     return response.data.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return error.response;
   }
 };
@@ -108,7 +108,7 @@ export const deleteUser = async (usersDispatch) => {
       type: 'DELETE_USER',
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 export default {

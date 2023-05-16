@@ -10,7 +10,6 @@ const Footer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubscribed(true);
-    console.log('New Subscriber:', email);
   };
 
 {

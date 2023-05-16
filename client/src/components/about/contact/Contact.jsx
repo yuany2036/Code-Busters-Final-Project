@@ -24,17 +24,16 @@ const Contact = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setMessage(true);
-    console.log(formData);
     axios({
       method: 'POST',
       url: 'https://formbold.com/s/9Bvjm',
       data: formData,
     })
       .then((res) => {
-        console.log(res);
+        return res;
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
   return (

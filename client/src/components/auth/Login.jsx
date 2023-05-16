@@ -40,7 +40,7 @@ const Login = () => {
       setLoading(false);
       setError(res);
     } catch (err) {
-      console.log('err ->', err);
+      console.error('err ->', err);
       setLoading(false);
       setError(err);
     }
