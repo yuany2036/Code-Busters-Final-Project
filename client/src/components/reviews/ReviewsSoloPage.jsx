@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Icon } from '@iconify/react';
@@ -6,6 +6,7 @@ import styles from './Reviews.module.scss';
 import avatarPic from '../../assets/person-placeholder.jpeg';
 import { NavLink } from 'react-router-dom';
 import Loading from '../loading/Loading';
+import { DataContext } from '../../data/context';
 
 const ReviewsSoloPage = () => {
   const [expandedReviews, setExpandedReview] = useState([]);
@@ -13,14 +14,17 @@ const ReviewsSoloPage = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const { backendURL } = useContext(DataContext);
+
   useEffect(() => {
     setLoading(true);
     const getReviews = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:4000/${category}/reviews?id=${id}`
+          `${backendURL}/${category}/reviews?id=${id}`
         );
         setReviews(response.data.results || response.data);
+        console.log(category);
       } catch (error) {
         console.error(error);
       } finally {
