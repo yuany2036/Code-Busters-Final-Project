@@ -10,6 +10,7 @@ function NavBarModal({
   closeModal,
   searchHandler,
   searchValue,
+  showDropDownMenu,
 }) {
   return (
     <>
@@ -24,7 +25,7 @@ function NavBarModal({
             <button onClick={closeModal}>Close</button>
           </div>
           <SearchBar searchValue={searchValue} searchHandler={searchHandler} />
-          <SearchResults searchTerm={searchValue} closeModal={closeModal} />
+          <SearchResults searchTerm={searchValue} closeModal={closeModal} showDropDownMenu={showDropDownMenu} />
         </div>,
         document.getElementById('modalRoot')
       )}

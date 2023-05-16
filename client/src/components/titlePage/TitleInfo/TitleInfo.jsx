@@ -97,12 +97,18 @@ const TitleInfo = ({ title, isLoading, category, id, thumbnail }) => {
       setInfoArray(shortInfoArray);
     } else {
       // Function for cleaning up summary text
+
       const stripTags = (html) => {
         const regex = /<[^>]*>/g;
+
         return html.replace(regex, '');
       };
-      // Setting poster, backdrop and summary
-      setSummary(stripTags(description));
+      if (description) {
+        // Setting poster, backdrop and summary
+        setSummary(stripTags(description));
+      } else {
+        setSummary('No summary available');
+      }
       if (imageLinks) {
         const { thumbnail, smallThumbnail, small, medium, large } = imageLinks;
         setPoster(small || medium || large || thumbnail || smallThumbnail);
