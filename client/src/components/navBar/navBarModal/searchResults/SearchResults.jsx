@@ -23,7 +23,7 @@ const SearchResults = ({ searchTerm, closeModal, showDropDownMenu }) => {
     (async () => {
       try {
         const res = await axios.get(
-          `${backendUrl}/${activeCategoryJoined}/?title=${searchTerm}`
+          `https://entscape-backend.onrender.com/${activeCategoryJoined}/?title=${searchTerm}`
         );
         setSearchResults(res.data);
       } catch (err) {
