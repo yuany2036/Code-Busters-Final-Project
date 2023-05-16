@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from './SearchResults.module.scss';
+import { DataContext} from "../../../../data/context"
 
 const SearchResults = ({ searchTerm, closeModal, showDropDownMenu }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [activeCategory, setActiveCategory] = useState('Movies');
   const [loading, setLoading] = useState(false);
+  const {backendUrl} = useContext(DataContext)
 
   const categories = [
     { category: 'Movies' },
@@ -21,7 +23,7 @@ const SearchResults = ({ searchTerm, closeModal, showDropDownMenu }) => {
     (async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4000/${activeCategoryJoined}/?title=${searchTerm}`
+          `${backendUrl}/${activeCategoryJoined}/?title=${searchTerm}`
         );
         setSearchResults(res.data);
       } catch (err) {
