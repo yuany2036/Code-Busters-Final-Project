@@ -123,9 +123,16 @@ const Register = () => {
           </div>
         </form>
         <div className={styles.connect}>
-          <p>
-            <span>-</span> or register with <span>-</span>
-          </p>
+          <div className={styles.connect_p}>
+            <p>
+              <span>-</span> or register with <span>-</span>
+            </p>
+            <p>
+              *Registration through Google and Facebook is currently being
+              developed, please complete the form provided above to register.
+            </p>
+          </div>
+
           <div className={styles.icons}>
             <a href="https://entscape-backend.onrender.com/auth/facebook/callback">
               <Icon icon="logos:facebook" color="#7e57c2" />
