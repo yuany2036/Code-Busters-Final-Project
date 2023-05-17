@@ -50,6 +50,7 @@ const Register = () => {
           <input
             name="username"
             placeholder="Username"
+            defaultValue="MihaelaM"
             {...register('username', {
               required: 'Please put your first name.',
             })}
@@ -61,6 +62,7 @@ const Register = () => {
           <input
             name="firstName"
             placeholder="First name"
+            defaultValue="Mihaela"
             {...register('firstName', {
               required: 'Please put your first name.',
             })}
@@ -72,6 +74,7 @@ const Register = () => {
           <input
             name="lastName"
             placeholder="Last name"
+            defaultValue="Melnic"
             {...register('lastName', {
               required: 'Please put your last name.',
             })}
@@ -83,6 +86,7 @@ const Register = () => {
           <input
             name="email"
             placeholder="Email"
+            defaultValue="mihaela@example.com"
             {...register('email', {
               required: 'Enter your password',
               minLength: {
@@ -123,10 +127,10 @@ const Register = () => {
             <span>-</span> or register with <span>-</span>
           </p>
           <div className={styles.icons}>
-            <a href='https://entscape-backend.onrender.com/auth/facebook/callback'>
+            <a href="https://entscape-backend.onrender.com/auth/facebook/callback">
               <Icon icon="logos:facebook" color="#7e57c2" />
             </a>
-            <a href='https://entscape-backend.onrender.com/auth/google/callback'>
+            <a href="https://entscape-backend.onrender.com/auth/google/callback">
               <Icon icon="devicon:google" color="#7e57c2" />
             </a>
           </div>
