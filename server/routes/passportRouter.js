@@ -13,7 +13,7 @@ router.get('/auth/facebook/callback',
 
 
 // Google authentication route
-router.get("'/google'", passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 // Google authentication callback route
 router.get(
