@@ -18,7 +18,7 @@ export const DataContextProvider = ({ children }) => {
   const backendURL =
     // eslint-disable-next-line no-undef
     process.env.NODE_ENV === 'production'
-      ? 'https://entscape-backend.onrender.com'
+      ? 'https://entscape-spa-api.onrender.com'
       : 'http://localhost:4000';
 
   const heartButtonNotification = (title, action) =>
