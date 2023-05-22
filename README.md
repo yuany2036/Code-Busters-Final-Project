@@ -1,6 +1,6 @@
-<!-- <div align="center">
-</div> -->
-<img align="center" src="README/EntScape.gif" width="80%"  alt="Game of Thrones API" />
+<div align="center">
+<img src="README/EntScape.gif" width="80%"  alt="Game of Thrones API" />
+</div>
 
 # Entscape
 
