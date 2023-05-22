@@ -1,3 +1,7 @@
+<!-- <div align="center">
+</div> -->
+<img align="center" src="README/EntScape.gif" width="80%"  alt="Game of Thrones API" />
+
 # Entscape
 
 Welcome to Entscape, a web-based application created as the final project of a full-stack web development course. Entscape is a collaborative effort of four developers: Gladys, Mihaela, Niko, and Yu-An.
