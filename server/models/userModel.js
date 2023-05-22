@@ -37,6 +37,7 @@ const UserSchema = new Schema(
       unique: true,
       minLength: 5,
       trim: true,
+      lowercase: true,
     },
     password: {
       type: String,
@@ -78,7 +79,7 @@ const UserSchema = new Schema(
     },
     googleId: {
       type: String,
-    }
+    },
   }
 );
 
