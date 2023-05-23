@@ -50,7 +50,6 @@ const Register = () => {
           <input
             name="username"
             placeholder="Username"
-            defaultValue="MihaelaM"
             {...register('username', {
               required: 'Please put your first name.',
             })}
@@ -62,7 +61,6 @@ const Register = () => {
           <input
             name="firstName"
             placeholder="First name"
-            defaultValue="Mihaela"
             {...register('firstName', {
               required: 'Please put your first name.',
             })}
@@ -74,7 +72,6 @@ const Register = () => {
           <input
             name="lastName"
             placeholder="Last name"
-            defaultValue="Melnic"
             {...register('lastName', {
               required: 'Please put your last name.',
             })}
@@ -86,7 +83,6 @@ const Register = () => {
           <input
             name="email"
             placeholder="Email"
-            defaultValue="mihaela@example.com"
             {...register('email', {
               required: 'Enter your password',
               minLength: {
